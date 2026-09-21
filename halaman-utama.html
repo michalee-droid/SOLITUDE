@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweet Garden - Management Dashboard</title>
+    <title>Sweet Garden & World - Life Simulator System</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -38,22 +38,25 @@
                         }
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'slide-in-left': 'slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float-xp': 'floatXP 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'subway-drive': 'subwayDrive 2s linear infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-6px)' },
-                        },
-                        slideInLeft: {
-                            '0%': { opacity: '0', transform: 'translateX(-20px) scale(0.95)' },
-                            '100%': { opacity: '1', transform: 'translateX(0) scale(1)' },
+                        floatXP: {
+                            '0%': { opacity: '0', transform: 'translateY(10px) scale(0.8)' },
+                            '20%': { opacity: '1', transform: 'translateY(-15px) scale(1.15)' },
+                            '80%': { opacity: '0.9', transform: 'translateY(-45px) scale(1)' },
+                            '100%': { opacity: '0', transform: 'translateY(-65px) scale(0.85)' }
                         },
                         pulseGlow: {
                             '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 10px rgba(255, 235, 205, 0.4))' },
                             '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 20px rgba(255, 245, 225, 0.7))' },
+                        },
+                        subwayDrive: {
+                            '0%': { transform: 'translateX(-10px)' },
+                            '50%': { transform: 'translateX(10px)' },
+                            '100%': { transform: 'translateX(-10px)' }
                         }
                     }
                 }
@@ -62,285 +65,379 @@
     </script>
 
     <style>
-        /* Background Styling */
+        /* Background Dynamic Locations */
         .bg-sweet-garden {
             background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.15) 0%, rgba(30, 20, 18, 0.5) 100%),
-                linear-gradient(to bottom, rgba(15, 12, 10, 0.15), rgba(10, 8, 7, 0.45)),
-                url('https://ik.imagekit.io/mfpxrfubq/aset_game/sweet_garden');
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.15) 0%, rgba(30, 20, 18, 0.55) 100%),
+                linear-gradient(to bottom, rgba(15, 12, 10, 0.2), rgba(10, 8, 7, 0.55)),
+                url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1920&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            transition: background-image 0.8s ease-in-out;
+        }
+
+        .bg-town-square {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(18, 24, 38, 0.65) 100%),
+                linear-gradient(to bottom, rgba(10, 15, 25, 0.3), rgba(8, 12, 20, 0.65)),
+                url('https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: background-image 0.8s ease-in-out;
+        }
+
+        .bg-beach-resort {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(15, 30, 45, 0.65) 100%),
+                linear-gradient(to bottom, rgba(10, 20, 30, 0.3), rgba(5, 15, 25, 0.65)),
+                url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: background-image 0.8s ease-in-out;
+        }
+
+        .bg-mountain-cabin {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(20, 35, 25, 0.65) 100%),
+                linear-gradient(to bottom, rgba(10, 25, 15, 0.3), rgba(5, 18, 10, 0.65)),
+                url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: background-image 0.8s ease-in-out;
         }
 
         /* Glassmorphism Panels */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(20, 16, 15, 0.35);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.18),
-                inset 0 1px 1px rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-modal-transparent {
+            background: rgba(18, 14, 12, 0.40) !important;
+            backdrop-filter: blur(12px) saturate(140%) !important;
+            -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
+                        0 0 35px rgba(255, 230, 180, 0.2), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
         }
 
         .glass-pill {
-            background: rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.18);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         /* Interactive Glass Buttons */
         .glass-btn-primary {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 242, 232, 0.85) 100%);
-            color: #4a3525;
-            box-shadow: 
-                0 10px 25px -5px rgba(255, 255, 255, 0.3),
-                0 8px 15px -6px rgba(0, 0, 0, 0.15),
-                inset 0 1px 1px rgba(255, 255, 255, 1);
+            color: #3a2618;
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.3), inset 0 1px 1px rgba(255, 255, 255, 1);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .glass-btn-primary:hover {
             transform: translateY(-2px) scale(1.03);
-            box-shadow: 
-                0 15px 30px -5px rgba(255, 255, 255, 0.45),
-                0 0 20px rgba(255, 248, 230, 0.6),
-                inset 0 1px 1px rgba(255, 255, 255, 1);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 248, 235, 0.95) 100%);
+            box-shadow: 0 15px 30px -5px rgba(255, 255, 255, 0.45), 0 0 20px rgba(255, 248, 230, 0.6);
         }
 
         .glass-btn-action {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.18);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             color: #ffffff;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .glass-btn-action:hover {
-            background: rgba(255, 255, 255, 0.38);
-            border-color: rgba(255, 255, 255, 0.8);
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.4);
+        .glass-btn-action:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.32);
+            border-color: rgba(255, 255, 255, 0.7);
+            transform: translateY(-3px) scale(1.03);
         }
 
-        .glass-btn-action:active {
-            transform: translateY(0) scale(0.98);
+        .glass-btn-action:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(0.8);
+        }
+
+        /* STACK JURNAL MELENGKUNG LIKE ')' */
+        .journal-stack-container {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .journal-entry {
+            transition: transform 0.55s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.55s ease, filter 0.55s ease;
+            transform-origin: left center;
+            will-change: transform, opacity;
+        }
+
+        .text-glow-shadow {
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 0 15px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Floating +1 XP Popup */
+        .xp-float-badge {
+            position: absolute;
+            pointer-events: none;
+            z-index: 100;
+            font-weight: 800;
+            font-size: 1.15rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.9);
         }
 
         /* Custom Scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
             width: 5px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.35);
             border-radius: 10px;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.6);
-        }
-
-        .text-glow {
-            text-shadow: 0 0 15px rgba(255, 250, 240, 0.7), 0 0 30px rgba(255, 235, 205, 0.4);
-        }
     </style>
 </head>
-<body class="bg-sweet-garden min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative">
+<body id="bodyBg" class="bg-sweet-garden min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative">
 
-    <!-- Interactive Background Particle Canvas -->
-    <canvas id="bokehCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-80"></canvas>
+    <!-- Interactive Canvas Particle -->
+    <canvas id="bokehCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-70"></canvas>
 
-    <!-- UI LAYER (Z-INDEX 10) -->
-    <div class="relative z-10 w-full h-screen p-4 sm:p-6 flex flex-col justify-between pointer-events-none">
+    <!-- Container Utama XP Floating Effect -->
+    <div id="xpFloatContainer" class="fixed inset-0 pointer-events-none z-50"></div>
 
-        <!-- TOP ROW: Location Name (Right) + Character Stats (Center/Left) -->
-        <div class="w-full flex items-start justify-between pointer-events-auto">
+    <!-- UI LAYER -->
+    <div class="relative z-10 w-full h-screen p-3 sm:p-5 flex flex-col justify-between pointer-events-none">
+
+        <!-- TOP BAR: Character Stats + Location Selector Button -->
+        <div class="w-full flex items-start justify-between pointer-events-auto flex-wrap gap-3">
             
-            <!-- TOP-LEFT: Activity Log Title Header + Status Mini Card -->
-            <div class="flex flex-col gap-2">
-                <!-- Character Status Bar -->
-                <div class="glass-pill rounded-2xl px-4 py-2.5 flex items-center gap-4 text-xs font-medium text-white">
-                    <div class="flex items-center gap-2">
-                        <div class="w-7 h-7 rounded-full bg-amber-100/20 border border-white/40 flex items-center justify-center text-amber-200">
-                            <i data-lucide="user" class="w-3.5 h-3.5"></i>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] text-stone-300 uppercase tracking-wider">Karakter</span>
-                            <span class="font-bold text-white">Aria</span>
-                        </div>
-                    </div>
-                    <div class="h-6 w-px bg-white/20"></div>
-                    <!-- Stat 1: Energi -->
-                    <div class="flex flex-col gap-0.5">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-2">
-                            <span>Energi</span>
-                            <span id="statEnergiVal" class="font-bold text-amber-200">85%</span>
-                        </div>
-                        <div class="w-20 bg-black/20 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statEnergiBar" class="bg-gradient-to-r from-amber-300 to-amber-100 h-full rounded-full transition-all duration-500" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                    <!-- Stat 2: Ketenangan -->
-                    <div class="flex flex-col gap-0.5">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-2">
-                            <span>Ketenangan</span>
-                            <span id="statCalmVal" class="font-bold text-emerald-200">92%</span>
-                        </div>
-                        <div class="w-20 bg-black/20 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statCalmBar" class="bg-gradient-to-r from-emerald-300 to-teal-100 h-full rounded-full transition-all duration-500" style="width: 92%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TOP-RIGHT: Location Name Badge -->
-            <div id="locationBadge" class="glass-panel rounded-2xl px-5 py-3 flex items-center gap-3 shadow-xl hover:bg-white/25 transition-all">
-                <div class="w-10 h-10 rounded-xl bg-white/20 border border-white/40 flex items-center justify-center text-amber-100 shadow-sm animate-pulse-glow">
-                    <i data-lucide="map-pin" class="w-5 h-5"></i>
-                </div>
-                <div class="flex flex-col text-right">
-                    <div class="flex items-center justify-end gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                        <span class="text-[10px] uppercase font-bold tracking-widest text-amber-100/90">Lokasi Saat Ini</span>
-                    </div>
-                    <h1 class="font-serif text-2xl font-bold text-white drop-shadow tracking-wide leading-none mt-0.5">Sweet Garden</h1>
-                    <span class="text-[11px] text-stone-200/80 font-light mt-0.5">Sanctuary of Serenity • 24°C Cerah</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- MIDDLE-LEFT: Activity Log (Jurnal Kegiatan) - Spanning Top-Left to Mid-Left -->
-        <div class="absolute top-20 left-4 sm:left-6 w-80 sm:w-96 max-h-[55vh] flex flex-col pointer-events-auto z-20">
-            <div class="glass-panel rounded-3xl p-4 sm:p-5 flex flex-col h-full shadow-2xl relative overflow-hidden">
+            <!-- TOP-LEFT: Character Stats & XP Status Bar -->
+            <div class="glass-pill rounded-2xl px-3.5 py-2.5 flex flex-wrap items-center gap-3 text-xs font-medium text-white max-w-full overflow-x-auto custom-scrollbar">
                 
-                <!-- Log Header -->
-                <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/20">
-                    <div class="flex items-center gap-2.5">
-                        <div class="p-2 rounded-xl bg-white/20 text-amber-100 border border-white/30">
-                            <i data-lucide="book-open" class="w-4 h-4"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-serif text-lg font-bold text-white tracking-wide leading-tight">Jurnal Kegiatan</h2>
-                            <p class="text-[10px] text-stone-200/80">Catatan tindakan di lokasi ini</p>
-                        </div>
+                <!-- Character Avatar -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <div class="w-8 h-8 rounded-full bg-amber-100/20 border border-white/40 flex items-center justify-center text-amber-200">
+                        <i data-lucide="user" class="w-4 h-4"></i>
                     </div>
-                    <!-- Clear Log Button -->
-                    <button id="btnClearLogs" class="text-[11px] text-stone-300 hover:text-white bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-lg border border-white/20 transition-all flex items-center gap-1">
-                        <i data-lucide="trash-2" class="w-3 h-3"></i>
-                        <span>Bersihkan</span>
-                    </button>
+                    <div>
+                        <span class="block text-[9px] text-stone-300 uppercase tracking-widest font-semibold">Karakter</span>
+                        <span class="font-bold text-white text-sm">Aria</span>
+                    </div>
                 </div>
 
-                <!-- Scrollable Log List -->
-                <div id="logList" class="flex flex-col gap-2.5 overflow-y-auto custom-scrollbar pr-1 max-h-[42vh]">
-                    <!-- Initial Welcome Log -->
-                    <div class="glass-pill rounded-xl p-3 flex items-start gap-3 animate-slide-in-left border-l-4 border-l-amber-200">
-                        <div class="p-1.5 rounded-lg bg-amber-200/20 text-amber-100 mt-0.5 shrink-0">
-                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center justify-between text-[10px] text-stone-300 mb-0.5">
-                                <span class="font-semibold text-amber-200">Sistem</span>
-                                <span class="opacity-80" id="initialTime">12:00</span>
-                            </div>
-                            <p class="text-xs text-white/90 leading-snug">Memasuki kawasan Sweet Garden. Atmosfer terasa sangat menenangkan.</p>
-                        </div>
+                <div class="h-7 w-px bg-white/20 hidden sm:block shrink-0"></div>
+
+                <!-- Stat Uang / Koin -->
+                <div class="flex flex-col gap-0.5 min-w-[70px] shrink-0">
+                    <span class="text-[9px] text-amber-200/90 uppercase font-bold tracking-wider">Uang / Koin</span>
+                    <div class="flex items-center gap-1">
+                        <i data-lucide="coins" class="w-3.5 h-3.5 text-amber-300"></i>
+                        <span id="statCoinsVal" class="font-bold text-amber-200 text-sm">150</span>
                     </div>
+                </div>
+
+                <div class="h-7 w-px bg-white/20 hidden sm:block shrink-0"></div>
+
+                <!-- Stat 1: Energi -->
+                <div class="flex flex-col gap-0.5 min-w-[70px] shrink-0">
+                    <div class="flex justify-between text-[10px] text-stone-200 gap-2">
+                        <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3 text-amber-300"></i> Energi</span>
+                        <span id="statEnergiVal" class="font-bold text-amber-200">100/100</span>
+                    </div>
+                    <div class="w-20 bg-black/30 h-1.5 rounded-full overflow-hidden border border-white/10">
+                        <div id="statEnergiBar" class="bg-gradient-to-r from-amber-400 to-amber-100 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="h-7 w-px bg-white/20 hidden sm:block shrink-0"></div>
+
+                <!-- Stat 2: Kebahagiaan -->
+                <div class="flex flex-col gap-0.5 min-w-[85px] shrink-0" id="statBoxKebahagiaan">
+                    <div class="flex justify-between text-[10px] text-stone-200 gap-2">
+                        <span class="flex items-center gap-1"><i data-lucide="smile" class="w-3 h-3 text-pink-300"></i> Kebahagiaan</span>
+                        <span id="statKebahagiaanVal" class="font-bold text-pink-200">Lv. 1</span>
+                    </div>
+                    <div class="w-24 bg-black/30 h-1.5 rounded-full overflow-hidden border border-white/10">
+                        <div id="statKebahagiaanBar" class="bg-gradient-to-r from-pink-500 to-rose-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                    </div>
+                    <span id="statKebahagiaanXpText" class="text-[9px] text-stone-300/80 text-right">0/10 XP</span>
+                </div>
+
+                <div class="h-7 w-px bg-white/20 hidden sm:block shrink-0"></div>
+
+                <!-- Stat 3: Level Fisik -->
+                <div class="flex flex-col gap-0.5 min-w-[85px] shrink-0" id="statBoxFisik">
+                    <div class="flex justify-between text-[10px] text-stone-200 gap-2">
+                        <span class="flex items-center gap-1"><i data-lucide="activity" class="w-3 h-3 text-rose-300"></i> Fisik</span>
+                        <span id="statFisikVal" class="font-bold text-rose-200">Lv. 1</span>
+                    </div>
+                    <div class="w-24 bg-black/30 h-1.5 rounded-full overflow-hidden border border-white/10">
+                        <div id="statFisikBar" class="bg-gradient-to-r from-rose-500 to-rose-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                    </div>
+                    <span id="statFisikXpText" class="text-[9px] text-stone-300/80 text-right">0/10 XP</span>
+                </div>
+
+                <div class="h-7 w-px bg-white/20 hidden sm:block shrink-0"></div>
+
+                <!-- Stat 4: Level Kecerdasan -->
+                <div class="flex flex-col gap-0.5 min-w-[85px] shrink-0" id="statBoxKecerdasan">
+                    <div class="flex justify-between text-[10px] text-stone-200 gap-2">
+                        <span class="flex items-center gap-1"><i data-lucide="brain" class="w-3 h-3 text-purple-300"></i> Kecerdasan</span>
+                        <span id="statKecerdasanVal" class="font-bold text-purple-200">Lv. 1</span>
+                    </div>
+                    <div class="w-24 bg-black/30 h-1.5 rounded-full overflow-hidden border border-white/10">
+                        <div id="statKecerdasanBar" class="bg-gradient-to-r from-purple-500 to-purple-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                    </div>
+                    <span id="statKecerdasanXpText" class="text-[9px] text-stone-300/80 text-right">0/10 XP</span>
+                </div>
+
+                <div class="h-7 w-px bg-white/20 hidden sm:block shrink-0"></div>
+
+                <!-- Stat 5: Level Sosialisasi -->
+                <div class="flex flex-col gap-0.5 min-w-[85px] shrink-0" id="statBoxSosialisasi">
+                    <div class="flex justify-between text-[10px] text-stone-200 gap-2">
+                        <span class="flex items-center gap-1"><i data-lucide="users" class="w-3 h-3 text-cyan-300"></i> Sosialisasi</span>
+                        <span id="statSosialisasiVal" class="font-bold text-cyan-200">Lv. 1</span>
+                    </div>
+                    <div class="w-24 bg-black/30 h-1.5 rounded-full overflow-hidden border border-white/10">
+                        <div id="statSosialisasiBar" class="bg-gradient-to-r from-cyan-400 to-sky-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                    </div>
+                    <span id="statSosialisasiXpText" class="text-[9px] text-stone-300/80 text-right">0/10 XP</span>
                 </div>
 
             </div>
+
+            <!-- TOP-RIGHT: Current Location Button (Bila ditekan membuka modal perjalanan) -->
+            <button id="btnOpenLocationModal" class="glass-panel rounded-2xl p-2 sm:p-2.5 flex items-center gap-3 shadow-xl shrink-0 border border-white/30 hover:border-amber-300/60 transition-all duration-300 group cursor-pointer text-left">
+                <div class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-white/40 shrink-0 shadow-inner">
+                    <img id="currentLocationImg" 
+                         src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=400&auto=format&fit=crop" 
+                         alt="Location Preview" 
+                         class="w-full h-full object-cover transition-all duration-500 transform group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                </div>
+
+                <div class="flex flex-col text-left pr-2">
+                    <div class="flex items-center gap-1.5">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-300"></i>
+                        <span class="text-[9px] uppercase font-bold tracking-widest text-amber-200/90">Lokasi Saat Ini</span>
+                    </div>
+                    <span id="currentLocationTitle" class="font-serif text-base sm:text-lg font-bold text-white group-hover:text-amber-200 transition-colors">Sweet Garden</span>
+                    <span id="currentLocationSubtext" class="text-[10px] text-stone-300 font-light truncate max-w-[140px]">Sanctuary of Serenity • Area Rileks</span>
+                </div>
+
+                <div class="p-2 rounded-xl bg-white/10 group-hover:bg-amber-400/20 text-white group-hover:text-amber-200 transition-all">
+                    <i data-lucide="navigation" class="w-4 h-4"></i>
+                </div>
+            </button>
+
         </div>
 
-        <!-- CENTER AREA IS INTENTIONALLY EMPTY FOR UNOBSTRUCTED VIEW OF THE GARDEN -->
+        <!-- MIDDLE-LEFT: JURNAL KEGIATAN PERSPEKTIF STACK MELENGKUNG ')' -->
+        <div class="absolute top-28 left-3 sm:left-6 w-[92vw] sm:w-[46vw] max-w-[540px] pointer-events-auto z-20">
+            
+            <!-- Header Jurnal -->
+            <div class="flex items-center justify-between mb-2 pr-4 border-b border-white/15 pb-2">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="scroll-text" class="w-4 h-4 text-amber-200"></i>
+                    <h2 class="font-serif text-lg font-bold text-white tracking-wide text-glow-shadow">Jurnal Kegiatan</h2>
+                </div>
+                <button id="btnClearLogs" class="text-[11px] text-stone-300 hover:text-white bg-black/20 hover:bg-black/40 px-2.5 py-1 rounded-lg border border-white/15 transition-all flex items-center gap-1">
+                    <i data-lucide="trash-2" class="w-3 h-3"></i>
+                    <span>Bersihkan</span>
+                </button>
+            </div>
+
+            <!-- Curved Stack Journal Container -->
+            <div id="journalStack" class="journal-stack-container flex flex-col gap-2 relative min-h-[200px]">
+                <!-- Dynamic Log Entries Rendered Here -->
+            </div>
+
+        </div>
 
         <!-- BOTTOM-RIGHT: Action Control Bar & Expandable Horizontal Tray -->
         <div class="w-full flex items-center justify-end pointer-events-auto z-30">
-            <div class="flex items-center gap-3 relative">
+            <div class="flex items-center gap-3 relative max-w-full overflow-hidden">
 
-                <!-- Horizontal Slide-Out Actions Tray (Expands to LEFT) -->
-                <div id="actionsTray" class="flex items-center gap-2 max-w-0 opacity-0 overflow-hidden transition-all duration-500 ease-out whitespace-nowrap py-2 px-1">
+                <!-- Horizontal Slide-Out Actions Tray -->
+                <div id="actionsTray" class="flex items-center gap-2 max-w-0 opacity-0 overflow-x-auto custom-scrollbar transition-all duration-500 ease-out whitespace-nowrap py-2 px-1">
                     
-                    <!-- Action Button 1: Menyiram Bunga -->
-                    <button data-action="water" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
-                        <div class="p-2 rounded-xl bg-blue-400/20 text-blue-200 group-hover:scale-110 transition-transform">
-                            <i data-lucide="droplets" class="w-4 h-4"></i>
-                        </div>
-                        <div class="text-left">
-                            <span class="block font-semibold">Menyiram Bunga</span>
-                            <span class="text-[9px] text-amber-200/90 block">+5 Ketenangan</span>
-                        </div>
-                    </button>
-
-                    <!-- Action Button 2: Minum Teh -->
-                    <button data-action="tea" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
-                        <div class="p-2 rounded-xl bg-amber-400/20 text-amber-200 group-hover:scale-110 transition-transform">
-                            <i data-lucide="coffee" class="w-4 h-4"></i>
-                        </div>
-                        <div class="text-left">
-                            <span class="block font-semibold">Minum Teh</span>
-                            <span class="text-[9px] text-amber-200/90 block">+10 Energi</span>
-                        </div>
-                    </button>
-
-                    <!-- Action Button 3: Memetik Buah -->
-                    <button data-action="harvest" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
-                        <div class="p-2 rounded-xl bg-rose-400/20 text-rose-200 group-hover:scale-110 transition-transform">
-                            <i data-lucide="apple" class="w-4 h-4"></i>
-                        </div>
-                        <div class="text-left">
-                            <span class="block font-semibold">Memetik Buah</span>
-                            <span class="text-[9px] text-amber-200/90 block">+8 Kebahagiaan</span>
-                        </div>
-                    </button>
-
-                    <!-- Action Button 4: Merawat Tanaman -->
-                    <button data-action="trim" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
-                        <div class="p-2 rounded-xl bg-emerald-400/20 text-emerald-200 group-hover:scale-110 transition-transform">
-                            <i data-lucide="scissors" class="w-4 h-4"></i>
-                        </div>
-                        <div class="text-left">
-                            <span class="block font-semibold">Merawat Tanaman</span>
-                            <span class="text-[9px] text-amber-200/90 block">+6 Keasrian</span>
-                        </div>
-                    </button>
-
-                    <!-- Action Button 5: Bersantai -->
-                    <button data-action="relax" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
-                        <div class="p-2 rounded-xl bg-amber-200/20 text-amber-100 group-hover:scale-110 transition-transform">
-                            <i data-lucide="sun" class="w-4 h-4"></i>
-                        </div>
-                        <div class="text-left">
-                            <span class="block font-semibold">Bersantai</span>
-                            <span class="text-[9px] text-amber-200/90 block">+15 Ketenangan</span>
-                        </div>
-                    </button>
-
-                    <!-- Action Button 6: Membaca Buku -->
-                    <button data-action="read" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                    <!-- Action 1: Membaca Buku (Kecerdasan XP) -->
+                    <button data-action="read_book" class="glass-btn-action px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
                         <div class="p-2 rounded-xl bg-purple-400/20 text-purple-200 group-hover:scale-110 transition-transform">
                             <i data-lucide="book-open" class="w-4 h-4"></i>
                         </div>
                         <div class="text-left">
-                            <span class="block font-semibold">Membaca Buku</span>
-                            <span class="text-[9px] text-amber-200/90 block">+12 Inspirasi</span>
+                            <span class="block font-semibold action-label">Membaca Buku</span>
+                            <span class="text-[9px] text-purple-200/90 block">10s • +1 XP Cerdas/s • -1 Energi/s</span>
+                        </div>
+                    </button>
+
+                    <!-- Action 2: Push Up (Fisik XP) -->
+                    <button data-action="push_up" class="glass-btn-action px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-rose-400/20 text-rose-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="activity" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold action-label">Push Up</span>
+                            <span class="text-[9px] text-rose-200/90 block">10s • +1 XP Fisik/s • -1 Energi/s</span>
+                        </div>
+                    </button>
+
+                    <!-- Action 3: Mengobrol dengan Warga (Sosialisasi XP) -->
+                    <button data-action="chat_resident" id="btnSosialisasiChat" class="glass-btn-action px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-cyan-400/20 text-cyan-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold action-label">Mengobrol Warga</span>
+                            <span id="subtextSosialisasi" class="text-[9px] text-cyan-200/90 block">10s • +1 XP Sosial/s • -1 Energi/s</span>
+                        </div>
+                    </button>
+
+                    <!-- Action 4: Bermain Game (SISTEM KEBAHAGIAAN XP) -->
+                    <button data-action="play_game" class="glass-btn-action px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-pink-400/20 text-pink-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="gamepad-2" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold action-label">Bermain Game</span>
+                            <span class="text-[9px] text-pink-200/90 block">12s • +1 XP Kebahagiaan/s</span>
+                        </div>
+                    </button>
+
+                    <!-- Action 5: Istirahat (Isi Energi & Koin) -->
+                    <button data-action="rest" class="glass-btn-action px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-amber-400/20 text-amber-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="moon" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold action-label">Istirahat</span>
+                            <span class="text-[9px] text-amber-200/90 block">15s • Energi Penuh & +25 Koin</span>
                         </div>
                     </button>
 
                 </div>
 
                 <!-- Main Floating Toggle Trigger Button ("Kegiatan") -->
-                <button id="toggleActionsBtn" class="glass-btn-primary px-6 py-4 rounded-3xl flex items-center gap-3 font-semibold text-sm tracking-wide shadow-2xl relative group shrink-0 border border-white/60">
+                <button id="toggleActionsBtn" class="glass-btn-primary px-5 py-3.5 rounded-3xl flex items-center gap-2.5 font-semibold text-sm tracking-wide shadow-2xl relative group shrink-0 border border-white/60">
                     <div class="w-7 h-7 rounded-full bg-amber-200/40 flex items-center justify-center text-amber-900 group-hover:rotate-12 transition-transform">
                         <i data-lucide="sparkles" id="actionBtnIcon" class="w-4 h-4"></i>
                     </div>
@@ -353,116 +450,705 @@
 
     </div>
 
+    <!-- MODAL TAB DAFTAR LOKASI & TRANSPORTASI -->
+    <div id="locationModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div id="locationModalCard" class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-2xl w-full flex flex-col max-h-[85vh] transform scale-95 transition-all duration-300 ease-out border border-white/20 shadow-2xl relative">
+            
+            <!-- Header Modal -->
+            <div class="flex items-center justify-between pb-4 border-b border-white/15 mb-4 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 rounded-2xl bg-amber-400/20 border border-amber-300/30 text-amber-200">
+                        <i data-lucide="map" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-xl sm:text-2xl font-bold text-white tracking-wide text-glow-shadow">Pilih Destinasi Perjalanan</h3>
+                        <p class="text-xs text-stone-200">Pilih moda transportasi untuk mengunjungi lokasi baru.</p>
+                    </div>
+                </div>
+                <button id="btnCloseLocationModal" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-stone-200 hover:text-white flex items-center justify-center transition-all">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable Location List -->
+            <div id="locationsContainer" class="flex flex-col gap-4 overflow-y-auto custom-scrollbar pr-1.5 flex-1">
+                <!-- Location Items dynamically generated via JS -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- INTERACTIVE COUNTDOWN POP-UP MODAL (KEGIATAN & TRAVEL) -->
+    <div id="activityModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div id="activityModalCard" class="glass-modal-transparent rounded-3xl p-6 sm:p-8 max-w-md w-full flex flex-col items-center text-center transform scale-90 transition-all duration-300 ease-out relative overflow-hidden">
+            
+            <!-- Glow Accent Bubbles -->
+            <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-300/20 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-cyan-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Activity Icon Header -->
+            <div id="modalIconBox" class="w-16 h-16 rounded-2xl bg-white/20 border border-white/40 flex items-center justify-center text-amber-100 shadow-xl mb-4 animate-bounce">
+                <i id="modalIcon" data-lucide="sparkles" class="w-8 h-8"></i>
+            </div>
+
+            <h3 id="modalTitle" class="font-serif text-2xl font-bold text-white tracking-wide drop-shadow text-glow-shadow">Kegiatan Berlangsung</h3>
+            <p id="modalDesc" class="text-xs text-stone-100/90 mt-1 mb-6 leading-relaxed max-w-xs drop-shadow">Aria sedang melakukan aktivitas...</p>
+
+            <!-- Progress & Countdown Box -->
+            <div class="w-full bg-black/25 rounded-2xl p-4 border border-white/20 mb-6 flex flex-col gap-2 relative backdrop-blur-md">
+                <div class="flex justify-between items-center text-xs text-stone-100">
+                    <span class="font-medium flex items-center gap-1.5">
+                        <i data-lucide="timer" class="w-3.5 h-3.5 text-amber-300"></i> Sisa Waktu
+                    </span>
+                    <span id="modalTimerText" class="font-bold text-amber-200 text-sm tracking-wider">10s</span>
+                </div>
+                <div class="w-full bg-black/40 h-2.5 rounded-full overflow-hidden border border-white/20">
+                    <div id="modalProgressBar" class="bg-gradient-to-r from-amber-300 to-amber-100 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Hold to Cancel Button -->
+            <div class="w-full flex flex-col items-center gap-2">
+                <button id="btnHoldLeave" class="w-full py-3 px-6 rounded-2xl bg-red-500/25 hover:bg-red-500/40 border border-red-300/40 text-red-100 font-semibold text-xs tracking-wider uppercase transition-all duration-200 relative overflow-hidden select-none touch-none cursor-pointer group shadow-lg">
+                    <div id="holdProgressFill" class="absolute inset-0 bg-red-600/70 w-0 transition-all duration-75 ease-linear pointer-events-none"></div>
+                    <span class="relative z-10 flex items-center justify-center gap-2 drop-shadow">
+                        <i data-lucide="x-circle" class="w-4 h-4"></i>
+                        <span>Tahan 1 Detik untuk Batal</span>
+                    </span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Update Initial Time Timestamp
-        const now = new Date();
-        document.getElementById('initialTime').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        // Location State
+        let currentLocation = 'sweet_garden';
 
-        // Action Data Definitions
-        const ACTIONS_CONFIG = {
-            water: {
-                title: 'Menyiram Bunga',
-                icon: 'droplets',
-                color: 'text-blue-200',
-                borderColor: 'border-l-blue-300',
-                desc: 'Aria menyiram bunga mawar & melati yang bermekaran segar.',
-                statType: 'calm',
-                statAmount: 5,
-                pitch: 523.25 // High C note chime
+        // Master Locations Data (Dengan Foto Unsplash Relevan + Biaya & Countdown Transportasi)
+        const LOCATIONS_DATA = [
+            {
+                id: 'sweet_garden',
+                name: 'Sweet Garden',
+                subtext: 'Sanctuary of Serenity • Area Rileks',
+                desc: 'Taman bunga yang tenang dan asri, tempat terbaik untuk bersantai dan membaca buku.',
+                bgClass: 'bg-sweet-garden min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative',
+                image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=800&auto=format&fit=crop',
+                taxiFare: 30,
+                subwayFare: 0,
+                taxiDuration: 15,
+                subwayDuration: 30
             },
-            tea: {
-                title: 'Minum Teh',
-                icon: 'coffee',
+            {
+                id: 'town_square',
+                name: 'Alun-Alun Kota',
+                subtext: 'Alun-Alun Utama • Area Sosial',
+                desc: 'Pusat keramaian kota dengan banyak warga untuk berinteraksi dan bersosialisasi.',
+                bgClass: 'bg-town-square min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative',
+                image: 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=800&auto=format&fit=crop',
+                taxiFare: 50,
+                subwayFare: 0,
+                taxiDuration: 15,
+                subwayDuration: 30
+            },
+            {
+                id: 'beach_resort',
+                name: 'Resort Pantai',
+                subtext: 'Pesisir Tropis • Santai & Liburan',
+                desc: 'Pantai tropis berpasir putih dengan ombak tenang yang menyegarkan pikiran.',
+                bgClass: 'bg-beach-resort min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative',
+                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+                taxiFare: 80,
+                subwayFare: 0,
+                taxiDuration: 15,
+                subwayDuration: 30
+            },
+            {
+                id: 'mountain_cabin',
+                name: 'Kabin Pegunungan',
+                subtext: 'Puncak Hijau • Udara Segar',
+                desc: 'Area perbukitan yang dingin dan damai, sangat cocok untuk olahraga outdoor.',
+                bgClass: 'bg-mountain-cabin min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative',
+                image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop',
+                taxiFare: 100,
+                subwayFare: 0,
+                taxiDuration: 15,
+                subwayDuration: 30
+            }
+        ];
+
+        // Character Stats & Leveling State
+        let characterStats = {
+            coins: 150,
+            energy: 100,
+            maxEnergy: 100,
+            kebahagiaan: { level: 1, xp: 0 },
+            fisik: { level: 1, xp: 0 },
+            kecerdasan: { level: 1, xp: 0 },
+            sosialisasi: { level: 1, xp: 0 }
+        };
+
+        function getRequiredXP(level) {
+            return 10 + (level - 1) * 5;
+        }
+
+        let activeTimer = null;
+
+        // Action Configs
+        const ACTIONS_CONFIG = {
+            read_book: {
+                title: 'Membaca Buku',
+                duration: 10,
+                statType: 'kecerdasan',
+                energyCostPerSec: 1,
+                icon: 'book-open',
+                color: 'text-purple-300',
+                borderColor: 'border-l-purple-400',
+                startDesc: 'Aria fokus membaca buku. Kecerdasan +1 XP/s, Energi -1/s.',
+                finishDesc: 'Selesai membaca! Wawasan dan kecerdasan Aria bertambah pesat.',
+                pitch: 523.25
+            },
+            push_up: {
+                title: 'Push Up',
+                duration: 10,
+                statType: 'fisik',
+                energyCostPerSec: 1,
+                icon: 'activity',
+                color: 'text-rose-300',
+                borderColor: 'border-l-rose-400',
+                startDesc: 'Aria melakukan push up intensif. Fisik +1 XP/s, Energi -1/s.',
+                finishDesc: 'Selesai push up! Otot melatih kekuatan fisik Aria.',
+                pitch: 329.63
+            },
+            chat_resident: {
+                title: 'Mengobrol dengan Warga',
+                duration: 10,
+                statType: 'sosialisasi',
+                energyCostPerSec: 1,
+                icon: 'message-circle',
+                color: 'text-cyan-300',
+                borderColor: 'border-l-cyan-400',
+                startDesc: 'Aria berbaur dan menyapa warga. Sosialisasi +1 XP/s, Energi -1/s.',
+                finishDesc: 'Percakapan hangat selesai! Hubungan sosial Aria meningkat.',
+                pitch: 659.25
+            },
+            play_game: {
+                title: 'Bermain Game',
+                duration: 12,
+                statType: 'kebahagiaan',
+                icon: 'gamepad-2',
+                color: 'text-pink-300',
+                borderColor: 'border-l-pink-400',
+                startDesc: 'Aria menikmati waktu bermain game. Kebahagiaan +1 XP/s.',
+                finishDesc: 'Selesai bermain game! Pikiran terasa sangat senang dan gembira.',
+                pitch: 587.33
+            },
+            rest: {
+                title: 'Istirahat',
+                duration: 15,
+                statType: null,
+                energyGainPerSec: 7,
+                icon: 'moon',
                 color: 'text-amber-200',
                 borderColor: 'border-l-amber-300',
-                desc: 'Aria menikmati cangkir teh chamomile hangat di sudut taman.',
-                statType: 'energy',
-                statAmount: 10,
-                pitch: 329.63 // E note
-            },
-            harvest: {
-                title: 'Memetik Buah',
-                icon: 'apple',
-                color: 'text-rose-200',
-                borderColor: 'border-l-rose-300',
-                desc: 'Aria memetik buah apel segar yang ranum dari dahan.',
-                statType: 'energy',
-                statAmount: 8,
-                pitch: 392.00 // G note
-            },
-            trim: {
-                title: 'Merawat Tanaman',
-                icon: 'scissors',
-                color: 'text-emerald-200',
-                borderColor: 'border-l-emerald-300',
-                desc: 'Aria merapikan dedaunan dan merawat tangkai tanaman.',
-                statType: 'calm',
-                statAmount: 6,
-                pitch: 440.00 // A note
-            },
-            relax: {
-                title: 'Bersantai',
-                icon: 'sun',
-                color: 'text-amber-100',
-                borderColor: 'border-l-amber-200',
-                desc: 'Aria duduk bersantai sambil mendengarkan desir angin lembut.',
-                statType: 'calm',
-                statAmount: 15,
-                pitch: 261.63 // C note
-            },
-            read: {
-                title: 'Membaca Buku',
-                icon: 'book-open',
-                color: 'text-purple-200',
-                borderColor: 'border-l-purple-300',
-                desc: 'Aria membaca bab cerita favorit di bawah naungan pohon.',
-                statType: 'calm',
-                statAmount: 12,
-                pitch: 349.23 // F note
+                startDesc: 'Aria beristirahat memulihkan energi stamina...',
+                finishDesc: 'Istirahat selesai! Energi terisi penuh & Anda mendapatkan +25 Koin.',
+                pitch: 392.00
             }
         };
 
-        // Character Stats State
-        let characterStats = {
-            energy: 85,
-            calm: 92
-        };
+        let journalLogs = [];
 
-        // Web Audio Synthesizer for Touch Feedback Sound
-        let audioCtx = null;
-        function playChime(freq = 440) {
-            try {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        // Elements Ref
+        const bodyBg = document.getElementById('bodyBg');
+        const btnOpenLocationModal = document.getElementById('btnOpenLocationModal');
+        const locationModal = document.getElementById('locationModal');
+        const locationModalCard = document.getElementById('locationModalCard');
+        const btnCloseLocationModal = document.getElementById('btnCloseLocationModal');
+        const locationsContainer = document.getElementById('locationsContainer');
+        const currentLocationTitle = document.getElementById('currentLocationTitle');
+        const currentLocationSubtext = document.getElementById('currentLocationSubtext');
+        const currentLocationImg = document.getElementById('currentLocationImg');
+        const btnSosialisasiChat = document.getElementById('btnSosialisasiChat');
+        const subtextSosialisasi = document.getElementById('subtextSosialisasi');
 
-                gain.gain.setValueAtTime(0, audioCtx.currentTime);
-                gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+        function updateLocationUI() {
+            const locObj = LOCATIONS_DATA.find(l => l.id === currentLocation) || LOCATIONS_DATA[0];
 
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
+            bodyBg.className = locObj.bgClass;
+            currentLocationTitle.innerText = locObj.name;
+            currentLocationSubtext.innerText = locObj.subtext;
+            currentLocationImg.src = locObj.image;
 
-                osc.start();
-                osc.stop(audioCtx.currentTime + 1.25);
-            } catch(e) {
-                console.log('Audio Context restricted or not supported.');
+            if (currentLocation === 'sweet_garden') {
+                btnSosialisasiChat.disabled = true;
+                subtextSosialisasi.innerText = 'Tidak tersedia di Sweet Garden';
+                btnSosialisasiChat.title = 'Tindakan sosialisasi tidak tersedia di Sweet Garden';
+            } else {
+                btnSosialisasiChat.disabled = false;
+                subtextSosialisasi.innerText = '10s • +1 XP Sosial/s • -1 Energi/s';
+                btnSosialisasiChat.title = '';
             }
         }
 
-        // Toggle Actions Tray Expansion (Slide to Left)
+        // Render Daftar Lokasi di Modal
+        function renderLocationsList() {
+            locationsContainer.innerHTML = '';
+
+            LOCATIONS_DATA.forEach(loc => {
+                const isCurrent = loc.id === currentLocation;
+                const card = document.createElement('div');
+                card.className = `glass-panel rounded-2xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-4 border transition-all duration-300 ${
+                    isCurrent ? 'border-amber-300/60 bg-amber-900/20' : 'border-white/20 hover:border-white/40'
+                }`;
+
+                card.innerHTML = `
+                    <div class="flex items-center gap-3.5 w-full sm:w-auto">
+                        <div class="relative w-20 h-20 sm:w-24 sm:h-20 rounded-xl overflow-hidden shrink-0 border border-white/30 shadow-md">
+                            <img src="${loc.image}" alt="${loc.name}" class="w-full h-full object-cover" />
+                            ${isCurrent ? '<span class="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-md bg-amber-400 text-stone-900 font-bold text-[9px]">LOKASI INI</span>' : ''}
+                        </div>
+                        <div class="flex flex-col text-left">
+                            <h4 class="font-serif text-lg font-bold text-white tracking-wide">${loc.name}</h4>
+                            <span class="text-[10px] text-amber-200 font-semibold mb-1">${loc.subtext}</span>
+                            <p class="text-xs text-stone-300 leading-snug max-w-xs">${loc.desc}</p>
+                        </div>
+                    </div>
+
+                    <!-- Transport Buttons (Kereta Bawah Tanah & Taksi) -->
+                    <div class="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end mt-2 sm:mt-0">
+                        <!-- Left: Kereta Bawah Tanah (Gratis, 30 Detik) -->
+                        <button onclick="startTravel('${loc.id}', 'subway')" ${isCurrent ? 'disabled' : ''} 
+                                class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed border border-white/20 text-white font-semibold text-xs flex flex-col items-center gap-0.5 transition-all">
+                            <div class="flex items-center gap-1.5 text-stone-200">
+                                <i data-lucide="train" class="w-3.5 h-3.5 text-emerald-300"></i>
+                                <span>Kereta</span>
+                            </div>
+                            <span class="text-[9px] text-emerald-300 font-medium">Gratis • 30s</span>
+                        </button>
+
+                        <!-- Right: Naik Taksi (Berbayar, 15 Detik) -->
+                        <button onclick="startTravel('${loc.id}', 'taxi')" ${isCurrent ? 'disabled' : ''} 
+                                class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-stone-900 font-bold text-xs flex flex-col items-center gap-0.5 shadow-lg transition-all">
+                            <div class="flex items-center gap-1.5">
+                                <i data-lucide="car" class="w-3.5 h-3.5 text-stone-900"></i>
+                                <span>Naik Taksi</span>
+                            </div>
+                            <span class="text-[9px] text-stone-800 font-extrabold">${loc.taxiFare} Koin • 15s</span>
+                        </button>
+                    </div>
+                `;
+
+                locationsContainer.appendChild(card);
+            });
+
+            lucide.createIcons();
+        }
+
+        function openLocationModal() {
+            renderLocationsList();
+            locationModal.classList.remove('opacity-0', 'pointer-events-none');
+            locationModalCard.classList.remove('scale-95');
+            locationModalCard.classList.add('scale-100');
+            playChime(523.25);
+        }
+
+        function closeLocationModal() {
+            locationModal.classList.add('opacity-0', 'pointer-events-none');
+            locationModalCard.classList.remove('scale-100');
+            locationModalCard.classList.add('scale-95');
+        }
+
+        btnOpenLocationModal.addEventListener('click', openLocationModal);
+        btnCloseLocationModal.addEventListener('click', closeLocationModal);
+
+        // Sistem Perjalanan / Travelling (Taksi vs Kereta Bawah Tanah)
+        function startTravel(targetLocId, transportType) {
+            const targetLoc = LOCATIONS_DATA.find(l => l.id === targetLocId);
+            if (!targetLoc) return;
+
+            if (activeTimer) {
+                addLogEntry('Sedang Sibuk', `Selesaikan dulu aktivitas "${activeTimer.title}"!`, 'alert-circle', 'text-amber-200', 'border-l-amber-400');
+                playChime(220);
+                return;
+            }
+
+            const isTaxi = transportType === 'taxi';
+            const fare = isTaxi ? targetLoc.taxiFare : 0;
+            const durationSec = isTaxi ? targetLoc.taxiDuration : targetLoc.subwayDuration;
+
+            // Pengecekan Koin jika naik Taksi
+            if (isTaxi && characterStats.coins < fare) {
+                addLogEntry('Koin Tidak Cukup', `Dibutuhkan ${fare} Koin untuk naik taksi ke ${targetLoc.name}!`, 'coins', 'text-rose-200', 'border-l-rose-500');
+                playChime(220);
+                return;
+            }
+
+            // Potong Koin jika Taksi
+            if (isTaxi) {
+                characterStats.coins -= fare;
+                updateStatsUI();
+            }
+
+            closeLocationModal();
+
+            const travelConfig = {
+                title: isTaxi ? `Perjalanan Taksi ke ${targetLoc.name}` : `Kereta Bawah Tanah ke ${targetLoc.name}`,
+                duration: durationSec,
+                icon: isTaxi ? 'car' : 'train',
+                startDesc: isTaxi 
+                    ? `Menaiki taksi menuju ${targetLoc.name}. Perjalanan cepat 15 detik (${fare} Koin).`
+                    : `Menaiki Kereta Bawah Tanah menuju ${targetLoc.name}. Perjalanan santai gratis 30 detik.`,
+                finishDesc: `Tiba di ${targetLoc.name}! Selamat menikmati suasana baru.`,
+                pitch: isTaxi ? 659.25 : 440
+            };
+
+            let secondsLeft = durationSec;
+            showModal(travelConfig, durationSec);
+            addLogEntry('Perjalanan Dimulai', travelConfig.startDesc, travelConfig.icon, 'text-amber-200', 'border-l-amber-300');
+            playChime(travelConfig.pitch);
+
+            const timerInterval = setInterval(() => {
+                secondsLeft--;
+
+                modalTimerText.innerText = `${secondsLeft}s`;
+                modalProgressBar.style.width = `${(secondsLeft / durationSec) * 100}%`;
+
+                if (secondsLeft <= 0) {
+                    clearInterval(timerInterval);
+                    activeTimer = null;
+                    hideModal();
+
+                    currentLocation = targetLocId;
+                    updateLocationUI();
+
+                    addLogEntry('Tiba di Tujuan', travelConfig.finishDesc, 'map-pin', 'text-emerald-200', 'border-l-emerald-400');
+                    playChime(880);
+                }
+            }, 1000);
+
+            activeTimer = {
+                title: travelConfig.title,
+                intervalId: timerInterval
+            };
+        }
+
+        let audioCtx = null;
+        function playChime(freq = 440) {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.85);
+            } catch(e){}
+        }
+
+        const journalStack = document.getElementById('journalStack');
+
+        function addLogEntry(title, text, icon, colorClass, borderClass) {
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            journalLogs.unshift({
+                id: Date.now(),
+                title,
+                text,
+                icon,
+                colorClass,
+                borderClass,
+                timeStr
+            });
+
+            if (journalLogs.length > 5) journalLogs.pop();
+            renderJournalStack();
+        }
+
+        function renderJournalStack() {
+            journalStack.innerHTML = '';
+
+            journalLogs.forEach((log, index) => {
+                const item = document.createElement('div');
+                item.className = `journal-entry flex items-start gap-3 border-l-2 ${log.borderClass} pl-3 py-1.5 my-0.5`;
+
+                const offsetY = index * -6;
+                const offsetX = Math.sin(index * 0.6) * 16 + (index * 6);
+                const scale = Math.max(0.72, 1 - index * 0.06);
+                const opacity = Math.max(0.2, 1 - index * 0.18);
+                const blur = index * 0.8;
+
+                item.style.transform = `translate3d(${offsetX}px, ${offsetY}px, -${index * 25}px) scale(${scale}) rotate(${-index * 1.5}deg)`;
+                item.style.opacity = opacity;
+                item.style.filter = `blur(${blur}px)`;
+
+                item.innerHTML = `
+                    <div class="p-1 rounded-md bg-black/30 ${log.colorClass} mt-0.5 shrink-0 shadow-sm">
+                        <i data-lucide="${log.icon}" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between gap-2 text-[10px] text-stone-300">
+                            <span class="font-bold text-white text-glow-shadow truncate">${log.title}</span>
+                            <span class="opacity-75 text-[9px] text-stone-300 shrink-0">${log.timeStr}</span>
+                        </div>
+                        <p class="text-xs text-stone-100 font-medium leading-snug text-glow-shadow drop-shadow-md">${log.text}</p>
+                    </div>
+                `;
+
+                journalStack.appendChild(item);
+            });
+
+            lucide.createIcons();
+        }
+
+        function spawnXPFloatingText(statType) {
+            const xpContainer = document.getElementById('xpFloatContainer');
+            const floater = document.createElement('div');
+            
+            let colorHex = '#fef08a';
+            let label = 'XP';
+
+            if (statType === 'kebahagiaan') {
+                colorHex = '#f472b6';
+                label = 'XP Kebahagiaan';
+            } else if (statType === 'fisik') {
+                colorHex = '#f43f5e';
+                label = 'XP Fisik';
+            } else if (statType === 'kecerdasan') {
+                colorHex = '#c084fc';
+                label = 'XP Kecerdasan';
+            } else if (statType === 'sosialisasi') {
+                colorHex = '#22d3ee';
+                label = 'XP Sosialisasi';
+            }
+
+            floater.className = 'xp-float-badge animate-float-xp flex items-center gap-1';
+            floater.style.color = colorHex;
+
+            const modalBox = document.getElementById('activityModalCard').getBoundingClientRect();
+            const posX = modalBox.left + modalBox.width / 2 - 40 + (Math.random() * 40 - 20);
+            const posY = modalBox.top + 60 + (Math.random() * 20 - 10);
+
+            floater.style.left = `${posX}px`;
+            floater.style.top = `${posY}px`;
+
+            floater.innerHTML = `<span>+1</span> <span class="text-[10px] uppercase font-bold">${label}</span>`;
+            xpContainer.appendChild(floater);
+
+            setTimeout(() => {
+                if (floater && floater.parentNode) {
+                    floater.parentNode.removeChild(floater);
+                }
+            }, 1200);
+        }
+
+        function addStatXP(statType, amount = 1) {
+            if (!statType || !characterStats[statType]) return;
+
+            const statObj = characterStats[statType];
+            statObj.xp += amount;
+
+            let reqXP = getRequiredXP(statObj.level);
+
+            while (statObj.xp >= reqXP) {
+                statObj.xp -= reqXP;
+                statObj.level++;
+                
+                const statTitle = statType.charAt(0).toUpperCase() + statType.slice(1);
+                addLogEntry('LEVEL UP! 🎉', `Stat ${statTitle} Aria meningkat ke Level ${statObj.level}!`, 'sparkles', 'text-amber-200', 'border-l-amber-300');
+                playChime(880);
+
+                reqXP = getRequiredXP(statObj.level);
+            }
+
+            updateStatsUI();
+        }
+
+        function updateStatsUI() {
+            // Coins & Energi
+            document.getElementById('statCoinsVal').innerText = characterStats.coins;
+            document.getElementById('statEnergiVal').innerText = `${characterStats.energy}/100`;
+            document.getElementById('statEnergiBar').style.width = `${characterStats.energy}%`;
+
+            // Stats Loop
+            ['kebahagiaan', 'fisik', 'kecerdasan', 'sosialisasi'].forEach(st => {
+                const lvl = characterStats[st].level;
+                const currentXp = characterStats[st].xp;
+                const reqXp = getRequiredXP(lvl);
+
+                const capName = st.charAt(0).toUpperCase() + st.slice(1);
+                document.getElementById(`stat${capName}Val`).innerText = `Lv. ${lvl}`;
+                document.getElementById(`stat${capName}Bar`).style.width = `${Math.min(100, (currentXp / reqXp) * 100)}%`;
+                document.getElementById(`stat${capName}XpText`).innerText = `${currentXp}/${reqXp} XP`;
+            });
+        }
+
+        const activityModal = document.getElementById('activityModal');
+        const activityModalCard = document.getElementById('activityModalCard');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalTimerText = document.getElementById('modalTimerText');
+        const modalProgressBar = document.getElementById('modalProgressBar');
+        const btnHoldLeave = document.getElementById('btnHoldLeave');
+        const holdProgressFill = document.getElementById('holdProgressFill');
+
+        function showModal(config, durationSec) {
+            modalTitle.innerText = config.title;
+            modalDesc.innerText = config.startDesc;
+            modalTimerText.innerText = `${durationSec}s`;
+            modalProgressBar.style.width = '100%';
+
+            modalIcon.setAttribute('data-lucide', config.icon);
+            lucide.createIcons();
+
+            activityModal.classList.remove('opacity-0', 'pointer-events-none');
+            activityModalCard.classList.remove('scale-90');
+            activityModalCard.classList.add('scale-100');
+        }
+
+        function hideModal() {
+            activityModal.classList.add('opacity-0', 'pointer-events-none');
+            activityModalCard.classList.remove('scale-100');
+            activityModalCard.classList.add('scale-90');
+        }
+
+        function executeAction(actionKey) {
+            const config = ACTIONS_CONFIG[actionKey];
+            if (!config) return;
+
+            if (config.statType === 'sosialisasi' && currentLocation === 'sweet_garden') {
+                addLogEntry('Aksi Dibatasi', 'Tindakan sosialisasi tidak tersedia di lokasi Sweet Garden!', 'alert-triangle', 'text-amber-200', 'border-l-amber-400');
+                playChime(220);
+                return;
+            }
+
+            if (activeTimer) {
+                addLogEntry('Sedang Sibuk', `Aria sedang melakukan "${activeTimer.title}"!`, 'alert-circle', 'text-amber-200', 'border-l-amber-400');
+                playChime(220);
+                return;
+            }
+
+            if (config.energyCostPerSec && characterStats.energy < 5) {
+                addLogEntry('Energi Habis', `Energi Aria terlalu rendah untuk ${config.title}. Silakan beristirahat!`, 'zap-off', 'text-rose-200', 'border-l-rose-500');
+                playChime(220);
+                return;
+            }
+
+            let secondsLeft = config.duration;
+            const totalSec = config.duration;
+
+            showModal(config, totalSec);
+            addLogEntry(config.title, config.startDesc, config.icon, config.color, config.borderColor);
+            playChime(config.pitch);
+
+            const timerInterval = setInterval(() => {
+                secondsLeft--;
+
+                if (config.statType) {
+                    addStatXP(config.statType, 1);
+                    spawnXPFloatingText(config.statType);
+                }
+
+                if (config.energyCostPerSec) {
+                    characterStats.energy = Math.max(0, characterStats.energy - config.energyCostPerSec);
+                }
+                if (config.energyGainPerSec) {
+                    characterStats.energy = Math.min(characterStats.maxEnergy, characterStats.energy + config.energyGainPerSec);
+                }
+
+                modalTimerText.innerText = `${secondsLeft}s`;
+                modalProgressBar.style.width = `${(secondsLeft / totalSec) * 100}%`;
+                updateStatsUI();
+
+                if (config.energyCostPerSec && characterStats.energy <= 0) {
+                    clearInterval(timerInterval);
+                    activeTimer = null;
+                    hideModal();
+                    addLogEntry('Kelelahan', `Aria terlalu lelah dan terpaksa menghentikan ${config.title}!`, 'zap-off', 'text-rose-300', 'border-l-rose-500');
+                    playChime(220);
+                    return;
+                }
+
+                if (secondsLeft <= 0) {
+                    clearInterval(timerInterval);
+                    activeTimer = null;
+                    hideModal();
+
+                    if (actionKey === 'rest') {
+                        characterStats.coins += 25;
+                        updateStatsUI();
+                    }
+
+                    addLogEntry(config.title, config.finishDesc, config.icon, config.color, config.borderColor);
+                    playChime(config.pitch * 1.25);
+                }
+            }, 1000);
+
+            activeTimer = {
+                title: config.title,
+                intervalId: timerInterval
+            };
+        }
+
+        let holdTimerAnim = null;
+        let holdStartTime = 0;
+        const HOLD_DURATION = 1000;
+
+        function startHold(e) {
+            if (e.type === 'touchstart') e.preventDefault();
+            if (!activeTimer) return;
+
+            holdStartTime = Date.now();
+            function loop() {
+                const elapsed = Date.now() - holdStartTime;
+                const pct = Math.min(100, (elapsed / HOLD_DURATION) * 100);
+                holdProgressFill.style.width = `${pct}%`;
+
+                if (elapsed >= HOLD_DURATION) {
+                    cancelHold();
+                    cancelActivity();
+                } else {
+                    holdTimerAnim = requestAnimationFrame(loop);
+                }
+            }
+            holdTimerAnim = requestAnimationFrame(loop);
+        }
+
+        function cancelHold() {
+            if (holdTimerAnim) {
+                cancelAnimationFrame(holdTimerAnim);
+                holdTimerAnim = null;
+            }
+            holdProgressFill.style.width = '0%';
+        }
+
+        function cancelActivity() {
+            if (!activeTimer) return;
+            clearInterval(activeTimer.intervalId);
+            const title = activeTimer.title;
+            activeTimer = null;
+            hideModal();
+            addLogEntry('Dibatalkan', `Aria berhenti melakukan "${title}".`, 'x-circle', 'text-red-200', 'border-l-red-400');
+            playChime(220);
+        }
+
+        btnHoldLeave.addEventListener('mousedown', startHold);
+        btnHoldLeave.addEventListener('touchstart', startHold, { passive: false });
+        btnHoldLeave.addEventListener('mouseup', cancelHold);
+        btnHoldLeave.addEventListener('mouseleave', cancelHold);
+        btnHoldLeave.addEventListener('touchend', cancelHold);
+
+        // Actions Tray Expand Toggle
         const toggleActionsBtn = document.getElementById('toggleActionsBtn');
         const actionsTray = document.getElementById('actionsTray');
         const actionChevron = document.getElementById('actionChevron');
@@ -483,143 +1169,69 @@
             }
         });
 
-        // Add Log Item Function
-        const logList = document.getElementById('logList');
-
-        function addActivityLog(actionKey) {
-            const config = ACTIONS_CONFIG[actionKey];
-            if (!config) return;
-
-            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            // Create Log Element
-            const logCard = document.createElement('div');
-            logCard.className = `glass-pill rounded-xl p-3 flex items-start gap-3 animate-slide-in-left border-l-4 ${config.borderColor} transition-all hover:bg-white/30`;
-
-            logCard.innerHTML = `
-                <div class="p-1.5 rounded-lg bg-white/20 ${config.color} mt-0.5 shrink-0">
-                    <i data-lucide="${config.icon}" class="w-3.5 h-3.5"></i>
-                </div>
-                <div class="flex-1">
-                    <div class="flex items-center justify-between text-[10px] text-stone-300 mb-0.5">
-                        <span class="font-semibold text-white">${config.title}</span>
-                        <span class="opacity-80">${timeStr}</span>
-                    </div>
-                    <p class="text-xs text-white/90 leading-snug">${config.desc}</p>
-                </div>
-            `;
-
-            // Insert at the top of the log list
-            logList.insertBefore(logCard, logList.firstChild);
-            lucide.createIcons();
-
-            // Sound feedback
-            playChime(config.pitch);
-
-            // Update Stats
-            if (config.statType === 'energy') {
-                characterStats.energy = Math.min(100, characterStats.energy + config.statAmount);
-            } else if (config.statType === 'calm') {
-                characterStats.calm = Math.min(100, characterStats.calm + config.statAmount);
-            }
-            updateStatsUI();
-        }
-
-        // Update Stats UI
-        function updateStatsUI() {
-            const energyVal = document.getElementById('statEnergiVal');
-            const energyBar = document.getElementById('statEnergiBar');
-            const calmVal = document.getElementById('statCalmVal');
-            const calmBar = document.getElementById('statCalmBar');
-
-            energyVal.innerText = `${characterStats.energy}%`;
-            energyBar.style.width = `${characterStats.energy}%`;
-
-            calmVal.innerText = `${characterStats.calm}%`;
-            calmBar.style.width = `${characterStats.calm}%`;
-        }
-
-        // Action Buttons Event Listeners
         document.querySelectorAll('[data-action]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
                 const actionKey = btn.getAttribute('data-action');
-                addActivityLog(actionKey);
+                executeAction(actionKey);
             });
         });
 
-        // Clear Logs Listener
         document.getElementById('btnClearLogs').addEventListener('click', () => {
-            logList.innerHTML = '';
+            journalLogs = [];
+            renderJournalStack();
             playChime(220);
         });
 
-        // Canvas Ambient Bokeh Particle System
+        // Init
+        updateLocationUI();
+        updateStatsUI();
+        addLogEntry('Selamat Datang', 'Memasuki kawasan Sweet Garden. Suasana terasa sangat damai.', 'sparkles', 'text-amber-200', 'border-l-amber-300');
+
+        // Bokeh Particles
         const canvas = document.getElementById('bokehCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const particleCount = 28;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
         class Particle {
-            constructor() {
-                this.reset();
-            }
-
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 50;
-                this.size = Math.random() * 3.5 + 1;
-                this.speedY = Math.random() * 0.4 + 0.15;
-                this.speedX = (Math.random() - 0.5) * 0.25;
+                this.y = canvas.height + Math.random() * 40;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 0.35 + 0.15;
+                this.speedX = (Math.random() - 0.5) * 0.2;
                 this.opacity = Math.random() * 0.5 + 0.2;
-                this.pulseSpeed = Math.random() * 0.02 + 0.005;
             }
-
             update() {
                 this.y -= this.speedY;
                 this.x += this.speedX;
-                this.opacity += Math.sin(Date.now() * this.pulseSpeed) * 0.002;
-
-                if (this.y < -20 || this.x < -20 || this.x > canvas.width + 20) {
-                    this.reset();
-                }
+                if (this.y < -10) this.reset();
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 245, 220, ${Math.max(0, Math.min(1, this.opacity))})`;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = 'rgba(255, 230, 170, 0.7)';
+                ctx.fillStyle = `rgba(255, 245, 220, ${this.opacity})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = 'rgba(255, 230, 170, 0.6)';
                 ctx.fill();
             }
         }
 
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
+        for (let i = 0; i < 25; i++) particles.push(new Particle());
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
-
-        initParticles();
         animateParticles();
     </script>
 </body>
 </html>
+
