@@ -41,6 +41,7 @@
                         'float-xp': 'floatXP 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
                         'subway-drive': 'subwayDrive 2s linear infinite',
+                        'spin-slow': 'spinSlow 8s linear infinite',
                     },
                     keyframes: {
                         floatXP: {
@@ -57,6 +58,10 @@
                             '0%': { transform: 'translateX(-10px)' },
                             '50%': { transform: 'translateX(10px)' },
                             '100%': { transform: 'translateX(-10px)' }
+                        },
+                        spinSlow: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' }
                         }
                     }
                 }
@@ -215,6 +220,9 @@
 </head>
 <body id="bodyBg" class="bg-sweet-garden min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative">
 
+    <!-- Universal BGM Audio Element -->
+    <audio id="bgmAudio" loop preload="auto" src="https://res.cloudinary.com/dl2egfdw2/video/upload/v1790005591/Garden_audio_1_rwpvgz.mp3"></audio>
+
     <!-- Interactive Canvas Particle -->
     <canvas id="bokehCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-70"></canvas>
 
@@ -224,7 +232,7 @@
     <!-- UI LAYER -->
     <div class="relative z-10 w-full h-screen p-3 sm:p-5 flex flex-col justify-between pointer-events-none">
 
-        <!-- TOP BAR: Character Stats + Location Selector Button -->
+        <!-- TOP BAR: Character Stats + BGM Control + Location Selector Button -->
         <div class="w-full flex items-start justify-between pointer-events-auto flex-wrap gap-3">
             
             <!-- TOP-LEFT: Character Stats & XP Status Bar -->
@@ -323,30 +331,50 @@
 
             </div>
 
-            <!-- TOP-RIGHT: Current Location Button (Bila ditekan membuka modal perjalanan) -->
-            <button id="btnOpenLocationModal" class="glass-panel rounded-2xl p-2 sm:p-2.5 flex items-center gap-3 shadow-xl shrink-0 border border-white/30 hover:border-amber-300/60 transition-all duration-300 group cursor-pointer text-left">
-                <div class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-white/40 shrink-0 shadow-inner">
-                    <img id="currentLocationImg" 
-                         src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=400&auto=format&fit=crop" 
-                         alt="Location Preview" 
-                         class="w-full h-full object-cover transition-all duration-500 transform group-hover:scale-110" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
-                    <span class="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                </div>
-
-                <div class="flex flex-col text-left pr-2">
-                    <div class="flex items-center gap-1.5">
-                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-300"></i>
-                        <span class="text-[9px] uppercase font-bold tracking-widest text-amber-200/90">Lokasi Saat Ini</span>
+            <!-- TOP-RIGHT: BGM Controller & Current Location Button -->
+            <div class="flex items-center gap-2.5 shrink-0">
+                
+                <!-- Universal BGM Control Button -->
+                <button id="btnToggleBGM" title="Kontrol BGM Musik" class="glass-panel rounded-2xl p-2 sm:p-2.5 flex items-center gap-2.5 shadow-xl border border-white/30 hover:border-amber-300/60 transition-all duration-300 group cursor-pointer text-left">
+                    <div class="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-200 shrink-0 shadow-inner overflow-hidden">
+                        <i id="bgmIcon" data-lucide="disc" class="w-5 h-5 sm:w-6 sm:h-6 animate-spin-slow"></i>
+                        <span id="bgmPing" class="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     </div>
-                    <span id="currentLocationTitle" class="font-serif text-base sm:text-lg font-bold text-white group-hover:text-amber-200 transition-colors">Sweet Garden</span>
-                    <span id="currentLocationSubtext" class="text-[10px] text-stone-300 font-light truncate max-w-[140px]">Sanctuary of Serenity • Area Rileks</span>
-                </div>
+                    <div class="hidden sm:flex flex-col text-left pr-2">
+                        <div class="flex items-center gap-1">
+                            <i id="bgmVolIcon" data-lucide="volume-2" class="w-3 h-3 text-amber-300"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-widest text-amber-200/90">Universal BGM</span>
+                        </div>
+                        <span id="bgmTitle" class="font-serif text-sm sm:text-base font-bold text-white group-hover:text-amber-200 transition-colors truncate max-w-[100px]">Garden Harmony</span>
+                    </div>
+                </button>
 
-                <div class="p-2 rounded-xl bg-white/10 group-hover:bg-amber-400/20 text-white group-hover:text-amber-200 transition-all">
-                    <i data-lucide="navigation" class="w-4 h-4"></i>
-                </div>
-            </button>
+                <!-- Current Location Button -->
+                <button id="btnOpenLocationModal" class="glass-panel rounded-2xl p-2 sm:p-2.5 flex items-center gap-3 shadow-xl shrink-0 border border-white/30 hover:border-amber-300/60 transition-all duration-300 group cursor-pointer text-left">
+                    <div class="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden border border-white/40 shrink-0 shadow-inner">
+                        <img id="currentLocationImg" 
+                             src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=400&auto=format&fit=crop" 
+                             alt="Location Preview" 
+                             class="w-full h-full object-cover transition-all duration-500 transform group-hover:scale-110" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                        <span class="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    </div>
+
+                    <div class="flex flex-col text-left pr-2">
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-300"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-widest text-amber-200/90">Lokasi Saat Ini</span>
+                        </div>
+                        <span id="currentLocationTitle" class="font-serif text-base sm:text-lg font-bold text-white group-hover:text-amber-200 transition-colors">Sweet Garden</span>
+                        <span id="currentLocationSubtext" class="text-[10px] text-stone-300 font-light truncate max-w-[140px]">Sanctuary of Serenity • Area Rileks</span>
+                    </div>
+
+                    <div class="p-2 rounded-xl bg-white/10 group-hover:bg-amber-400/20 text-white group-hover:text-amber-200 transition-all">
+                        <i data-lucide="navigation" class="w-4 h-4"></i>
+                    </div>
+                </button>
+
+            </div>
 
         </div>
 
@@ -525,10 +553,83 @@
     <script>
         lucide.createIcons();
 
+        // BGM Audio Controller Logic
+        const bgmAudio = document.getElementById('bgmAudio');
+        const btnToggleBGM = document.getElementById('btnToggleBGM');
+        const bgmIcon = document.getElementById('bgmIcon');
+        const bgmVolIcon = document.getElementById('bgmVolIcon');
+        const bgmTitle = document.getElementById('bgmTitle');
+        const bgmPing = document.getElementById('bgmPing');
+
+        bgmAudio.volume = 0.35; // Default ambient volume
+        let isBgmPlaying = false;
+
+        function playBGM() {
+            bgmAudio.play().then(() => {
+                isBgmPlaying = true;
+                updateBgmUI();
+            }).catch(err => {
+                console.log('Autoplay ditunda oleh peramban:', err);
+                isBgmPlaying = false;
+                updateBgmUI();
+            });
+        }
+
+        function pauseBGM() {
+            bgmAudio.pause();
+            isBgmPlaying = false;
+            updateBgmUI();
+        }
+
+        function toggleBGM() {
+            if (isBgmPlaying) {
+                pauseBGM();
+            } else {
+                playBGM();
+            }
+        }
+
+        function updateBgmUI() {
+            if (isBgmPlaying) {
+                bgmIcon.classList.add('animate-spin-slow');
+                bgmIcon.setAttribute('data-lucide', 'disc');
+                bgmVolIcon.setAttribute('data-lucide', 'volume-2');
+                bgmTitle.innerText = 'Garden Harmony';
+                bgmPing.classList.remove('hidden');
+            } else {
+                bgmIcon.classList.remove('animate-spin-slow');
+                bgmIcon.setAttribute('data-lucide', 'disc-3');
+                bgmVolIcon.setAttribute('data-lucide', 'volume-x');
+                bgmTitle.innerText = 'BGM Paused';
+                bgmPing.classList.add('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        // Auto-play BGM pada gestur pertama pengguna (agar sesuai dengan kebijakan browser)
+        function initAutoplayOnGesture() {
+            if (!isBgmPlaying) {
+                playBGM();
+            }
+            window.removeEventListener('click', initAutoplayOnGesture);
+            window.removeEventListener('touchstart', initAutoplayOnGesture);
+            window.removeEventListener('keydown', initAutoplayOnGesture);
+        }
+
+        window.addEventListener('click', initAutoplayOnGesture, { once: true });
+        window.addEventListener('touchstart', initAutoplayOnGesture, { once: true });
+        window.addEventListener('keydown', initAutoplayOnGesture, { once: true });
+
+        btnToggleBGM.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleBGM();
+            playChime(600);
+        });
+
         // Location State
         let currentLocation = 'sweet_garden';
 
-        // Master Locations Data (Dengan Foto Unsplash Relevan + Biaya & Countdown Transportasi)
+        // Master Locations Data
         const LOCATIONS_DATA = [
             {
                 id: 'sweet_garden',
@@ -718,9 +819,8 @@
                         </div>
                     </div>
 
-                    <!-- Transport Buttons (Kereta Bawah Tanah & Taksi) -->
+                    <!-- Transport Buttons -->
                     <div class="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end mt-2 sm:mt-0">
-                        <!-- Left: Kereta Bawah Tanah (Gratis, 30 Detik) -->
                         <button onclick="startTravel('${loc.id}', 'subway')" ${isCurrent ? 'disabled' : ''} 
                                 class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed border border-white/20 text-white font-semibold text-xs flex flex-col items-center gap-0.5 transition-all">
                             <div class="flex items-center gap-1.5 text-stone-200">
@@ -730,7 +830,6 @@
                             <span class="text-[9px] text-emerald-300 font-medium">Gratis • 30s</span>
                         </button>
 
-                        <!-- Right: Naik Taksi (Berbayar, 15 Detik) -->
                         <button onclick="startTravel('${loc.id}', 'taxi')" ${isCurrent ? 'disabled' : ''} 
                                 class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-stone-900 font-bold text-xs flex flex-col items-center gap-0.5 shadow-lg transition-all">
                             <div class="flex items-center gap-1.5">
@@ -765,7 +864,7 @@
         btnOpenLocationModal.addEventListener('click', openLocationModal);
         btnCloseLocationModal.addEventListener('click', closeLocationModal);
 
-        // Sistem Perjalanan / Travelling (Taksi vs Kereta Bawah Tanah)
+        // Sistem Perjalanan / Travelling
         function startTravel(targetLocId, transportType) {
             const targetLoc = LOCATIONS_DATA.find(l => l.id === targetLocId);
             if (!targetLoc) return;
@@ -780,14 +879,12 @@
             const fare = isTaxi ? targetLoc.taxiFare : 0;
             const durationSec = isTaxi ? targetLoc.taxiDuration : targetLoc.subwayDuration;
 
-            // Pengecekan Koin jika naik Taksi
             if (isTaxi && characterStats.coins < fare) {
                 addLogEntry('Koin Tidak Cukup', `Dibutuhkan ${fare} Koin untuk naik taksi ke ${targetLoc.name}!`, 'coins', 'text-rose-200', 'border-l-rose-500');
                 playChime(220);
                 return;
             }
 
-            // Potong Koin jika Taksi
             if (isTaxi) {
                 characterStats.coins -= fare;
                 updateStatsUI();
@@ -974,12 +1071,10 @@
         }
 
         function updateStatsUI() {
-            // Coins & Energi
             document.getElementById('statCoinsVal').innerText = characterStats.coins;
             document.getElementById('statEnergiVal').innerText = `${characterStats.energy}/100`;
             document.getElementById('statEnergiBar').style.width = `${characterStats.energy}%`;
 
-            // Stats Loop
             ['kebahagiaan', 'fisik', 'kecerdasan', 'sosialisasi'].forEach(st => {
                 const lvl = characterStats[st].level;
                 const currentXp = characterStats[st].xp;
@@ -1234,4 +1329,3 @@
     </script>
 </body>
 </html>
-
