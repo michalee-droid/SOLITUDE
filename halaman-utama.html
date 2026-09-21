@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Garden - Management Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        warm: {
+                            50: '#fdfbf7',
+                            100: '#f7f2e8',
+                            200: '#efe3d0',
+                            300: '#e3cdb0',
+                            400: '#d5b38d',
+                            500: '#c5976b',
+                            600: '#b07f55',
+                            700: '#926343',
+                            800: '#77503a',
+                            900: '#614232',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-in-left': 'slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-20px) scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'translateX(0) scale(1)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 10px rgba(255, 235, 205, 0.4))' },
+                            '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 20px rgba(255, 245, 225, 0.7))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Background Styling */
+        .bg-sweet-garden {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.15) 0%, rgba(30, 20, 18, 0.5) 100%),
+                linear-gradient(to bottom, rgba(15, 12, 10, 0.15), rgba(10, 8, 7, 0.45)),
+                url('https://ik.imagekit.io/mfpxrfubq/aset_game/sweet_garden');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.18),
+                inset 0 1px 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Interactive Glass Buttons */
+        .glass-btn-primary {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 242, 232, 0.85) 100%);
+            color: #4a3525;
+            box-shadow: 
+                0 10px 25px -5px rgba(255, 255, 255, 0.3),
+                0 8px 15px -6px rgba(0, 0, 0, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-btn-primary:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 
+                0 15px 30px -5px rgba(255, 255, 255, 0.45),
+                0 0 20px rgba(255, 248, 230, 0.6),
+                inset 0 1px 1px rgba(255, 255, 255, 1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 248, 235, 0.95) 100%);
+        }
+
+        .glass-btn-action {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-btn-action:hover {
+            background: rgba(255, 255, 255, 0.38);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .glass-btn-action:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 15px rgba(255, 250, 240, 0.7), 0 0 30px rgba(255, 235, 205, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-sweet-garden min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative">
+
+    <!-- Interactive Background Particle Canvas -->
+    <canvas id="bokehCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-80"></canvas>
+
+    <!-- UI LAYER (Z-INDEX 10) -->
+    <div class="relative z-10 w-full h-screen p-4 sm:p-6 flex flex-col justify-between pointer-events-none">
+
+        <!-- TOP ROW: Location Name (Right) + Character Stats (Center/Left) -->
+        <div class="w-full flex items-start justify-between pointer-events-auto">
+            
+            <!-- TOP-LEFT: Activity Log Title Header + Status Mini Card -->
+            <div class="flex flex-col gap-2">
+                <!-- Character Status Bar -->
+                <div class="glass-pill rounded-2xl px-4 py-2.5 flex items-center gap-4 text-xs font-medium text-white">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-full bg-amber-100/20 border border-white/40 flex items-center justify-center text-amber-200">
+                            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] text-stone-300 uppercase tracking-wider">Karakter</span>
+                            <span class="font-bold text-white">Aria</span>
+                        </div>
+                    </div>
+                    <div class="h-6 w-px bg-white/20"></div>
+                    <!-- Stat 1: Energi -->
+                    <div class="flex flex-col gap-0.5">
+                        <div class="flex justify-between text-[10px] text-stone-200 gap-2">
+                            <span>Energi</span>
+                            <span id="statEnergiVal" class="font-bold text-amber-200">85%</span>
+                        </div>
+                        <div class="w-20 bg-black/20 h-1.5 rounded-full overflow-hidden border border-white/10">
+                            <div id="statEnergiBar" class="bg-gradient-to-r from-amber-300 to-amber-100 h-full rounded-full transition-all duration-500" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <!-- Stat 2: Ketenangan -->
+                    <div class="flex flex-col gap-0.5">
+                        <div class="flex justify-between text-[10px] text-stone-200 gap-2">
+                            <span>Ketenangan</span>
+                            <span id="statCalmVal" class="font-bold text-emerald-200">92%</span>
+                        </div>
+                        <div class="w-20 bg-black/20 h-1.5 rounded-full overflow-hidden border border-white/10">
+                            <div id="statCalmBar" class="bg-gradient-to-r from-emerald-300 to-teal-100 h-full rounded-full transition-all duration-500" style="width: 92%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOP-RIGHT: Location Name Badge -->
+            <div id="locationBadge" class="glass-panel rounded-2xl px-5 py-3 flex items-center gap-3 shadow-xl hover:bg-white/25 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-white/20 border border-white/40 flex items-center justify-center text-amber-100 shadow-sm animate-pulse-glow">
+                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-amber-100/90">Lokasi Saat Ini</span>
+                    </div>
+                    <h1 class="font-serif text-2xl font-bold text-white drop-shadow tracking-wide leading-none mt-0.5">Sweet Garden</h1>
+                    <span class="text-[11px] text-stone-200/80 font-light mt-0.5">Sanctuary of Serenity • 24°C Cerah</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MIDDLE-LEFT: Activity Log (Jurnal Kegiatan) - Spanning Top-Left to Mid-Left -->
+        <div class="absolute top-20 left-4 sm:left-6 w-80 sm:w-96 max-h-[55vh] flex flex-col pointer-events-auto z-20">
+            <div class="glass-panel rounded-3xl p-4 sm:p-5 flex flex-col h-full shadow-2xl relative overflow-hidden">
+                
+                <!-- Log Header -->
+                <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/20">
+                    <div class="flex items-center gap-2.5">
+                        <div class="p-2 rounded-xl bg-white/20 text-amber-100 border border-white/30">
+                            <i data-lucide="book-open" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-serif text-lg font-bold text-white tracking-wide leading-tight">Jurnal Kegiatan</h2>
+                            <p class="text-[10px] text-stone-200/80">Catatan tindakan di lokasi ini</p>
+                        </div>
+                    </div>
+                    <!-- Clear Log Button -->
+                    <button id="btnClearLogs" class="text-[11px] text-stone-300 hover:text-white bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-lg border border-white/20 transition-all flex items-center gap-1">
+                        <i data-lucide="trash-2" class="w-3 h-3"></i>
+                        <span>Bersihkan</span>
+                    </button>
+                </div>
+
+                <!-- Scrollable Log List -->
+                <div id="logList" class="flex flex-col gap-2.5 overflow-y-auto custom-scrollbar pr-1 max-h-[42vh]">
+                    <!-- Initial Welcome Log -->
+                    <div class="glass-pill rounded-xl p-3 flex items-start gap-3 animate-slide-in-left border-l-4 border-l-amber-200">
+                        <div class="p-1.5 rounded-lg bg-amber-200/20 text-amber-100 mt-0.5 shrink-0">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between text-[10px] text-stone-300 mb-0.5">
+                                <span class="font-semibold text-amber-200">Sistem</span>
+                                <span class="opacity-80" id="initialTime">12:00</span>
+                            </div>
+                            <p class="text-xs text-white/90 leading-snug">Memasuki kawasan Sweet Garden. Atmosfer terasa sangat menenangkan.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CENTER AREA IS INTENTIONALLY EMPTY FOR UNOBSTRUCTED VIEW OF THE GARDEN -->
+
+        <!-- BOTTOM-RIGHT: Action Control Bar & Expandable Horizontal Tray -->
+        <div class="w-full flex items-center justify-end pointer-events-auto z-30">
+            <div class="flex items-center gap-3 relative">
+
+                <!-- Horizontal Slide-Out Actions Tray (Expands to LEFT) -->
+                <div id="actionsTray" class="flex items-center gap-2 max-w-0 opacity-0 overflow-hidden transition-all duration-500 ease-out whitespace-nowrap py-2 px-1">
+                    
+                    <!-- Action Button 1: Menyiram Bunga -->
+                    <button data-action="water" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-blue-400/20 text-blue-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="droplets" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold">Menyiram Bunga</span>
+                            <span class="text-[9px] text-amber-200/90 block">+5 Ketenangan</span>
+                        </div>
+                    </button>
+
+                    <!-- Action Button 2: Minum Teh -->
+                    <button data-action="tea" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-amber-400/20 text-amber-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="coffee" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold">Minum Teh</span>
+                            <span class="text-[9px] text-amber-200/90 block">+10 Energi</span>
+                        </div>
+                    </button>
+
+                    <!-- Action Button 3: Memetik Buah -->
+                    <button data-action="harvest" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-rose-400/20 text-rose-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="apple" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold">Memetik Buah</span>
+                            <span class="text-[9px] text-amber-200/90 block">+8 Kebahagiaan</span>
+                        </div>
+                    </button>
+
+                    <!-- Action Button 4: Merawat Tanaman -->
+                    <button data-action="trim" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-emerald-400/20 text-emerald-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="scissors" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold">Merawat Tanaman</span>
+                            <span class="text-[9px] text-amber-200/90 block">+6 Keasrian</span>
+                        </div>
+                    </button>
+
+                    <!-- Action Button 5: Bersantai -->
+                    <button data-action="relax" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-amber-200/20 text-amber-100 group-hover:scale-110 transition-transform">
+                            <i data-lucide="sun" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold">Bersantai</span>
+                            <span class="text-[9px] text-amber-200/90 block">+15 Ketenangan</span>
+                        </div>
+                    </button>
+
+                    <!-- Action Button 6: Membaca Buku -->
+                    <button data-action="read" class="glass-btn-action px-4 py-3 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0">
+                        <div class="p-2 rounded-xl bg-purple-400/20 text-purple-200 group-hover:scale-110 transition-transform">
+                            <i data-lucide="book-open" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold">Membaca Buku</span>
+                            <span class="text-[9px] text-amber-200/90 block">+12 Inspirasi</span>
+                        </div>
+                    </button>
+
+                </div>
+
+                <!-- Main Floating Toggle Trigger Button ("Kegiatan") -->
+                <button id="toggleActionsBtn" class="glass-btn-primary px-6 py-4 rounded-3xl flex items-center gap-3 font-semibold text-sm tracking-wide shadow-2xl relative group shrink-0 border border-white/60">
+                    <div class="w-7 h-7 rounded-full bg-amber-200/40 flex items-center justify-center text-amber-900 group-hover:rotate-12 transition-transform">
+                        <i data-lucide="sparkles" id="actionBtnIcon" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-bold">Kegiatan</span>
+                    <i data-lucide="chevron-left" id="actionChevron" class="w-4 h-4 text-amber-800 transition-transform duration-300"></i>
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Update Initial Time Timestamp
+        const now = new Date();
+        document.getElementById('initialTime').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Action Data Definitions
+        const ACTIONS_CONFIG = {
+            water: {
+                title: 'Menyiram Bunga',
+                icon: 'droplets',
+                color: 'text-blue-200',
+                borderColor: 'border-l-blue-300',
+                desc: 'Aria menyiram bunga mawar & melati yang bermekaran segar.',
+                statType: 'calm',
+                statAmount: 5,
+                pitch: 523.25 // High C note chime
+            },
+            tea: {
+                title: 'Minum Teh',
+                icon: 'coffee',
+                color: 'text-amber-200',
+                borderColor: 'border-l-amber-300',
+                desc: 'Aria menikmati cangkir teh chamomile hangat di sudut taman.',
+                statType: 'energy',
+                statAmount: 10,
+                pitch: 329.63 // E note
+            },
+            harvest: {
+                title: 'Memetik Buah',
+                icon: 'apple',
+                color: 'text-rose-200',
+                borderColor: 'border-l-rose-300',
+                desc: 'Aria memetik buah apel segar yang ranum dari dahan.',
+                statType: 'energy',
+                statAmount: 8,
+                pitch: 392.00 // G note
+            },
+            trim: {
+                title: 'Merawat Tanaman',
+                icon: 'scissors',
+                color: 'text-emerald-200',
+                borderColor: 'border-l-emerald-300',
+                desc: 'Aria merapikan dedaunan dan merawat tangkai tanaman.',
+                statType: 'calm',
+                statAmount: 6,
+                pitch: 440.00 // A note
+            },
+            relax: {
+                title: 'Bersantai',
+                icon: 'sun',
+                color: 'text-amber-100',
+                borderColor: 'border-l-amber-200',
+                desc: 'Aria duduk bersantai sambil mendengarkan desir angin lembut.',
+                statType: 'calm',
+                statAmount: 15,
+                pitch: 261.63 // C note
+            },
+            read: {
+                title: 'Membaca Buku',
+                icon: 'book-open',
+                color: 'text-purple-200',
+                borderColor: 'border-l-purple-300',
+                desc: 'Aria membaca bab cerita favorit di bawah naungan pohon.',
+                statType: 'calm',
+                statAmount: 12,
+                pitch: 349.23 // F note
+            }
+        };
+
+        // Character Stats State
+        let characterStats = {
+            energy: 85,
+            calm: 92
+        };
+
+        // Web Audio Synthesizer for Touch Feedback Sound
+        let audioCtx = null;
+        function playChime(freq = 440) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.25);
+            } catch(e) {
+                console.log('Audio Context restricted or not supported.');
+            }
+        }
+
+        // Toggle Actions Tray Expansion (Slide to Left)
+        const toggleActionsBtn = document.getElementById('toggleActionsBtn');
+        const actionsTray = document.getElementById('actionsTray');
+        const actionChevron = document.getElementById('actionChevron');
+        let isTrayOpen = false;
+
+        toggleActionsBtn.addEventListener('click', () => {
+            isTrayOpen = !isTrayOpen;
+            playChime(isTrayOpen ? 523.25 : 329.63);
+
+            if (isTrayOpen) {
+                actionsTray.classList.remove('max-w-0', 'opacity-0');
+                actionsTray.classList.add('max-w-[80vw]', 'sm:max-w-4xl', 'opacity-100');
+                actionChevron.style.transform = 'rotate(180deg)';
+            } else {
+                actionsTray.classList.remove('max-w-[80vw]', 'sm:max-w-4xl', 'opacity-100');
+                actionsTray.classList.add('max-w-0', 'opacity-0');
+                actionChevron.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Add Log Item Function
+        const logList = document.getElementById('logList');
+
+        function addActivityLog(actionKey) {
+            const config = ACTIONS_CONFIG[actionKey];
+            if (!config) return;
+
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            // Create Log Element
+            const logCard = document.createElement('div');
+            logCard.className = `glass-pill rounded-xl p-3 flex items-start gap-3 animate-slide-in-left border-l-4 ${config.borderColor} transition-all hover:bg-white/30`;
+
+            logCard.innerHTML = `
+                <div class="p-1.5 rounded-lg bg-white/20 ${config.color} mt-0.5 shrink-0">
+                    <i data-lucide="${config.icon}" class="w-3.5 h-3.5"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between text-[10px] text-stone-300 mb-0.5">
+                        <span class="font-semibold text-white">${config.title}</span>
+                        <span class="opacity-80">${timeStr}</span>
+                    </div>
+                    <p class="text-xs text-white/90 leading-snug">${config.desc}</p>
+                </div>
+            `;
+
+            // Insert at the top of the log list
+            logList.insertBefore(logCard, logList.firstChild);
+            lucide.createIcons();
+
+            // Sound feedback
+            playChime(config.pitch);
+
+            // Update Stats
+            if (config.statType === 'energy') {
+                characterStats.energy = Math.min(100, characterStats.energy + config.statAmount);
+            } else if (config.statType === 'calm') {
+                characterStats.calm = Math.min(100, characterStats.calm + config.statAmount);
+            }
+            updateStatsUI();
+        }
+
+        // Update Stats UI
+        function updateStatsUI() {
+            const energyVal = document.getElementById('statEnergiVal');
+            const energyBar = document.getElementById('statEnergiBar');
+            const calmVal = document.getElementById('statCalmVal');
+            const calmBar = document.getElementById('statCalmBar');
+
+            energyVal.innerText = `${characterStats.energy}%`;
+            energyBar.style.width = `${characterStats.energy}%`;
+
+            calmVal.innerText = `${characterStats.calm}%`;
+            calmBar.style.width = `${characterStats.calm}%`;
+        }
+
+        // Action Buttons Event Listeners
+        document.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const actionKey = btn.getAttribute('data-action');
+                addActivityLog(actionKey);
+            });
+        });
+
+        // Clear Logs Listener
+        document.getElementById('btnClearLogs').addEventListener('click', () => {
+            logList.innerHTML = '';
+            playChime(220);
+        });
+
+        // Canvas Ambient Bokeh Particle System
+        const canvas = document.getElementById('bokehCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 28;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 50;
+                this.size = Math.random() * 3.5 + 1;
+                this.speedY = Math.random() * 0.4 + 0.15;
+                this.speedX = (Math.random() - 0.5) * 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.pulseSpeed = Math.random() * 0.02 + 0.005;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.opacity += Math.sin(Date.now() * this.pulseSpeed) * 0.002;
+
+                if (this.y < -20 || this.x < -20 || this.x > canvas.width + 20) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 245, 220, ${Math.max(0, Math.min(1, this.opacity))})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = 'rgba(255, 230, 170, 0.7)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
