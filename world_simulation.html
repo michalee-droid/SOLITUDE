@@ -269,64 +269,13 @@
     <!-- Floating XP Container -->
     <div id="xpFloatContainer" class="fixed inset-0 pointer-events-none z-50"></div>
 
-    <!-- TAHAP 1: SCREEN LOGIN / PENDAFTARAN MANDIRI -->
-    <div id="screenLogin" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-2xl transition-all duration-700">
-        <div class="glass-modal-transparent rounded-3xl p-6 sm:p-10 max-w-lg w-full flex flex-col border border-white/20 shadow-2xl relative overflow-hidden">
-            
-            <div class="absolute -top-16 -right-16 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-16 -left-16 w-40 h-40 bg-emerald-400/20 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- UI LAYER UTAMA GAME (LANGSUNG TAMPIL DENGAN DILENGKAPI POINTER-EVENTS-AUTO DAN OPACITY-100) -->
+    <div id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 flex flex-col justify-between pointer-events-auto opacity-100 transition-opacity duration-700">
 
-            <div class="text-center mb-6 relative z-10">
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-400/30 to-amber-200/10 border border-amber-300/50 flex items-center justify-center text-amber-200 mx-auto mb-3 shadow-lg animate-pulse-glow">
-                    <i data-lucide="user-check" class="w-8 h-8"></i>
-                </div>
-                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white tracking-wide text-glow-shadow">Portal Pemain</h2>
-                <p class="text-xs sm:text-sm text-amber-200/90 mt-1">Sistem Simulasi Kehidupan • Tahap Adaptasi Versi Beta</p>
-            </div>
-
-            <form id="formLogin" class="flex flex-col gap-4 relative z-10">
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Nama Karakter</label>
-                    <div class="relative">
-                        <i data-lucide="user" class="w-4 h-4 absolute left-3.5 top-3 text-amber-300/80"></i>
-                        <input type="text" id="inputNama" required placeholder="Masukkan nama kamu..." class="w-full bg-black/40 border border-white/25 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-amber-300 transition-colors">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Jenis Kelamin</label>
-                        <select id="inputGender" required class="w-full bg-black/40 border border-white/25 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-300 transition-colors">
-                            <option value="Laki-Laki" class="bg-stone-900 text-white">Laki-Laki</option>
-                            <option value="Perempuan" class="bg-stone-900 text-white">Perempuan</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Kota Kelahiran</label>
-                        <input type="text" id="inputTempatLahir" required placeholder="Contoh: Jakarta" class="w-full bg-black/40 border border-white/25 rounded-xl px-3 py-2.5 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-amber-300 transition-colors">
-                    </div>
-                </div>
-
-                <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-300/20 text-xs text-amber-200 flex items-start gap-2.5 mt-1">
-                    <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5 text-amber-300"></i>
-                    <span>Setiap pemain baru mendapatkan modal awal <strong>Rp 150</strong> untuk modal hidup dan ongkos transportasi.</span>
-                </div>
-
-                <button type="submit" class="glass-btn-primary w-full py-3.5 rounded-2xl font-bold text-sm tracking-wide mt-3 flex items-center justify-center gap-2.5 shadow-xl cursor-pointer">
-                    <i data-lucide="play" class="w-4 h-4 text-amber-900 fill-amber-900"></i>
-                    <span>Masuk Ke Permainan</span>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- UI LAYER UTAMA GAME -->
-    <div id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 flex flex-col justify-between pointer-events-none opacity-0 transition-opacity duration-700">
-
-        <!-- TOP BAR: Character Stats + BGM Control (Tombol Lokasi dihapus sesuai permintaan) -->
+        <!-- TOP BAR: Character Stats + BGM Control -->
         <div class="w-full flex items-start justify-between pointer-events-auto flex-wrap sm:flex-nowrap gap-3">
             
-            <!-- TOP-LEFT: Character Stats Status Bar (2 BARIS STATS) -->
+            <!-- TOP-LEFT: Character Stats Status Bar -->
             <div class="glass-pill rounded-2xl p-3 flex flex-col gap-2 text-xs font-medium text-white max-w-full overflow-x-auto custom-scrollbar">
                 
                 <!-- Info Karakter & Uang Header -->
@@ -337,7 +286,7 @@
                         </div>
                         <div>
                             <span id="charNameDisplay" class="font-bold text-white text-xs block leading-none">Pemain</span>
-                            <span id="charMetaDisplay" class="text-[9px] text-stone-300">17 Tahun (Beta)</span>
+                            <span id="charMetaDisplay" class="text-[9px] text-stone-300">Laki-Laki • Jakarta</span>
                         </div>
                     </div>
 
@@ -477,10 +426,10 @@
             <div id="journalStack" class="journal-stack-container flex flex-col gap-2 relative min-h-[180px] w-full"></div>
         </div>
 
-        <!-- BOTTOM-RIGHT: Control Group (Pusat Ruangan di atas Aktivitas & Smartphone) -->
+        <!-- BOTTOM-RIGHT: Control Group -->
         <div class="w-full flex flex-col items-end gap-2.5 pointer-events-auto z-30">
             
-            <!-- TOMBOL PUSAT RUANGAN (Dipindahkan tepat di atas tombol Aktivitas, disembunyikan jika di luar rumah) -->
+            <!-- TOMBOL PUSAT RUANGAN -->
             <div id="centralRoomControl" class="flex justify-end">
                 <button id="btnOpenRoomMenu" class="glass-btn-primary px-5 py-2.5 rounded-2xl flex items-center gap-2.5 shadow-2xl border border-white/60 hover:scale-105 transition-all cursor-pointer">
                     <div class="p-1.5 rounded-xl bg-amber-400/30 text-amber-900">
@@ -499,7 +448,6 @@
                 
                 <!-- Tray Aktivitas Dinamis -->
                 <div id="actionsTray" class="flex items-center gap-2 max-w-0 opacity-0 overflow-x-auto custom-scrollbar transition-all duration-500 ease-out whitespace-nowrap py-1 px-1">
-                    <!-- Tombol-tombol aksi dinamis akan dirender di sini via JS -->
                 </div>
 
                 <!-- Tombol Aktivitas Ruangan -->
@@ -511,7 +459,7 @@
                     <i data-lucide="chevron-left" id="actionChevron" class="w-4 h-4 text-amber-800 transition-transform duration-300"></i>
                 </button>
 
-                <!-- TOMBOL SMARTPHONE INTERAKTIF (BARU) -->
+                <!-- TOMBOL SMARTPHONE INTERAKTIF -->
                 <button id="btnOpenSmartphone" class="glass-btn-primary px-4 sm:px-5 py-3 rounded-2xl flex items-center gap-2.5 font-bold text-xs sm:text-sm tracking-wide shadow-2xl relative group shrink-0 border border-white/60 cursor-pointer bg-gradient-to-r from-stone-900 to-stone-800 text-white hover:text-amber-200">
                     <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-stone-900 shadow-md group-hover:scale-110 transition-transform">
                         <i data-lucide="smartphone" class="w-4 h-4"></i>
@@ -546,7 +494,6 @@
             </div>
 
             <div id="roomsGridContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-[60vh] overflow-y-auto custom-scrollbar p-1">
-                <!-- Room buttons rendered dynamically -->
             </div>
 
         </div>
@@ -665,7 +612,6 @@
 
                     <!-- App Content Container Body -->
                     <div id="phoneAppBody" class="flex-1 overflow-y-auto custom-scrollbar p-4 text-xs">
-                        <!-- Content inserted dynamically -->
                     </div>
 
                 </div>
@@ -685,7 +631,7 @@
         </div>
     </div>
 
-    <!-- INTERACTIVE COUNTDOWN MODAL (TAHAN 1 DETIK UNTUK BATAL) -->
+    <!-- INTERACTIVE COUNTDOWN MODAL -->
     <div id="activityModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
         <div id="activityModalCard" class="glass-modal-transparent rounded-3xl p-6 sm:p-8 max-w-md w-full flex flex-col items-center text-center transform scale-90 transition-all duration-300 ease-out relative overflow-hidden">
             
@@ -783,11 +729,11 @@
             playChime(600);
         });
 
-        // Player Data State
+        // Player Data State Default
         let player = {
-            nama: '',
-            gender: '',
-            tempatLahir: '',
+            nama: 'Pemain',
+            gender: 'Laki-Laki',
+            tempatLahir: 'Jakarta',
             umur: 17,
             uang: 150,
             
@@ -1099,32 +1045,52 @@
             }
         };
 
-        // Form Login Submission
-        document.getElementById('formLogin').addEventListener('submit', function(e) {
-            e.preventDefault();
-            player.nama = document.getElementById('inputNama').value;
-            player.gender = document.getElementById('inputGender').value;
-            player.tempatLahir = document.getElementById('inputTempatLahir').value;
-
-            document.getElementById('screenLogin').classList.add('opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                document.getElementById('screenLogin').style.display = 'none';
-                const mainUI = document.getElementById('mainGameUI');
-                mainUI.classList.remove('opacity-0');
-                mainUI.classList.add('opacity-100');
-            }, 700);
-
+        // INISIALISASI GAME DENGAN KARAKTER DEFAULT
+        window.addEventListener('DOMContentLoaded', () => {
             updatePlayerInfoUI();
             updateStatsUI();
             updateLocationUI();
-
             addLogEntry('Permainan Dimulai', `Selamat datang ${player.nama}! Memulai simulasi di umur 17 tahun.`, 'sparkles', 'text-amber-200', 'border-l-amber-300');
             playBGM();
         });
 
         function updatePlayerInfoUI() {
-            document.getElementById('charNameDisplay').innerText = player.nama || 'Pemain';
+            document.getElementById('charNameDisplay').innerText = player.nama;
             document.getElementById('charMetaDisplay').innerText = `${player.gender} • ${player.tempatLahir}`;
+        }
+
+        function updateStatsUI() {
+            document.getElementById('statUangVal').innerText = `Rp ${player.uang}`;
+            
+            // Energi
+            document.getElementById('statEnergiVal').innerText = `${player.energi}/100`;
+            document.getElementById('statEnergiBar').style.width = `${player.energi}%`;
+            
+            // Kesegaran
+            document.getElementById('statKesegaranVal').innerText = `${player.kesegaran}/100`;
+            document.getElementById('statKesegaranBar').style.width = `${player.kesegaran}%`;
+
+            // Kebahagiaan
+            document.getElementById('statKebahagiaanVal').innerText = `${player.kebahagiaan}/100`;
+            document.getElementById('statKebahagiaanBar').style.width = `${player.kebahagiaan}%`;
+
+            // Fisik
+            document.getElementById('statFisikVal').innerText = `Lv. ${player.fisik.level}`;
+            let reqFisik = getRequiredXP(player.fisik.level);
+            document.getElementById('statFisikBar').style.width = `${(player.fisik.xp / reqFisik) * 100}%`;
+            document.getElementById('statFisikXpText').innerText = `${player.fisik.xp}/${reqFisik} XP`;
+
+            // Kecerdasan
+            document.getElementById('statKecerdasanVal').innerText = `Lv. ${player.kecerdasan.level}`;
+            let reqKecerdasan = getRequiredXP(player.kecerdasan.level);
+            document.getElementById('statKecerdasanBar').style.width = `${(player.kecerdasan.xp / reqKecerdasan) * 100}%`;
+            document.getElementById('statKecerdasanXpText').innerText = `${player.kecerdasan.xp}/${reqKecerdasan} XP`;
+
+            // Sosial
+            document.getElementById('statSosialVal').innerText = `Lv. ${player.sosial.level}`;
+            let reqSosial = getRequiredXP(player.sosial.level);
+            document.getElementById('statSosialBar').style.width = `${(player.sosial.xp / reqSosial) * 100}%`;
+            document.getElementById('statSosialXpText').innerText = `${player.sosial.xp}/${reqSosial} XP`;
         }
 
         // PERPINDAHAN RUANGAN DI DALAM RUMAH
@@ -1170,22 +1136,18 @@
             const currentLocNameText = document.getElementById('currentLocNameText');
 
             if (currentLocation === 'rumah_saya') {
-                // TAMPILKAN TOMBOL PUSAT RUANGAN JIKA DI RUMAH SAYA
                 centralRoomCtrl.style.display = 'flex';
                 const curRoom = HOUSE_ROOMS[currentHouseRoom];
                 document.getElementById('currentRoomNameDisplay').innerText = curRoom.name;
                 currentLocNameText.innerText = `Rumah Saya • ${curRoom.name}`;
 
-                // BACKGROUND BERUBAH TERGANTUNG RUANGAN
                 document.getElementById('bodyBg').className = `bg-room-${currentHouseRoom} bg-dynamic min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative`;
             } else {
-                // SEMBUNYIKAN TOMBOL PUSAT RUANGAN JIKA DI LUAR RUMAH
                 centralRoomCtrl.style.display = 'none';
                 document.getElementById('bodyBg').className = locObj.bgClass;
                 currentLocNameText.innerText = `${locObj.name} • Luar Rumah`;
             }
 
-            // Render Tray Aktivitas
             renderActionTray();
         }
 
@@ -1282,7 +1244,7 @@
             lucide.createIcons();
         }
 
-        // LOGIK FITUR SMARTPHONE INTERAKTIF
+        // SMARTPHONE INTERAKTIF
         const smartphoneModal = document.getElementById('smartphoneModal');
         const smartphoneCard = document.getElementById('smartphoneCard');
         const phoneHomeScreen = document.getElementById('phoneHomeScreen');
@@ -1306,7 +1268,7 @@
             smartphoneModal.classList.remove('opacity-0', 'pointer-events-none');
             smartphoneCard.classList.remove('scale-90');
             smartphoneCard.classList.add('scale-100');
-            closePhoneApp(); // Pastikan kembali ke Home Screen HP saat dibuka
+            closePhoneApp();
             playChime(659.25);
         }
 
@@ -1328,7 +1290,6 @@
         document.getElementById('btnOpenSmartphone').addEventListener('click', openSmartphoneModal);
         document.getElementById('btnCloseSmartphone').addEventListener('click', closeSmartphoneModal);
 
-        // Buka Aplikasi di Layar Smartphone
         function openPhoneApp(appId) {
             activePhoneApp = appId;
             phoneHomeScreen.classList.add('hidden');
@@ -1364,7 +1325,7 @@
             playChime(440);
         }
 
-        // 1. APP PETA & TRAVEL DI HP
+        // 1. APP PETA
         function renderPhoneAppPeta() {
             phoneAppBody.innerHTML = `
                 <div class="flex flex-col gap-3">
@@ -1405,7 +1366,7 @@
             `;
         }
 
-        // 2. APP E-WALLET DI HP
+        // 2. APP WALLET
         function renderPhoneAppWallet() {
             phoneAppBody.innerHTML = `
                 <div class="flex flex-col gap-3">
@@ -1433,7 +1394,7 @@
                                     </div>
                                 </div>
                                 <span class="font-bold ${m.type === 'in' ? 'text-emerald-400' : 'text-red-400'}">
-                                    ${m.type === 'in' ? '+' : '-'}Rp ${m.amount}
+                                    ${m.type === 'in' ? '+' : '-'}Rp${m.amount}
                                 </span>
                             </div>
                         `).join('')}
@@ -1442,7 +1403,7 @@
             `;
         }
 
-        // 3. APP CHAT UTBK DI HP
+        // 3. APP CHAT
         function renderPhoneAppChat() {
             phoneAppBody.innerHTML = `
                 <div class="flex flex-col gap-3">
@@ -1468,7 +1429,7 @@
             `;
         }
 
-        // 4. APP PROFIL KARAKTER DI HP
+        // 4. APP PROFIL
         function renderPhoneAppProfil() {
             phoneAppBody.innerHTML = `
                 <div class="flex flex-col gap-3 text-center">
@@ -1500,7 +1461,7 @@
             `;
         }
 
-        // 5. APP MUSIK BGM DI HP
+        // 5. APP MUSIK
         function renderPhoneAppMusik() {
             phoneAppBody.innerHTML = `
                 <div class="flex flex-col items-center text-center gap-4 py-2">
@@ -1521,7 +1482,7 @@
             `;
         }
 
-        // 6. APP CUACA DI HP
+        // 6. APP CUACA
         function renderPhoneAppCuaca() {
             phoneAppBody.innerHTML = `
                 <div class="flex flex-col gap-3 text-center">
@@ -1672,27 +1633,17 @@
             journalStack.innerHTML = '';
             journalLogs.forEach((log, index) => {
                 const item = document.createElement('div');
-                item.className = `journal-entry flex items-start gap-3 border-l-2 ${log.borderClass} pl-3 py-1.5 my-0.5 w-full`;
-
-                const offsetY = index * -6;
-                const scale = Math.max(0.75, 1 - index * 0.05);
-                const opacity = Math.max(0.2, 1 - index * 0.18);
-                const blur = index * 0.8;
-
-                item.style.transform = `translate3d(0, ${offsetY}px, -${index * 25}px) scale(${scale})`;
-                item.style.opacity = opacity;
-                item.style.filter = `blur(${blur}px)`;
-
+                item.className = `journal-entry flex items-start gap-3 border-l-2 ${log.borderClass} pl-3 py-1.5 my-0.5 w-full bg-black/25 rounded-r-xl backdrop-blur-sm border-t border-b border-r border-white/10`;
                 item.innerHTML = `
-                    <div class="p-1 rounded-md bg-black/30 ${log.colorClass} mt-0.5 shrink-0 shadow-sm">
+                    <div class="p-1 rounded-lg bg-white/10 ${log.colorClass} shrink-0 mt-0.5">
                         <i data-lucide="${log.icon}" class="w-3.5 h-3.5"></i>
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2 text-[10px] text-stone-300">
-                            <span class="font-bold text-white text-glow-shadow truncate">${log.title}</span>
-                            <span class="opacity-75 text-[9px] text-stone-300 shrink-0">${log.timeStr}</span>
+                    <div class="flex flex-col text-left">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-xs text-white">${log.title}</span>
+                            <span class="text-[9px] text-stone-400">${log.timeStr}</span>
                         </div>
-                        <p class="text-xs text-stone-100 font-medium leading-snug text-glow-shadow drop-shadow-md">${log.text}</p>
+                        <p class="text-xs text-stone-200/90 leading-tight mt-0.5">${log.text}</p>
                     </div>
                 `;
                 journalStack.appendChild(item);
@@ -1700,277 +1651,10 @@
             lucide.createIcons();
         }
 
-        function spawnXPFloatingText(statType) {
-            const xpContainer = document.getElementById('xpFloatContainer');
-            const floater = document.createElement('div');
-            let colorHex = '#fef08a';
-            let label = 'XP';
-
-            if (statType === 'fisik') { colorHex = '#f43f5e'; label = 'XP Fisik'; }
-            else if (statType === 'kecerdasan') { colorHex = '#c084fc'; label = 'XP Kecerdasan'; }
-            else if (statType === 'sosial') { colorHex = '#22d3ee'; label = 'XP Sosial'; }
-
-            floater.className = 'xp-float-badge animate-float-xp flex items-center gap-1';
-            floater.style.color = colorHex;
-
-            const modalBox = document.getElementById('activityModalCard').getBoundingClientRect();
-            const posX = modalBox.left + modalBox.width / 2 - 40 + (Math.random() * 40 - 20);
-            const posY = modalBox.top + 60 + (Math.random() * 20 - 10);
-
-            floater.style.left = `${posX}px`;
-            floater.style.top = `${posY}px`;
-            floater.innerHTML = `<span>+1</span> <span class="text-[10px] uppercase font-bold">${label}</span>`;
-            xpContainer.appendChild(floater);
-
-            setTimeout(() => { if (floater && floater.parentNode) floater.parentNode.removeChild(floater); }, 1200);
-        }
-
-        function addStatXP(statType, amount = 1) {
-            if (!statType || !player[statType] || typeof player[statType] !== 'object') return;
-
-            const statObj = player[statType];
-            statObj.xp += amount;
-            let reqXP = getRequiredXP(statObj.level);
-
-            while (statObj.xp >= reqXP) {
-                statObj.xp -= reqXP;
-                statObj.level++;
-                const statTitle = statType.charAt(0).toUpperCase() + statType.slice(1);
-                addLogEntry('LEVEL UP! 🎉', `Stat ${statTitle} meningkat ke Level ${statObj.level}!`, 'sparkles', 'text-amber-200', 'border-l-amber-300');
-                playChime(880);
-                reqXP = getRequiredXP(statObj.level);
-            }
-            updateStatsUI();
-        }
-
-        function updateStatsUI() {
-            document.getElementById('statUangVal').innerText = `Rp ${player.uang}`;
-
-            // Baris 1: Stat Kapasitas
-            document.getElementById('statEnergiVal').innerText = `${player.energi}/100`;
-            document.getElementById('statEnergiBar').style.width = `${player.energi}%`;
-
-            document.getElementById('statKesegaranVal').innerText = `${player.kesegaran}/100`;
-            document.getElementById('statKesegaranBar').style.width = `${player.kesegaran}%`;
-
-            document.getElementById('statKebahagiaanVal').innerText = `${player.kebahagiaan}/100`;
-            document.getElementById('statKebahagiaanBar').style.width = `${player.kebahagiaan}%`;
-
-            // Baris 2: Stat Level
-            ['fisik', 'kecerdasan', 'sosial'].forEach(st => {
-                const lvl = player[st].level;
-                const currentXp = player[st].xp;
-                const reqXp = getRequiredXP(lvl);
-
-                const capName = st.charAt(0).toUpperCase() + st.slice(1);
-                const valEl = document.getElementById(`stat${capName}Val`);
-                const barEl = document.getElementById(`stat${capName}Bar`);
-                const textEl = document.getElementById(`stat${capName}XpText`);
-
-                if (valEl) valEl.innerText = `Lv. ${lvl}`;
-                if (barEl) barEl.style.width = `${Math.min(100, (currentXp / reqXp) * 100)}%`;
-                if (textEl) textEl.innerText = `${currentXp}/${reqXp} XP`;
-            });
-        }
-
-        function showModal(config, durationSec) {
-            document.getElementById('modalTitle').innerText = config.title;
-            document.getElementById('modalDesc').innerText = config.startDesc;
-            document.getElementById('modalTimerText').innerText = `${durationSec}s`;
-            document.getElementById('modalProgressBar').style.width = '100%';
-
-            document.getElementById('modalIcon').setAttribute('data-lucide', config.icon);
-            lucide.createIcons();
-
-            const modal = document.getElementById('activityModal');
-            const card = document.getElementById('activityModalCard');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            card.classList.remove('scale-90');
-            card.classList.add('scale-100');
-        }
-
-        function hideModal() {
-            const modal = document.getElementById('activityModal');
-            const card = document.getElementById('activityModalCard');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            card.classList.remove('scale-100');
-            card.classList.add('scale-90');
-        }
-
-        function executeAction(actionKey) {
-            const config = ACTIONS_CONFIG[actionKey];
-            if (!config) return;
-
-            if (activeTimer) {
-                addLogEntry('Sedang Sibuk', `Karakter sedang melakukan "${activeTimer.title}"!`, 'alert-circle', 'text-amber-200', 'border-l-amber-400');
-                playChime(220);
-                return;
-            }
-
-            let secondsLeft = config.duration;
-            const totalSec = config.duration;
-
-            showModal(config, totalSec);
-            addLogEntry(config.title, config.startDesc, config.icon, config.color, config.borderColor);
-            playChime(config.pitch);
-
-            const timerInterval = setInterval(() => {
-                secondsLeft--;
-
-                if (config.statType) {
-                    addStatXP(config.statType, 1);
-                    spawnXPFloatingText(config.statType);
-                }
-
-                if (config.energiCostPerSec) {
-                    player.energi = Math.max(0, player.energi - config.energiCostPerSec);
-                }
-
-                document.getElementById('modalTimerText').innerText = `${secondsLeft}s`;
-                document.getElementById('modalProgressBar').style.width = `${(secondsLeft / totalSec) * 100}%`;
-                updateStatsUI();
-
-                if (secondsLeft <= 0) {
-                    clearInterval(timerInterval);
-                    activeTimer = null;
-                    hideModal();
-
-                    if (config.kesegaranGain) player.kesegaran = Math.min(100, player.kesegaran + config.kesegaranGain);
-                    if (config.energiGain) player.energi = Math.min(100, player.energi + config.energiGain);
-                    if (config.kebahagiaanGain) player.kebahagiaan = Math.min(100, player.kebahagiaan + config.kebahagiaanGain);
-
-                    updateStatsUI();
-                    addLogEntry(config.title, config.finishDesc, config.icon, config.color, config.borderColor);
-                    playChime(config.pitch * 1.25);
-                }
-            }, 1000);
-
-            activeTimer = {
-                title: config.title,
-                intervalId: timerInterval
-            };
-        }
-
-        // Cancel Hold Logic (1 Detik Tahan Batal)
-        let holdTimerAnim = null;
-        let holdStartTime = 0;
-        const HOLD_DURATION = 1000;
-
-        function startHold(e) {
-            if (e.type === 'touchstart') e.preventDefault();
-            if (!activeTimer) return;
-
-            holdStartTime = Date.now();
-            function loop() {
-                const elapsed = Date.now() - holdStartTime;
-                const pct = Math.min(100, (elapsed / HOLD_DURATION) * 100);
-                document.getElementById('holdProgressFill').style.width = `${pct}%`;
-
-                if (elapsed >= HOLD_DURATION) {
-                    cancelHold();
-                    cancelActivity();
-                } else {
-                    holdTimerAnim = requestAnimationFrame(loop);
-                }
-            }
-            holdTimerAnim = requestAnimationFrame(loop);
-        }
-
-        function cancelHold() {
-            if (holdTimerAnim) {
-                cancelAnimationFrame(holdTimerAnim);
-                holdTimerAnim = null;
-            }
-            document.getElementById('holdProgressFill').style.width = '0%';
-        }
-
-        function cancelActivity() {
-            if (!activeTimer) return;
-            clearInterval(activeTimer.intervalId);
-            const title = activeTimer.title;
-            activeTimer = null;
-            hideModal();
-            addLogEntry('Dibatalkan', `Berhenti melakukan "${title}".`, 'x-circle', 'text-red-200', 'border-l-red-400');
-            playChime(220);
-        }
-
-        const btnHold = document.getElementById('btnHoldLeave');
-        btnHold.addEventListener('mousedown', startHold);
-        btnHold.addEventListener('touchstart', startHold, { passive: false });
-        btnHold.addEventListener('mouseup', cancelHold);
-        btnHold.addEventListener('mouseleave', cancelHold);
-        btnHold.addEventListener('touchend', cancelHold);
-
-        // Action Tray Toggle Slide
-        let isTrayOpen = false;
-        document.getElementById('toggleActionsBtn').addEventListener('click', () => {
-            isTrayOpen = !isTrayOpen;
-            playChime(isTrayOpen ? 523.25 : 329.63);
-
-            const actionsTray = document.getElementById('actionsTray');
-            const actionChevron = document.getElementById('actionChevron');
-
-            if (isTrayOpen) {
-                actionsTray.classList.remove('max-w-0', 'opacity-0');
-                actionsTray.classList.add('max-w-[80vw]', 'sm:max-w-4xl', 'opacity-100');
-                actionChevron.style.transform = 'rotate(180deg)';
-            } else {
-                actionsTray.classList.remove('max-w-[80vw]', 'sm:max-w-4xl', 'opacity-100');
-                actionsTray.classList.add('max-w-0', 'opacity-0');
-                actionChevron.style.transform = 'rotate(0deg)';
-            }
-        });
-
-        document.getElementById('btnClearLogs').addEventListener('click', () => {
+        document.getElementById('btnClearLogs')?.addEventListener('click', () => {
             journalLogs = [];
             renderJournalStack();
-            playChime(220);
         });
-
-        // Background Bokeh Particles Canvas
-        const canvas = document.getElementById('bokehCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 40;
-                this.size = Math.random() * 3 + 1;
-                this.speedY = Math.random() * 0.35 + 0.15;
-                this.speedX = (Math.random() - 0.5) * 0.2;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
-                if (this.y < -10) this.reset();
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 245, 220, ${this.opacity})`;
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = 'rgba(255, 230, 170, 0.6)';
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 25; i++) particles.push(new Particle());
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
     </script>
 </body>
 </html>
