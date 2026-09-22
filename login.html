@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pemain - Life Simulator System</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        warm: {
+                            50: '#fdfbf7',
+                            100: '#f7f2e8',
+                            200: '#efe3d0',
+                            300: '#e3cdb0',
+                            400: '#d5b38d',
+                            500: '#c5976b',
+                            600: '#b07f55',
+                            700: '#926343',
+                            800: '#77503a',
+                            900: '#614232',
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 10px rgba(255, 235, 205, 0.4))' },
+                            '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 20px rgba(255, 245, 225, 0.7))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-modal-transparent {
+            background: rgba(18, 14, 12, 0.65) !important;
+            backdrop-filter: blur(20px) saturate(140%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 
+                        0 0 35px rgba(255, 230, 180, 0.25), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+        }
+
+        .glass-btn-primary {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 242, 232, 0.85) 100%);
+            color: #3a2618;
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.3), inset 0 1px 1px rgba(255, 255, 255, 1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-btn-primary:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 15px 30px -5px rgba(255, 255, 255, 0.45), 0 0 20px rgba(255, 248, 230, 0.6);
+        }
+
+        .text-glow-shadow {
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 0 15px rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-stone-950 min-h-screen font-sans text-stone-100 antialiased flex items-center justify-center relative overflow-hidden">
+
+    <!-- Background Decoration -->
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/20 via-stone-950 to-stone-950"></div>
+
+    <!-- SCREEN LOGIN / PENDAFTARAN MANDIRI -->
+    <div id="screenLogin" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-2xl transition-all duration-700">
+        <div class="glass-modal-transparent rounded-3xl p-6 sm:p-10 max-w-lg w-full flex flex-col border border-white/20 shadow-2xl relative overflow-hidden">
+            
+            <div class="absolute -top-16 -right-16 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -left-16 w-40 h-40 bg-emerald-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="text-center mb-6 relative z-10">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-400/30 to-amber-200/10 border border-amber-300/50 flex items-center justify-center text-amber-200 mx-auto mb-3 shadow-lg animate-pulse-glow">
+                    <i data-lucide="user-check" class="w-8 h-8"></i>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white tracking-wide text-glow-shadow">Portal Pemain</h2>
+                <p class="text-xs sm:text-sm text-amber-200/90 mt-1">Sistem Simulasi Kehidupan • Tahap Adaptasi Versi Beta</p>
+            </div>
+
+            <form id="formLogin" class="flex flex-col gap-4 relative z-10">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Nama Karakter</label>
+                    <div class="relative">
+                        <i data-lucide="user" class="w-4 h-4 absolute left-3.5 top-3 text-amber-300/80"></i>
+                        <input type="text" id="inputNama" required placeholder="Masukkan nama kamu..." class="w-full bg-black/40 border border-white/25 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-amber-300 transition-colors">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Jenis Kelamin</label>
+                        <select id="inputGender" required class="w-full bg-black/40 border border-white/25 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-300 transition-colors">
+                            <option value="Laki-Laki" class="bg-stone-900 text-white">Laki-Laki</option>
+                            <option value="Perempuan" class="bg-stone-900 text-white">Perempuan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Kota Kelahiran</label>
+                        <input type="text" id="inputTempatLahir" required placeholder="Contoh: Jakarta" class="w-full bg-black/40 border border-white/25 rounded-xl px-3 py-2.5 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-amber-300 transition-colors">
+                    </div>
+                </div>
+
+                <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-300/20 text-xs text-amber-200 flex items-start gap-2.5 mt-1">
+                    <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5 text-amber-300"></i>
+                    <span>Setiap pemain baru mendapatkan modal awal <strong>Rp 150</strong> untuk modal hidup dan ongkos transportasi.</span>
+                </div>
+
+                <button type="submit" class="glass-btn-primary w-full py-3.5 rounded-2xl font-bold text-sm tracking-wide mt-3 flex items-center justify-center gap-2.5 shadow-xl cursor-pointer">
+                    <i data-lucide="play" class="w-4 h-4 text-amber-900 fill-amber-900"></i>
+                    <span>Masuk Ke Permainan</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('formLogin').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const playerData = {
+                nama: document.getElementById('inputNama').value,
+                gender: document.getElementById('inputGender').value,
+                tempatLahir: document.getElementById('inputTempatLahir').value,
+                umur: 17,
+                uang: 150,
+                energi: 100,
+                kesegaran: 80,
+                kebahagiaan: 75,
+                fisik: { level: 1, xp: 0 },
+                kecerdasan: { level: 1, xp: 0 },
+                sosial: { level: 1, xp: 0 }
+            };
+
+            // Simpan data karakter ke LocalStorage
+            localStorage.setItem('life_simulator_player', JSON.stringify(playerData));
+
+            // Alihkan ke halaman game utama
+            window.location.href = 'life_simulator_system.html';
+        });
+    </script>
+</body>
+</html>
