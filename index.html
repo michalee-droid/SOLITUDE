@@ -157,6 +157,15 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
+        /* Transparansi Dikurangi untuk Kotak Log (Lebih Pekat) */
+        .glass-log-card {
+            background: rgba(15, 12, 10, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
         .glass-dock {
             background: rgba(18, 14, 12, 0.72);
             backdrop-filter: blur(20px) saturate(130%);
@@ -247,21 +256,6 @@
                         url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-        }
-
-        /* Ambient Glow & Living Animation untuk Smartphone */
-        @keyframes phoneFloatGlow {
-            0%, 100% {
-                transform: translateY(0px) scale(0.92);
-                box-shadow: 0 0 25px rgba(245, 158, 11, 0.25), 0 20px 50px rgba(0, 0, 0, 0.8);
-            }
-            50% {
-                transform: translateY(-8px) scale(0.93);
-                box-shadow: 0 0 45px rgba(245, 158, 11, 0.45), 0 30px 65px rgba(0, 0, 0, 0.9);
-            }
-        }
-        .phone-alive {
-            animation: phoneFloatGlow 4s ease-in-out infinite;
         }
 
         /* Canvas Weather Particles Overlay */
@@ -518,9 +512,9 @@
     </div>
 
     <!-- MODAL POPUP SMARTPHONE VIRTUAL REALISTIS -->
-    <div id="smartphoneModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/35 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
+    <div id="smartphoneModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 bg-white/10 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
         
-        <div id="smartphoneCard" class="w-[340px] sm:w-[370px] h-[650px] sm:h-[680px] rounded-[48px] border-[10px] border-stone-800/90 bg-stone-950 flex flex-col relative overflow-hidden transform scale-90 transition-all duration-300 ease-out border-stone-700/80 ring-1 ring-white/20 phone-alive">
+        <div id="smartphoneCard" class="w-[340px] sm:w-[370px] h-[650px] sm:h-[680px] rounded-[48px] border-[10px] border-stone-800/90 bg-stone-950 flex flex-col relative overflow-hidden transform scale-90 transition-all duration-300 ease-out border-stone-700/80 ring-1 ring-white/20 shadow-2xl">
             
             <!-- Dynamic Island / Notch Camera -->
             <div class="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-5 bg-black rounded-full z-40 flex items-center justify-between px-3 shadow-md border border-stone-800">
@@ -711,7 +705,7 @@
             else playBGM();
         }
 
-        // DEKLARASI DATA CUACA DIPINDAHKAN KE ATAS SINI AGAR TIDAK MENGALAMI TDZ ERROR
+        // DEKLARASI DATA CUACA
         const WEATHER_LIST = [
             { cond: 'Cerah', tempMin: 28, tempMax: 33, icon: 'sun' },
             { cond: 'Cerah Berawan', tempMin: 26, tempMax: 30, icon: 'cloud-sun' },
@@ -722,7 +716,7 @@
 
         let currentWeather = { cond: 'Cerah Berawan', temp: 28, icon: 'cloud-sun' };
 
-        // SISTEM EFEK PARTIKEL CUACA CANVAS
+        // SISTEM EFEK PARTIKEL CUACA CANVAS (Disesuaikan: spawn sedikit lebih cepat, kebesaran acak/random)
         const weatherCanvas = document.getElementById('weatherCanvas');
         const ctx = weatherCanvas.getContext('2d');
         let particles = [];
@@ -742,13 +736,15 @@
             reset() {
                 this.x = Math.random() * weatherCanvas.width;
                 this.y = weatherCanvas.height + Math.random() * 20;
-                this.size = Math.random() * 2.5 + 1;
-                this.speedY = Math.random() * 0.6 + 0.2; // Naik perlahan
-                this.speedX = (Math.random() - 0.5) * 0.3;
+                // Ukuran partikel random (1px - 5px)
+                this.size = Math.random() * 4 + 1;
+                // Kecepatan spawn/gerak sedikit lebih cepat
+                this.speedY = Math.random() * 0.7 + 0.3; 
+                this.speedX = (Math.random() - 0.5) * 0.4;
                 this.opacity = 0;
                 this.maxOpacity = Math.random() * 0.5 + 0.2;
-                this.fadeSpeed = 0.005 + Math.random() * 0.005;
-                this.state = 'fadeIn'; // fadeIn, active, fadeOut
+                this.fadeSpeed = 0.005 + Math.random() * 0.005; // Fade sedikit lebih cepat
+                this.state = 'fadeIn';
             }
 
             update() {
@@ -761,7 +757,7 @@
                         this.opacity = this.maxOpacity;
                         this.state = 'active';
                     }
-                } else if (this.y < weatherCanvas.height * 0.2 || this.state === 'fadeOut') {
+                } else if (this.y < weatherCanvas.height * 0.1 || this.state === 'fadeOut') {
                     this.state = 'fadeOut';
                     this.opacity -= this.fadeSpeed;
                     if (this.opacity <= 0) {
@@ -775,13 +771,12 @@
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 
-                // Warna partikel disesuaikan dengan tipe cuaca
-                let color = '255, 230, 180'; // Default cerah warm
+                let color = '255, 230, 180';
                 if (currentWeather.cond.includes('Berawan')) color = '200, 220, 240';
                 if (currentWeather.cond.includes('Hujan')) color = '160, 200, 255';
 
                 ctx.fillStyle = `rgba(${color}, ${this.opacity})`;
-                ctx.shadowBlur = 8;
+                ctx.shadowBlur = 6;
                 ctx.shadowColor = `rgba(${color}, ${this.opacity})`;
                 ctx.fill();
                 ctx.restore();
@@ -790,7 +785,8 @@
 
         function initParticles() {
             particles = [];
-            for (let i = 0; i < 45; i++) {
+            // Ditingkatkan sedikit jumlahnya untuk menyesuaikan spawn rate yang lebih cepat
+            for (let i = 0; i < 35; i++) {
                 particles.push(new WeatherParticle());
             }
         }
@@ -835,12 +831,10 @@
             simMinutes = (simMinutes + 1) % 1440;
             updateClockDisplays();
 
-            // Berubah cuaca secara berkala (tiap 180 menit simulasi / 3 jam simulasi)
             if (simMinutes % 180 === 0) {
                 updateWeatherLogic();
             }
         }
-        // SETTING WAKTU GAME: 1,5 DETIK DUNIA NYATA (1500 ms) = 1 MENIT DI GAME
         setInterval(tickSimTime, 1500);
 
         function getFormattedSimTime() {
@@ -979,7 +973,6 @@
             playChime(659.25);
         }
 
-        // FUNGSI PERPINDAHAN PETA UTAMA
         function travelToLocation(locId) {
             if (activeTimer) return;
             const targetLoc = LOCATIONS_DATA.find(l => l.id === locId);
@@ -1078,7 +1071,7 @@
             lucide.createIcons();
         }
 
-        // AKSI RUNTIME TIMER LOGIC
+        // AKSI RUNTIME TIMER LOGIC (DISESUAIKAN: 1 detik = 1 XP)
         let activeTimer = null;
         let currentActionKey = null;
 
@@ -1111,6 +1104,11 @@
             activeTimer = setInterval(() => {
                 timeRemaining--;
                 updateTimerProgress(timeRemaining, totalTime);
+
+                // Tambah 1 XP per detik jika aktivitas memiliki penambahan stat
+                if (act.statType) {
+                    addXP(act.statType, 1);
+                }
 
                 if (timeRemaining <= 0) {
                     finishCurrentActivity(true);
@@ -1149,10 +1147,6 @@
                 if (act.kesegaranGain) player.kesegaran = Math.min(100, player.kesegaran + act.kesegaranGain);
                 if (act.kebahagiaanGain) player.kebahagiaan = Math.min(100, player.kebahagiaan + act.kebahagiaanGain);
 
-                if (act.statType) {
-                    addXP(act.statType, 5);
-                }
-
                 updateStatsUI();
                 addLogEntry(act.category, act.title, act.finishDesc, act.icon, act.color, act.borderColor, act.badgeBg);
                 playChime(880);
@@ -1179,6 +1173,7 @@
                 player[type].level += 1;
                 addLogEntry('LEVEL UP', `Level ${type.toUpperCase()} Naik!`, `Selamat! Level ${type} Anda kini mencapai Level ${player[type].level}.`, 'award', 'text-amber-200', 'border-l-amber-400', 'bg-amber-400/30 text-amber-100 border-amber-300');
             }
+            updateStatsUI();
         }
 
         // LOG JURNAL SYSTEM
@@ -1188,17 +1183,18 @@
 
             const timeStr = getFormattedSimTime();
             const logCard = document.createElement('div');
-            logCard.className = `glass-panel rounded-xl p-2.5 sm:p-3 border-l-4 ${borderColor} animate-slide-in flex flex-col gap-1 shadow-md shrink-0`;
+            // Menggunakan kelas glass-log-card yang telah diperpekat (transparansi dikurangi)
+            logCard.className = `glass-log-card rounded-r-xl rounded-l-none p-2 sm:p-2.5 border-l-2 ${borderColor} animate-slide-in flex flex-col gap-1 shrink-0 transition-all`;
 
             logCard.innerHTML = `
                 <div class="flex items-center justify-between gap-2">
                     <div class="flex items-center gap-1.5">
-                        <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${badgeBg}">${category}</span>
+                        <span class="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border ${badgeBg}">${category}</span>
                         <h4 class="font-serif font-bold text-xs text-white leading-tight">${title}</h4>
                     </div>
-                    <span class="text-[9px] font-semibold text-stone-300 shrink-0">${timeStr}</span>
+                    <span class="text-[9px] font-semibold text-stone-300/80 shrink-0">${timeStr}</span>
                 </div>
-                <p class="text-[11px] text-stone-200 leading-relaxed pl-1">${text}</p>
+                <p class="text-[11px] text-stone-200/90 leading-relaxed pl-1">${text}</p>
             `;
 
             stack.prepend(logCard);
