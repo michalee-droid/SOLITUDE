@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Pemain - Life Simulator System</title>
+    <title>Life Simulator System - Extended Edition</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,12 +38,29 @@
                         }
                     },
                     animation: {
+                        'float-xp': 'floatXP 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'spin-slow': 'spinSlow 8s linear infinite',
+                        'slide-in': 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards'
                     },
                     keyframes: {
+                        floatXP: {
+                            '0%': { opacity: '0', transform: 'translateY(10px) scale(0.8)' },
+                            '20%': { opacity: '1', transform: 'translateY(-15px) scale(1.15)' },
+                            '80%': { opacity: '0.9', transform: 'translateY(-45px) scale(1)' },
+                            '100%': { opacity: '0', transform: 'translateY(-65px) scale(0.85)' }
+                        },
                         pulseGlow: {
                             '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 10px rgba(255, 235, 205, 0.4))' },
                             '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 20px rgba(255, 245, 225, 0.7))' },
+                        },
+                        spinSlow: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' }
+                        },
+                        slideIn: {
+                            '0%': { opacity: '0', transform: 'translateY(-8px) scale(0.98)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' }
                         }
                     }
                 }
@@ -52,114 +69,1156 @@
     </script>
 
     <style>
-        .glass-modal-transparent {
-            background: rgba(18, 14, 12, 0.65) !important;
-            backdrop-filter: blur(20px) saturate(140%) !important;
-            -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 
-                        0 0 35px rgba(255, 230, 180, 0.25), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+        /* Background Dynamic Locations & Individual Rooms */
+        .bg-dynamic {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: background-image 0.8s ease-in-out;
         }
 
+        .bg-room-teras {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
+                linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
+                url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1920&auto=format&fit=crop');
+        }
+
+        .bg-room-ruang_tamu {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
+                linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
+                url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop');
+        }
+
+        .bg-room-kamar_tidur {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(40, 25, 20, 0.65) 100%),
+                linear-gradient(to bottom, rgba(20, 12, 10, 0.3), rgba(12, 8, 7, 0.65)),
+                url('https://res.cloudinary.com/dl2egfdw2/image/upload/v1790011636/image_7670664_hkysbf.png');
+        }
+
+        .bg-room-dapur {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
+                linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
+                url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1920&auto=format&fit=crop');
+        }
+
+        .bg-room-kamar_mandi {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(15, 25, 35, 0.65) 100%),
+                linear-gradient(to bottom, rgba(10, 15, 20, 0.3), rgba(8, 12, 16, 0.65)),
+                url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1920&auto=format&fit=crop');
+        }
+
+        .bg-room-ruang_kerja {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(25, 20, 30, 0.65) 100%),
+                linear-gradient(to bottom, rgba(12, 10, 18, 0.3), rgba(8, 7, 12, 0.65)),
+                url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1920&auto=format&fit=crop');
+        }
+
+        .bg-room-taman {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(15, 30, 20, 0.65) 100%),
+                linear-gradient(to bottom, rgba(10, 18, 12, 0.3), rgba(7, 12, 8, 0.65)),
+                url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1920&auto=format&fit=crop');
+        }
+
+        .bg-room-garasi {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(25, 25, 25, 0.65) 100%),
+                linear-gradient(to bottom, rgba(15, 15, 15, 0.3), rgba(10, 10, 10, 0.65)),
+                url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=1920&auto=format&fit=crop');
+        }
+
+        .bg-sekitar-rumah {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.15) 0%, rgba(30, 20, 18, 0.55) 100%),
+                linear-gradient(to bottom, rgba(15, 12, 10, 0.2), rgba(10, 8, 7, 0.55)),
+                url('https://res.cloudinary.com/dl2egfdw2/image/upload/v1789994307/Gemini_Generated_Image_7dncd07dncd07dnc_wcorle.jpg');
+        }
+
+        .bg-kawasan-komersial {
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(18, 24, 38, 0.65) 100%),
+                linear-gradient(to bottom, rgba(10, 15, 25, 0.3), rgba(8, 12, 20, 0.65)),
+                url('https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=1920&auto=format&fit=crop');
+        }
+
+        /* Glassmorphism & High Quality Blur */
+        .glass-panel {
+            background: rgba(20, 16, 15, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-modal-transparent {
+            background: rgba(18, 14, 12, 0.7) !important;
+            backdrop-filter: blur(24px) saturate(140%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 
+                        0 0 35px rgba(255, 230, 180, 0.25) !important;
+        }
+
+        .glass-pill {
+            background: rgba(20, 16, 14, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Interactive Buttons */
         .glass-btn-primary {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 242, 232, 0.85) 100%);
             color: #3a2618;
-            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.3), inset 0 1px 1px rgba(255, 255, 255, 1);
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.3);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .glass-btn-primary:hover {
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 15px 30px -5px rgba(255, 255, 255, 0.45), 0 0 20px rgba(255, 248, 230, 0.6);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 30px -5px rgba(255, 255, 255, 0.45);
+        }
+
+        .glass-btn-action {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-btn-action:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.32);
+            border-color: rgba(255, 255, 255, 0.7);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Journal Log Smooth Animations */
+        .journal-entry {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
         }
 
         .text-glow-shadow {
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 0 15px rgba(0, 0, 0, 0.6);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+        }
+
+        .phone-wallpaper {
+            background: radial-gradient(circle at 50% 20%, rgba(60, 40, 80, 0.8), rgba(15, 12, 25, 0.95)),
+                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Smooth Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.6);
         }
     </style>
 </head>
-<body class="bg-stone-950 min-h-screen font-sans text-stone-100 antialiased flex items-center justify-center relative overflow-hidden">
+<body id="bodyBg" class="bg-dynamic bg-room-kamar_tidur min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative">
 
-    <!-- Background Decoration -->
-    <div class="fixed inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/20 via-stone-950 to-stone-950"></div>
+    <audio id="bgmAudio" loop preload="auto" src="https://res.cloudinary.com/dl2egfdw2/video/upload/v1790005591/Garden_audio_1_rwpvgz.mp3"></audio>
 
-    <!-- SCREEN LOGIN / PENDAFTARAN MANDIRI -->
-    <div id="screenLogin" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-2xl transition-all duration-700">
-        <div class="glass-modal-transparent rounded-3xl p-6 sm:p-10 max-w-lg w-full flex flex-col border border-white/20 shadow-2xl relative overflow-hidden">
+    <!-- UI LAYER UTAMA GAME -->
+    <div id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 flex flex-col justify-between pointer-events-auto opacity-100 transition-opacity duration-700">
+
+        <!-- TOP BAR: Profil & Stat Karakter + Frame Log Di Bawahnya -->
+        <div class="w-full flex items-start justify-between pointer-events-auto flex-wrap sm:flex-nowrap gap-3">
             
-            <div class="absolute -top-16 -right-16 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-16 -left-16 w-40 h-40 bg-emerald-400/20 rounded-full blur-3xl pointer-events-none"></div>
+            <!-- LEFT COLUMN: Profile Stat + Action Log Frame (POSISI BARU) -->
+            <div class="flex flex-col gap-2.5 max-w-full sm:max-w-md md:max-w-lg z-20">
+                
+                <!-- TOP-LEFT: Character Stats Status Bar -->
+                <div class="glass-pill rounded-2xl p-3 flex flex-col gap-2 text-xs font-medium text-white max-w-full overflow-x-auto custom-scrollbar">
+                    
+                    <!-- Info Karakter, Uang, & Waktu Simulasi -->
+                    <div class="flex items-center gap-3 pb-1 border-b border-white/10 flex-wrap justify-between">
+                        <div class="flex items-center gap-2 shrink-0">
+                            <div class="w-7 h-7 rounded-full bg-amber-100/20 border border-white/40 flex items-center justify-center text-amber-200">
+                                <i data-lucide="user" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <div>
+                                <span id="charNameDisplay" class="font-bold text-white text-xs block leading-none">Pemain</span>
+                                <span id="charMetaDisplay" class="text-[9px] text-stone-300">Laki-Laki • Jakarta</span>
+                            </div>
+                        </div>
 
-            <div class="text-center mb-6 relative z-10">
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-400/30 to-amber-200/10 border border-amber-300/50 flex items-center justify-center text-amber-200 mx-auto mb-3 shadow-lg animate-pulse-glow">
-                    <i data-lucide="user-check" class="w-8 h-8"></i>
+                        <!-- WAKTU SIKLUS 24 JAM (1 DETIK = 1 MENIT) -->
+                        <div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-xl bg-amber-500/20 border border-amber-300/40 text-amber-200 shrink-0">
+                            <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-300 animate-pulse"></i>
+                            <span id="simTimeDisplay" class="font-extrabold text-xs tracking-wider">06:00 AM</span>
+                        </div>
+
+                        <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-xl bg-emerald-500/20 border border-emerald-300/40 text-emerald-200 shrink-0">
+                            <i data-lucide="wallet" class="w-3.5 h-3.5 text-emerald-300"></i>
+                            <span id="statUangVal" class="font-extrabold text-xs">Rp 150</span>
+                        </div>
+                    </div>
+
+                    <!-- BARIS 1: Stat Kapasitas -->
+                    <div class="flex items-center gap-3 overflow-x-auto custom-scrollbar py-0.5">
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-amber-200/70 shrink-0 flex items-center gap-1">
+                            <i data-lucide="battery-charging" class="w-3 h-3 text-amber-300"></i> Kapasitas:
+                        </span>
+
+                        <!-- Energi -->
+                        <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
+                            <div class="flex justify-between text-[10px] text-stone-200 gap-1">
+                                <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3 text-amber-300"></i> Energi</span>
+                                <span id="statEnergiVal" class="font-bold text-amber-200">100/100</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
+                                <div id="statEnergiBar" class="bg-gradient-to-r from-amber-400 to-amber-100 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="h-5 w-px bg-white/15 shrink-0"></div>
+
+                        <!-- Kesegaran -->
+                        <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
+                            <div class="flex justify-between text-[10px] text-stone-200 gap-1">
+                                <span class="flex items-center gap-1"><i data-lucide="sparkles" class="w-3 h-3 text-emerald-300"></i> Kesegaran</span>
+                                <span id="statKesegaranVal" class="font-bold text-emerald-200">80/100</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
+                                <div id="statKesegaranBar" class="bg-gradient-to-r from-emerald-500 to-teal-200 h-full rounded-full transition-all duration-300" style="width: 80%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="h-5 w-px bg-white/15 shrink-0"></div>
+
+                        <!-- Kebahagiaan -->
+                        <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
+                            <div class="flex justify-between text-[10px] text-stone-200 gap-1">
+                                <span class="flex items-center gap-1"><i data-lucide="smile" class="w-3 h-3 text-pink-300"></i> Kebahagiaan</span>
+                                <span id="statKebahagiaanVal" class="font-bold text-pink-200">75/100</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
+                                <div id="statKebahagiaanBar" class="bg-gradient-to-r from-pink-500 to-rose-200 h-full rounded-full transition-all duration-300" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BARIS 2: Stat Level -->
+                    <div class="flex items-center gap-3 overflow-x-auto custom-scrollbar py-0.5 border-t border-white/10 pt-1.5">
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-amber-200/70 shrink-0 flex items-center gap-1">
+                            <i data-lucide="trending-up" class="w-3 h-3 text-amber-300"></i> Level:
+                        </span>
+
+                        <!-- Fisik -->
+                        <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
+                            <div class="flex justify-between text-[10px] text-stone-200 gap-1">
+                                <span class="flex items-center gap-1"><i data-lucide="activity" class="w-3 h-3 text-rose-300"></i> Fisik</span>
+                                <span id="statFisikVal" class="font-bold text-rose-200">Lv. 1</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
+                                <div id="statFisikBar" class="bg-gradient-to-r from-rose-500 to-rose-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                            </div>
+                            <span id="statFisikXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
+                        </div>
+
+                        <div class="h-5 w-px bg-white/15 shrink-0"></div>
+
+                        <!-- Kecerdasan -->
+                        <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
+                            <div class="flex justify-between text-[10px] text-stone-200 gap-1">
+                                <span class="flex items-center gap-1"><i data-lucide="brain" class="w-3 h-3 text-purple-300"></i> Kecerdasan</span>
+                                <span id="statKecerdasanVal" class="font-bold text-purple-200">Lv. 1</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
+                                <div id="statKecerdasanBar" class="bg-gradient-to-r from-purple-500 to-indigo-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                            </div>
+                            <span id="statKecerdasanXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
+                        </div>
+
+                        <div class="h-5 w-px bg-white/15 shrink-0"></div>
+
+                        <!-- Sosial -->
+                        <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
+                            <div class="flex justify-between text-[10px] text-stone-200 gap-1">
+                                <span class="flex items-center gap-1"><i data-lucide="users" class="w-3 h-3 text-cyan-300"></i> Sosial</span>
+                                <span id="statSosialVal" class="font-bold text-cyan-200">Lv. 1</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
+                                <div id="statSosialBar" class="bg-gradient-to-r from-cyan-500 to-sky-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                            </div>
+                            <span id="statSosialXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
+                        </div>
+                    </div>
+
                 </div>
-                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white tracking-wide text-glow-shadow">Portal Pemain</h2>
-                <p class="text-xs sm:text-sm text-amber-200/90 mt-1">Sistem Simulasi Kehidupan • Tahap Adaptasi Versi Beta</p>
+
+                <!-- ACTION LOG FRAME (TEPAT DI BAWAH KOTAK STAT & PROFIL) -->
+                <div class="glass-pill rounded-2xl p-3 flex flex-col w-full max-h-[220px] sm:max-h-[260px] overflow-hidden border border-white/20 transition-all duration-300 shadow-2xl">
+                    <div class="w-full flex items-center justify-between pb-2 mb-2 border-b border-white/15 shrink-0">
+                        <span id="currentLocDisplayBadge" class="text-[10px] font-bold text-amber-200 flex items-center gap-1.5 bg-black/40 px-2.5 py-1 rounded-lg border border-amber-300/30">
+                            <i data-lucide="map-pin" class="w-3 h-3"></i>
+                            <span id="currentLocNameText">Rumah Saya • Kamar Tidur</span>
+                        </span>
+                        <button id="btnClearLogs" class="text-[10px] text-stone-300 hover:text-white bg-white/10 hover:bg-white/20 px-2 py-0.5 rounded-md border border-white/15 transition-all flex items-center gap-1 cursor-pointer">
+                            <i data-lucide="trash-2" class="w-3 h-3"></i>
+                            <span>Bersihkan Log</span>
+                        </button>
+                    </div>
+
+                    <!-- Container Log dengan Scrollbar Halus & Animasi -->
+                    <div id="journalStack" class="flex flex-col gap-1.5 overflow-y-auto custom-scrollbar pr-1 flex-1"></div>
+                </div>
+
             </div>
 
-            <form id="formLogin" class="flex flex-col gap-4 relative z-10">
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Nama Karakter</label>
-                    <div class="relative">
-                        <i data-lucide="user" class="w-4 h-4 absolute left-3.5 top-3 text-amber-300/80"></i>
-                        <input type="text" id="inputNama" required placeholder="Masukkan nama kamu..." class="w-full bg-black/40 border border-white/25 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-amber-300 transition-colors">
+            <!-- TOP-RIGHT: Universal BGM Button -->
+            <div class="flex items-center gap-2 shrink-0">
+                <button id="btnToggleBGM" title="Kontrol BGM Musik" class="glass-panel rounded-2xl p-2.5 flex items-center gap-2.5 shadow-xl border border-white/30 hover:border-amber-300/60 transition-all duration-300 group cursor-pointer text-left">
+                    <div class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-200 shrink-0 shadow-inner overflow-hidden">
+                        <i id="bgmIcon" data-lucide="disc" class="w-4 h-4 sm:w-5 sm:h-5 animate-spin-slow"></i>
+                        <span id="bgmPing" class="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                     </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Jenis Kelamin</label>
-                        <select id="inputGender" required class="w-full bg-black/40 border border-white/25 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-300 transition-colors">
-                            <option value="Laki-Laki" class="bg-stone-900 text-white">Laki-Laki</option>
-                            <option value="Perempuan" class="bg-stone-900 text-white">boty</option>
-                        </select>
+                    <div class="flex flex-col text-left pr-1 hidden sm:flex">
+                        <div class="flex items-center gap-1">
+                            <i id="bgmVolIcon" data-lucide="volume-2" class="w-3 h-3 text-amber-300"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-widest text-amber-200/90">Universal BGM</span>
+                        </div>
+                        <span id="bgmTitle" class="font-serif text-xs font-bold text-white group-hover:text-amber-200 transition-colors truncate max-w-[110px]">Garden Harmony</span>
                     </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-stone-200 mb-1">Kota Kelahiran</label>
-                        <input type="text" id="inputTempatLahir" required placeholder="Contoh: Jakarta" class="w-full bg-black/40 border border-white/25 rounded-xl px-3 py-2.5 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-amber-300 transition-colors">
-                    </div>
-                </div>
-
-                <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-300/20 text-xs text-amber-200 flex items-start gap-2.5 mt-1">
-                    <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5 text-amber-300"></i>
-                    <span>Setiap pemain baru mendapatkan modal awal <strong>Rp 150</strong> untuk modal hidup dan ongkos transportasi.</span>
-                </div>
-
-                <button type="submit" class="glass-btn-primary w-full py-3.5 rounded-2xl font-bold text-sm tracking-wide mt-3 flex items-center justify-center gap-2.5 shadow-xl cursor-pointer">
-                    <i data-lucide="play" class="w-4 h-4 text-amber-900 fill-amber-900"></i>
-                    <span>Masuk Ke Permainan</span>
                 </button>
-            </form>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM-RIGHT: Control Group -->
+        <div class="w-full flex flex-col items-end gap-2.5 pointer-events-auto z-30">
+            
+            <!-- TOMBOL PUSAT RUANGAN -->
+            <div id="centralRoomControl" class="flex justify-end">
+                <button id="btnOpenRoomMenu" class="glass-btn-primary px-5 py-2.5 rounded-2xl flex items-center gap-2.5 shadow-2xl border border-white/60 hover:scale-105 transition-all cursor-pointer">
+                    <div class="p-1.5 rounded-xl bg-amber-400/30 text-amber-900">
+                        <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                    </div>
+                    <div class="text-left">
+                        <span class="text-[8px] uppercase font-extrabold tracking-widest text-stone-700 block leading-none">Pusat Ruangan</span>
+                        <span id="currentRoomNameDisplay" class="font-serif text-sm font-bold text-stone-900 leading-tight">Kamar Tidur</span>
+                    </div>
+                    <i data-lucide="chevron-up" class="w-4 h-4 text-stone-800 ml-0.5"></i>
+                </button>
+            </div>
+
+            <!-- BARIS ASET UTAMA: Aktivitas Tray + Tombol Aktivitas + Tombol Smartphone -->
+            <div class="flex items-center gap-2.5 relative max-w-full overflow-hidden">
+                
+                <!-- Tray Aktivitas Dinamis -->
+                <div id="actionsTray" class="flex items-center gap-2 max-w-0 opacity-0 overflow-x-auto custom-scrollbar transition-all duration-500 ease-out whitespace-nowrap py-1 px-1">
+                </div>
+
+                <!-- Tombol Aktivitas Ruangan -->
+                <button id="toggleActionsBtn" class="glass-btn-primary px-4 sm:px-5 py-3 rounded-2xl flex items-center gap-2 font-semibold text-xs sm:text-sm tracking-wide shadow-2xl relative group shrink-0 border border-white/60 cursor-pointer">
+                    <div class="w-6 h-6 rounded-full bg-amber-200/50 flex items-center justify-center text-amber-900 group-hover:rotate-12 transition-transform">
+                        <i data-lucide="sparkles" id="actionBtnIcon" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <span id="actionMenuLabel" class="font-bold">Aktivitas</span>
+                    <i data-lucide="chevron-left" id="actionChevron" class="w-4 h-4 text-amber-800 transition-transform duration-300"></i>
+                </button>
+
+                <!-- TOMBOL SMARTPHONE INTERAKTIF -->
+                <button id="btnOpenSmartphone" class="glass-btn-primary px-4 sm:px-5 py-3 rounded-2xl flex items-center gap-2.5 font-bold text-xs sm:text-sm tracking-wide shadow-2xl relative group shrink-0 border border-white/60 cursor-pointer bg-gradient-to-r from-stone-900 to-stone-800 text-white hover:text-amber-200">
+                    <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-stone-900 shadow-md group-hover:scale-110 transition-transform">
+                        <i data-lucide="smartphone" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-bold">Smartphone</span>
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL PUSAT RUANGAN (8 RUANGAN DI RUMAH) -->
+    <div id="roomMenuModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div id="roomMenuModalCard" class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-xl w-full flex flex-col transform scale-95 transition-all duration-300 ease-out border border-white/20 shadow-2xl relative">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-white/15 mb-4 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 rounded-2xl bg-amber-400/20 border border-amber-300/30 text-amber-200">
+                        <i data-lucide="home" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-xl sm:text-2xl font-bold text-white tracking-wide text-glow-shadow">Pusat Navigasi Ruangan</h3>
+                        <p class="text-xs text-stone-200">Pilih ruangan tujuan di dalam rumah.</p>
+                    </div>
+                </div>
+                <button id="btnCloseRoomMenuModal" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-stone-200 hover:text-white flex items-center justify-center transition-all cursor-pointer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="roomsGridContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-[60vh] overflow-y-auto custom-scrollbar p-1">
+            </div>
+
         </div>
     </div>
 
+    <!-- MODAL POPUP SMARTPHONE VIRTUAL REALISTIS -->
+    <div id="smartphoneModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/75 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        
+        <div id="smartphoneCard" class="w-[340px] sm:w-[370px] h-[650px] sm:h-[680px] rounded-[48px] border-[10px] border-stone-800/90 bg-stone-950 shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex flex-col relative overflow-hidden transform scale-90 transition-all duration-300 ease-out border-stone-700/80 ring-1 ring-white/20">
+            
+            <!-- Dynamic Island / Notch Camera -->
+            <div class="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-5 bg-black rounded-full z-40 flex items-center justify-between px-3 shadow-md border border-stone-800">
+                <div class="w-2.5 h-2.5 rounded-full bg-stone-900 border border-stone-700"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-900/60 animate-pulse"></div>
+            </div>
+
+            <!-- Header Status Bar Phone -->
+            <div class="w-full flex items-center justify-between px-6 pt-3 pb-1 text-[10px] font-bold text-white z-30 select-none">
+                <span id="phoneClockDisplay">06:00 AM</span>
+                <div class="flex items-center gap-1.5 text-stone-200">
+                    <i data-lucide="wifi" class="w-3 h-3"></i>
+                    <i data-lucide="signal" class="w-3 h-3"></i>
+                    <i data-lucide="battery-charging" class="w-3.5 h-3.5 text-emerald-400"></i>
+                </div>
+            </div>
+
+            <!-- LAYAR KONTEN HP -->
+            <div id="phoneScreenContainer" class="flex-1 relative phone-wallpaper flex flex-col overflow-hidden">
+                
+                <!-- HOME SCREEN SMARTPHONE -->
+                <div id="phoneHomeScreen" class="flex-1 flex flex-col p-5 justify-between transition-all duration-300">
+                    
+                    <!-- Widget Waktu Simulasi -->
+                    <div class="mt-4 flex flex-col items-center text-center text-white drop-shadow-md">
+                        <span id="phoneWidgetClock" class="font-serif text-4xl font-extrabold tracking-tight">06:00 AM</span>
+                        <span id="phoneWidgetDate" class="text-[11px] font-medium text-amber-100/90 uppercase tracking-widest mt-0.5">Hari Ke-1 • Simulasi</span>
+                        
+                        <div class="mt-3 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center gap-2 text-xs text-stone-100">
+                            <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-300"></i>
+                            <span>28°C Cerah Berawan</span>
+                        </div>
+                    </div>
+
+                    <!-- Grid Aplikasi Smartphone -->
+                    <div class="grid grid-cols-3 gap-4 my-auto px-2">
+                        
+                        <!-- 1. Peta & Perjalanan -->
+                        <button onclick="openPhoneApp('peta')" class="flex flex-col items-center gap-1.5 group cursor-pointer">
+                            <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 p-3 text-white shadow-xl group-hover:scale-110 transition-transform flex items-center justify-center border border-white/30">
+                                <i data-lucide="map" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-white drop-shadow">Peta & Travel</span>
+                        </button>
+
+                        <!-- 2. E-Wallet -->
+                        <button onclick="openPhoneApp('wallet')" class="flex flex-col items-center gap-1.5 group cursor-pointer">
+                            <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 p-3 text-stone-950 shadow-xl group-hover:scale-110 transition-transform flex items-center justify-center border border-white/30">
+                                <i data-lucide="wallet" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-white drop-shadow">E-Wallet</span>
+                        </button>
+
+                        <!-- 3. Pesan UTBK -->
+                        <button onclick="openPhoneApp('chat')" class="flex flex-col items-center gap-1.5 group cursor-pointer relative">
+                            <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 p-3 text-white shadow-xl group-hover:scale-110 transition-transform flex items-center justify-center border border-white/30">
+                                <i data-lucide="message-square" class="w-6 h-6"></i>
+                            </div>
+                            <span class="absolute -top-1 right-2 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center border border-white">1</span>
+                            <span class="text-[10px] font-semibold text-white drop-shadow">Pesan UTBK</span>
+                        </button>
+
+                        <!-- 4. Profil Karakter -->
+                        <button onclick="openPhoneApp('profil')" class="flex flex-col items-center gap-1.5 group cursor-pointer">
+                            <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-400 p-3 text-white shadow-xl group-hover:scale-110 transition-transform flex items-center justify-center border border-white/30">
+                                <i data-lucide="user" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-white drop-shadow">Profil Status</span>
+                        </button>
+
+                        <!-- 5. Aplikasi Musik BGM -->
+                        <button onclick="openPhoneApp('musik')" class="flex flex-col items-center gap-1.5 group cursor-pointer">
+                            <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-400 p-3 text-white shadow-xl group-hover:scale-110 transition-transform flex items-center justify-center border border-white/30">
+                                <i data-lucide="music" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-white drop-shadow">Musik BGM</span>
+                        </button>
+
+                        <!-- 6. Cuaca -->
+                        <button onclick="openPhoneApp('cuaca')" class="flex flex-col items-center gap-1.5 group cursor-pointer">
+                            <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-300 p-3 text-white shadow-xl group-hover:scale-110 transition-transform flex items-center justify-center border border-white/30">
+                                <i data-lucide="cloud-sun" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-[10px] font-semibold text-white drop-shadow">Cuaca Kota</span>
+                        </button>
+
+                    </div>
+
+                    <div class="text-center text-[10px] text-amber-200/80 font-medium">
+                        Ketuk ikon untuk membuka fitur smartphone
+                    </div>
+                </div>
+
+                <!-- DYNAMIC APP VIEW CONTAINER -->
+                <div id="phoneAppView" class="absolute inset-0 bg-stone-900/95 backdrop-blur-2xl text-white flex flex-col hidden transition-all duration-300 z-20">
+                    
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-black/40 shrink-0 pt-6">
+                        <button onclick="closePhoneApp()" class="flex items-center gap-1 text-xs font-semibold text-amber-300 hover:text-white cursor-pointer">
+                            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                            <span>Kembali</span>
+                        </button>
+                        <span id="phoneAppTitle" class="font-bold text-xs tracking-wide">Nama Aplikasi</span>
+                        <div class="w-8"></div>
+                    </div>
+
+                    <div id="phoneAppBody" class="flex-1 overflow-y-auto custom-scrollbar p-4 text-xs">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Home Indicator Bar -->
+            <div class="w-full py-2 bg-black flex items-center justify-center shrink-0 border-t border-stone-800">
+                <button onclick="closePhoneAppOrModal()" class="w-32 h-1 bg-stone-500 hover:bg-white rounded-full transition-colors cursor-pointer" title="Kembali ke Home HP / Tutup HP"></button>
+            </div>
+
+            <button id="btnCloseSmartphone" class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 hover:bg-red-500 border border-white/20 text-white flex items-center justify-center transition-all z-50 cursor-pointer">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- INTERACTIVE COUNTDOWN MODAL -->
+    <div id="activityModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div id="activityModalCard" class="glass-modal-transparent rounded-3xl p-6 sm:p-8 max-w-md w-full flex flex-col items-center text-center transform scale-90 transition-all duration-300 ease-out relative overflow-hidden">
+            
+            <div class="absolute -top-12 -left-12 w-32 h-32 bg-amber-300/20 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-cyan-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div id="modalIconBox" class="w-16 h-16 rounded-2xl bg-white/20 border border-white/40 flex items-center justify-center text-amber-100 shadow-xl mb-4 animate-bounce">
+                <i id="modalIcon" data-lucide="sparkles" class="w-8 h-8"></i>
+            </div>
+
+            <h3 id="modalTitle" class="font-serif text-2xl font-bold text-white tracking-wide drop-shadow text-glow-shadow">Kegiatan Berlangsung</h3>
+            <p id="modalDesc" class="text-xs text-stone-100/90 mt-1 mb-6 leading-relaxed max-w-xs drop-shadow">Karakter sedang melakukan aktivitas...</p>
+
+            <div class="w-full bg-black/25 rounded-2xl p-4 border border-white/20 mb-6 flex flex-col gap-2 relative backdrop-blur-md">
+                <div class="flex justify-between items-center text-xs text-stone-100">
+                    <span class="font-medium flex items-center gap-1.5">
+                        <i data-lucide="timer" class="w-3.5 h-3.5 text-amber-300"></i> Sisa Waktu
+                    </span>
+                    <span id="modalTimerText" class="font-bold text-amber-200 text-sm tracking-wider">10s</span>
+                </div>
+                <div class="w-full bg-black/40 h-2.5 rounded-full overflow-hidden border border-white/20">
+                    <div id="modalProgressBar" class="bg-gradient-to-r from-amber-300 to-amber-100 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         lucide.createIcons();
 
-        document.getElementById('formLogin').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Audio Elements & Controls
+        const bgmAudio = document.getElementById('bgmAudio');
+        const btnToggleBGM = document.getElementById('btnToggleBGM');
+        const bgmIcon = document.getElementById('bgmIcon');
+        const bgmVolIcon = document.getElementById('bgmVolIcon');
+        const bgmTitle = document.getElementById('bgmTitle');
+        const bgmPing = document.getElementById('bgmPing');
 
-            const playerData = {
-                nama: document.getElementById('inputNama').value,
-                gender: document.getElementById('inputGender').value,
-                tempatLahir: document.getElementById('inputTempatLahir').value,
-                umur: 17,
-                uang: 150,
-                energi: 100,
-                kesegaran: 80,
-                kebahagiaan: 75,
-                fisik: { level: 1, xp: 0 },
-                kecerdasan: { level: 1, xp: 0 },
-                sosial: { level: 1, xp: 0 }
-            };
+        bgmAudio.volume = 0.35;
+        let isBgmPlaying = false;
 
-            // Simpan data karakter ke LocalStorage
-            localStorage.setItem('life_simulator_player', JSON.stringify(playerData));
+        function playBGM() {
+            bgmAudio.play().then(() => {
+                isBgmPlaying = true;
+                updateBgmUI();
+            }).catch(err => {
+                isBgmPlaying = false;
+                updateBgmUI();
+            });
+        }
 
-            // Alihkan ke halaman game utama
-            window.location.href = 'world_simulation.html';
+        function pauseBGM() {
+            bgmAudio.pause();
+            isBgmPlaying = false;
+            updateBgmUI();
+        }
+
+        function toggleBGM() {
+            if (isBgmPlaying) pauseBGM();
+            else playBGM();
+        }
+
+        function updateBgmUI() {
+            if (isBgmPlaying) {
+                bgmIcon.classList.add('animate-spin-slow');
+                bgmIcon.setAttribute('data-lucide', 'disc');
+                if (bgmVolIcon) bgmVolIcon.setAttribute('data-lucide', 'volume-2');
+                if (bgmTitle) bgmTitle.innerText = 'Garden Harmony';
+                if (bgmPing) bgmPing.classList.remove('hidden');
+            } else {
+                bgmIcon.classList.remove('animate-spin-slow');
+                bgmIcon.setAttribute('data-lucide', 'disc-3');
+                if (bgmVolIcon) bgmVolIcon.setAttribute('data-lucide', 'volume-x');
+                if (bgmTitle) bgmTitle.innerText = 'BGM Paused';
+                if (bgmPing) bgmPing.classList.add('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        btnToggleBGM.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleBGM();
+            playChime(600);
+        });
+
+        // SIMULASI SIKLUS 24 JAM (1 DETIK REAL-TIME = 1 MENIT SIMULASI)
+        let simMinutes = 360; // Dimulai pukul 06:00 (360 menit)
+        
+        function tickSimTime() {
+            simMinutes = (simMinutes + 1) % 1440; // Total 1440 menit dalam 24 jam
+            updateClockDisplays();
+        }
+        setInterval(tickSimTime, 1000); // 1 detik = 1 menit simulasi
+
+        function getFormattedSimTime() {
+            let hours = Math.floor(simMinutes / 60);
+            let mins = simMinutes % 60;
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            let formattedHours = hours % 12;
+            formattedHours = formattedHours ? formattedHours : 12;
+            let strHours = formattedHours < 10 ? '0' + formattedHours : formattedHours;
+            let strMins = mins < 10 ? '0' + mins : mins;
+            return `${strHours}:${strMins} ${ampm}`;
+        }
+
+        function updateClockDisplays() {
+            const formatted = getFormattedSimTime();
+            const simDisplay = document.getElementById('simTimeDisplay');
+            if (simDisplay) simDisplay.innerText = formatted;
+
+            const phoneClock = document.getElementById('phoneClockDisplay');
+            if (phoneClock) phoneClock.innerText = formatted;
+
+            const widgetClock = document.getElementById('phoneWidgetClock');
+            if (widgetClock) widgetClock.innerText = formatted;
+        }
+
+        // Player Data State Default
+        let player = {
+            nama: 'Pemain',
+            gender: 'Laki-Laki',
+            tempatLahir: 'Jakarta',
+            umur: 17,
+            uang: 150,
+            
+            energi: 100,
+            kesegaran: 80,
+            kebahagiaan: 75,
+
+            fisik: { level: 1, xp: 0 },
+            kecerdasan: { level: 1, xp: 0 },
+            sosial: { level: 1, xp: 0 }
+        };
+
+        let financialMutations = [
+            { desc: 'Modal Awal Permainan', amount: 150, type: 'in', date: 'Hari ini' }
+        ];
+
+        function getRequiredXP(level) {
+            return 10 + (level - 1) * 5;
+        }
+
+        let currentLocation = 'rumah_saya';
+        let currentHouseRoom = 'kamar_tidur';
+
+        const HOUSE_ROOMS = {
+            teras: { id: 'teras', name: 'Teras Rumah', icon: 'door-open', subtext: 'Pintu Keluar Utama', desc: 'Teras rumah tempat bersantai sekaligus gerbang utama.' },
+            ruang_tamu: { id: 'ruang_tamu', name: 'Ruang Tamu', icon: 'tv', subtext: 'Area Istirahat', desc: 'Ruang santai keluarga lengkap dengan sofa empuk.' },
+            kamar_tidur: { id: 'kamar_tidur', name: 'Kamar Tidur', icon: 'bed', subtext: 'Area Pribadi', desc: 'Kamar tidur nyaman untuk istirahat atau rehat.' },
+            dapur: { id: 'dapur', name: 'Dapur & Makan', icon: 'utensils', subtext: 'Area Kuliner', desc: 'Dapur bersih lengkap dengan kulkas makanan.' },
+            kamar_mandi: { id: 'kamar_mandi', name: 'Kamar Mandi', icon: 'bath', subtext: 'Kebersihan Diri', desc: 'Kamar mandi segar untuk membersihkan diri.' },
+            ruang_kerja: { id: 'ruang_kerja', name: 'Ruang Kerja', icon: 'laptop', subtext: 'Produktivitas', desc: 'Meja kerja tenang untuk belajar UTBK.' },
+            taman: { id: 'taman', name: 'Taman & Kolam', icon: 'sun', subtext: 'Rekreasi Belakang', desc: 'Halaman belakang asri dengan kolam renang.' },
+            garasi: { id: 'garasi', name: 'Garasi', icon: 'warehouse', subtext: 'Area Kendaraan', desc: 'Garasi untuk menyimpan kendaraan pribadi.' }
+        };
+
+        const LOCATIONS_DATA = [
+            { id: 'rumah_saya', name: 'Rumah Saya', subtext: 'Area Dalam Rumah', bgClass: 'bg-room-kamar_tidur bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative', busDuration: 10, vehicleDuration: 6, taxiFare: 25, taxiDuration: 3 },
+            { id: 'sekitar_rumah', name: 'Sekitar Rumah', subtext: 'Area Pemukiman Luar', bgClass: 'bg-sekitar-rumah bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative', busDuration: 8, vehicleDuration: 5, taxiFare: 20, taxiDuration: 2 },
+            { id: 'kawasan_komersial', name: 'Kawasan Komersial', subtext: 'Pusat Perkantoran & Perkotaan', bgClass: 'bg-kawasan-komersial bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative', busDuration: 15, vehicleDuration: 8, taxiFare: 35, taxiDuration: 4 }
+        ];
+
+        const ACTIONS_CONFIG = {
+            santai_teras: { title: 'Bersantai di Teras', duration: 6, location: 'rumah_saya', room: 'teras', energiGain: 15, kebahagiaanGain: 10, icon: 'coffee', color: 'text-amber-200', borderColor: 'border-l-amber-300', startDesc: 'Duduk santai menikmati udara segar...', finishDesc: 'Pikiran terasa lebih tenang (+15 Energi & +10 Kebahagiaan).' },
+            siram_bunga: { title: 'Menyiram Bunga', duration: 5, location: 'rumah_saya', room: 'teras', kebahagiaanGain: 15, kesegaranGain: 10, icon: 'flower2', color: 'text-emerald-300', borderColor: 'border-l-emerald-400', startDesc: 'Menyiram pot bunga cantik di teras...', finishDesc: 'Tanaman tampak berseri (+15 Kebahagiaan, +10 Kesegaran)!' },
+            nonton_tv: { title: 'Menonton TV', duration: 8, location: 'rumah_saya', room: 'ruang_tamu', kebahagiaanGain: 20, icon: 'tv', color: 'text-sky-300', borderColor: 'border-l-sky-400', startDesc: 'Menonton acara hiburan favorit...', finishDesc: 'Kebahagiaan meningkat (+20 Kebahagiaan).' },
+            istirahat_tidur: { title: 'Tidur & Rehat', duration: 10, location: 'rumah_saya', room: 'kamar_tidur', energiGain: 45, kesegaranGain: 20, icon: 'moon', color: 'text-indigo-200', borderColor: 'border-l-indigo-300', startDesc: 'Tidur nyenyak di atas kasur empuk...', finishDesc: 'Tubuh kembali segar (+45 Energi, +20 Kesegaran).' },
+            makan_kulkas: { title: 'Makan Makanan', duration: 8, location: 'rumah_saya', room: 'dapur', kesegaranGain: 35, energiGain: 10, icon: 'utensils', color: 'text-orange-300', borderColor: 'border-l-orange-400', startDesc: 'Menyantap hidangan hangat...', finishDesc: 'Makan selesai (+35 Kesegaran, +10 Energi).' },
+            mandi_segar: { title: 'Mandi Air Segar', duration: 6, location: 'rumah_saya', room: 'kamar_mandi', kesegaranGain: 40, energiGain: 25, icon: 'bath', color: 'text-cyan-200', borderColor: 'border-l-cyan-300', startDesc: 'Mandi dengan air segar...', finishDesc: 'Badan terasa sangat bersih (+40 Kesegaran, +25 Energi).' },
+            belajar_utbk: { title: 'Belajar UTBK', duration: 10, location: 'rumah_saya', room: 'ruang_kerja', statType: 'kecerdasan', icon: 'laptop', color: 'text-purple-300', borderColor: 'border-l-purple-400', startDesc: 'Fokus belajar latihan soal UTBK...', finishDesc: 'Sesi belajar selesai (+XP Kecerdasan)!' },
+            renang_taman: { title: 'Berenang Kolam', duration: 9, location: 'rumah_saya', room: 'taman', statType: 'fisik', kesegaranGain: 15, kebahagiaanGain: 10, icon: 'sun', color: 'text-pink-300', borderColor: 'border-l-pink-400', startDesc: 'Berenang di halaman belakang...', finishDesc: 'Berenang selesai (+XP Fisik, +15 Kesegaran).' },
+            joging_fisik: { title: 'Joging KompIek', duration: 10, location: 'sekitar_rumah', room: null, statType: 'fisik', icon: 'activity', color: 'text-rose-300', borderColor: 'border-l-rose-400', startDesc: 'Joging mengelilingi komplek...', finishDesc: 'Joging selesai (+XP Fisik).' }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updatePlayerInfoUI();
+            updateStatsUI();
+            updateLocationUI();
+            updateClockDisplays();
+            addLogEntry('Permainan Dimulai', `Selamat datang ${player.nama}! Memulai simulasi di umur 17 tahun.`, 'sparkles', 'text-amber-200', 'border-l-amber-300');
+            playBGM();
+        });
+
+        function updatePlayerInfoUI() {
+            document.getElementById('charNameDisplay').innerText = player.nama;
+            document.getElementById('charMetaDisplay').innerText = `${player.gender} • ${player.tempatLahir}`;
+        }
+
+        function updateStatsUI() {
+            document.getElementById('statUangVal').innerText = `Rp ${player.uang}`;
+            
+            document.getElementById('statEnergiVal').innerText = `${player.energi}/100`;
+            document.getElementById('statEnergiBar').style.width = `${player.energi}%`;
+            
+            document.getElementById('statKesegaranVal').innerText = `${player.kesegaran}/100`;
+            document.getElementById('statKesegaranBar').style.width = `${player.kesegaran}%`;
+
+            document.getElementById('statKebahagiaanVal').innerText = `${player.kebahagiaan}/100`;
+            document.getElementById('statKebahagiaanBar').style.width = `${player.kebahagiaan}%`;
+
+            document.getElementById('statFisikVal').innerText = `Lv. ${player.fisik.level}`;
+            let reqFisik = getRequiredXP(player.fisik.level);
+            document.getElementById('statFisikBar').style.width = `${(player.fisik.xp / reqFisik) * 100}%`;
+            document.getElementById('statFisikXpText').innerText = `${player.fisik.xp}/${reqFisik} XP`;
+
+            document.getElementById('statKecerdasanVal').innerText = `Lv. ${player.kecerdasan.level}`;
+            let reqKecerdasan = getRequiredXP(player.kecerdasan.level);
+            document.getElementById('statKecerdasanBar').style.width = `${(player.kecerdasan.xp / reqKecerdasan) * 100}%`;
+            document.getElementById('statKecerdasanXpText').innerText = `${player.kecerdasan.xp}/${reqKecerdasan} XP`;
+
+            document.getElementById('statSosialVal').innerText = `Lv. ${player.sosial.level}`;
+            let reqSosial = getRequiredXP(player.sosial.level);
+            document.getElementById('statSosialBar').style.width = `${(player.sosial.xp / reqSosial) * 100}%`;
+            document.getElementById('statSosialXpText').innerText = `${player.sosial.xp}/${reqSosial} XP`;
+        }
+
+        function switchHouseRoom(roomId) {
+            if (!HOUSE_ROOMS[roomId]) return;
+            if (activeTimer) return;
+
+            closeRoomMenuModal();
+            if (currentHouseRoom === roomId) return;
+
+            const targetRoom = HOUSE_ROOMS[roomId];
+            currentHouseRoom = roomId;
+            updateLocationUI(); 
+            addLogEntry('Perpindahan Ruangan', targetRoom.desc, targetRoom.icon, 'text-amber-200', 'border-l-amber-300');
+            playChime(659.25);
+        }
+
+        function updateLocationUI() {
+            const locObj = LOCATIONS_DATA.find(l => l.id === currentLocation) || LOCATIONS_DATA[0];
+            const centralRoomCtrl = document.getElementById('centralRoomControl');
+            const currentLocNameText = document.getElementById('currentLocNameText');
+
+            if (currentLocation === 'rumah_saya') {
+                centralRoomCtrl.style.display = 'flex';
+                const curRoom = HOUSE_ROOMS[currentHouseRoom];
+                document.getElementById('currentRoomNameDisplay').innerText = curRoom.name;
+                currentLocNameText.innerText = `Rumah Saya • ${curRoom.name}`;
+
+                document.getElementById('bodyBg').className = `bg-room-${currentHouseRoom} bg-dynamic min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative`;
+            } else {
+                centralRoomCtrl.style.display = 'none';
+                document.getElementById('bodyBg').className = locObj.bgClass;
+                currentLocNameText.innerText = `${locObj.name} • Luar Rumah`;
+            }
+
+            renderActionTray();
+        }
+
+        function renderRoomMenuGrid() {
+            const container = document.getElementById('roomsGridContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            Object.keys(HOUSE_ROOMS).forEach(rId => {
+                const room = HOUSE_ROOMS[rId];
+                const isActive = rId === currentHouseRoom;
+
+                const btn = document.createElement('button');
+                btn.className = `glass-panel rounded-2xl p-3 flex flex-col items-center text-center gap-2 border transition-all duration-300 cursor-pointer ${
+                    isActive ? 'border-amber-300/80 bg-amber-500/25 shadow-lg scale-105' : 'border-white/20 hover:border-amber-300/50 hover:bg-white/10'
+                }`;
+                btn.onclick = () => switchHouseRoom(rId);
+
+                btn.innerHTML = `
+                    <div class="p-2 rounded-xl ${isActive ? 'bg-amber-400 text-stone-900' : 'bg-white/10 text-amber-200'}">
+                        <i data-lucide="${room.icon}" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <span class="block font-bold text-xs text-white">${room.name}</span>
+                        <span class="text-[9px] text-stone-300 block line-clamp-1 mt-0.5">${room.subtext}</span>
+                    </div>
+                `;
+                container.appendChild(btn);
+            });
+
+            lucide.createIcons();
+        }
+
+        function openRoomMenuModal() {
+            renderRoomMenuGrid();
+            const modal = document.getElementById('roomMenuModal');
+            const card = document.getElementById('roomMenuModalCard');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-95');
+            card.classList.add('scale-100');
+            playChime(523.25);
+        }
+
+        function closeRoomMenuModal() {
+            const modal = document.getElementById('roomMenuModal');
+            const card = document.getElementById('roomMenuModalCard');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+        }
+
+        document.getElementById('btnOpenRoomMenu').addEventListener('click', openRoomMenuModal);
+        document.getElementById('btnCloseRoomMenuModal').addEventListener('click', closeRoomMenuModal);
+
+        // Tray Toggle & Rendering Action Buttons
+        const toggleActionsBtn = document.getElementById('toggleActionsBtn');
+        const actionsTray = document.getElementById('actionsTray');
+        const actionChevron = document.getElementById('actionChevron');
+        let isTrayOpen = false;
+
+        toggleActionsBtn.addEventListener('click', () => {
+            isTrayOpen = !isTrayOpen;
+            if (isTrayOpen) {
+                actionsTray.classList.remove('max-w-0', 'opacity-0');
+                actionsTray.classList.add('max-w-[80vw]', 'opacity-100');
+                if (actionChevron) actionChevron.style.transform = 'rotate(180deg)';
+            } else {
+                actionsTray.classList.add('max-w-0', 'opacity-0');
+                actionsTray.classList.remove('max-w-[80vw]', 'opacity-100');
+                if (actionChevron) actionChevron.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        function renderActionTray() {
+            actionsTray.innerHTML = '';
+            let currentActions = [];
+
+            if (currentLocation === 'rumah_saya') {
+                currentActions = Object.keys(ACTIONS_CONFIG).filter(key => 
+                    ACTIONS_CONFIG[key].location === 'rumah_saya' && ACTIONS_CONFIG[key].room === currentHouseRoom
+                );
+            } else {
+                currentActions = Object.keys(ACTIONS_CONFIG).filter(key => ACTIONS_CONFIG[key].location === currentLocation);
+            }
+
+            if (currentActions.length === 0) {
+                actionsTray.innerHTML = `<span class="text-xs text-stone-300 italic px-2">Tidak ada aktivitas di sini.</span>`;
+            } else {
+                currentActions.forEach(actionKey => {
+                    const cfg = ACTIONS_CONFIG[actionKey];
+                    const btn = document.createElement('button');
+                    btn.className = 'glass-btn-action px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 text-xs font-medium group shrink-0 cursor-pointer';
+                    btn.onclick = () => executeAction(actionKey);
+
+                    btn.innerHTML = `
+                        <div class="p-2 rounded-xl bg-white/10 ${cfg.color} group-hover:scale-110 transition-transform">
+                            <i data-lucide="${cfg.icon}" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-semibold">${cfg.title}</span>
+                            <span class="text-[9px] text-stone-300/90 block">${cfg.duration}s Aktivitas</span>
+                        </div>
+                    `;
+                    actionsTray.appendChild(btn);
+                });
+            }
+
+            lucide.createIcons();
+        }
+
+        let activeTimer = null;
+
+        function executeAction(actionKey) {
+            const cfg = ACTIONS_CONFIG[actionKey];
+            if (!cfg || activeTimer) return;
+
+            let duration = cfg.duration;
+            showModal(cfg, duration);
+            addLogEntry(cfg.title, cfg.startDesc, cfg.icon, cfg.color, cfg.borderColor);
+            playChime(523.25);
+
+            let secondsLeft = duration;
+            const timerInterval = setInterval(() => {
+                secondsLeft--;
+                const timerText = document.getElementById('modalTimerText');
+                const progressBar = document.getElementById('modalProgressBar');
+
+                if (timerText) timerText.innerText = `${secondsLeft}s`;
+                if (progressBar) progressBar.style.width = `${(secondsLeft / duration) * 100}%`;
+
+                if (secondsLeft <= 0) {
+                    clearInterval(timerInterval);
+                    activeTimer = null;
+                    hideModal();
+
+                    if (cfg.energiGain) player.energi = Math.min(100, player.energi + cfg.energiGain);
+                    if (cfg.kesegaranGain) player.kesegaran = Math.min(100, player.kesegaran + cfg.kesegaranGain);
+                    if (cfg.kebahagiaanGain) player.kebahagiaan = Math.min(100, player.kebahagiaan + cfg.kebahagiaanGain);
+
+                    if (cfg.statType) {
+                        player[cfg.statType].xp += 5;
+                        let req = getRequiredXP(player[cfg.statType].level);
+                        if (player[cfg.statType].xp >= req) {
+                            player[cfg.statType].xp -= req;
+                            player[cfg.statType].level += 1;
+                            addLogEntry('Level Up!', `Selamat! Level ${cfg.statType} kamu meningkat ke Level ${player[cfg.statType].level}!`, 'award', 'text-amber-300', 'border-l-amber-400');
+                        }
+                    }
+
+                    updateStatsUI();
+                    addLogEntry('Selesai', cfg.finishDesc, cfg.icon, cfg.color, cfg.borderColor);
+                    playChime(880);
+                }
+            }, 1000);
+
+            activeTimer = { title: cfg.title, intervalId: timerInterval };
+        }
+
+        function showModal(cfg, duration) {
+            const modal = document.getElementById('activityModal');
+            const card = document.getElementById('activityModalCard');
+            document.getElementById('modalTitle').innerText = cfg.title;
+            document.getElementById('modalDesc').innerText = cfg.startDesc;
+            document.getElementById('modalIcon').setAttribute('data-lucide', cfg.icon);
+            document.getElementById('modalTimerText').innerText = `${duration}s`;
+            document.getElementById('modalProgressBar').style.width = '100%';
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-90');
+            card.classList.add('scale-100');
+            lucide.createIcons();
+        }
+
+        function hideModal() {
+            const modal = document.getElementById('activityModal');
+            const card = document.getElementById('activityModalCard');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-90');
+        }
+
+        // SMARTPHONE LOGIC
+        const smartphoneModal = document.getElementById('smartphoneModal');
+        const smartphoneCard = document.getElementById('smartphoneCard');
+        const phoneHomeScreen = document.getElementById('phoneHomeScreen');
+        const phoneAppView = document.getElementById('phoneAppView');
+        const phoneAppTitle = document.getElementById('phoneAppTitle');
+        const phoneAppBody = document.getElementById('phoneAppBody');
+
+        let activePhoneApp = null;
+
+        function openSmartphoneModal() {
+            smartphoneModal.classList.remove('opacity-0', 'pointer-events-none');
+            smartphoneCard.classList.remove('scale-90');
+            smartphoneCard.classList.add('scale-100');
+            closePhoneApp();
+            playChime(659.25);
+        }
+
+        function closeSmartphoneModal() {
+            smartphoneModal.classList.add('opacity-0', 'pointer-events-none');
+            smartphoneCard.classList.remove('scale-100');
+            smartphoneCard.classList.add('scale-90');
+            playChime(329.63);
+        }
+
+        function closePhoneAppOrModal() {
+            if (activePhoneApp) closePhoneApp();
+            else closeSmartphoneModal();
+        }
+
+        document.getElementById('btnOpenSmartphone').addEventListener('click', openSmartphoneModal);
+        document.getElementById('btnCloseSmartphone').addEventListener('click', closeSmartphoneModal);
+
+        function openPhoneApp(appId) {
+            activePhoneApp = appId;
+            phoneHomeScreen.classList.add('hidden');
+            phoneAppView.classList.remove('hidden');
+            playChime(587.33);
+
+            if (appId === 'peta') { phoneAppTitle.innerText = 'Peta & Perjalanan'; renderPhoneAppPeta(); }
+            else if (appId === 'wallet') { phoneAppTitle.innerText = 'E-Wallet'; renderPhoneAppWallet(); }
+            else if (appId === 'chat') { phoneAppTitle.innerText = 'Pesan UTBK'; renderPhoneAppChat(); }
+            else if (appId === 'profil') { phoneAppTitle.innerText = 'Profil Karakter'; renderPhoneAppProfil(); }
+            else if (appId === 'musik') { phoneAppTitle.innerText = 'Pemutar BGM'; renderPhoneAppMusik(); }
+            else if (appId === 'cuaca') { phoneAppTitle.innerText = 'Cuaca Kota'; renderPhoneAppCuaca(); }
+            lucide.createIcons();
+        }
+
+        function closePhoneApp() {
+            activePhoneApp = null;
+            phoneAppView.classList.add('hidden');
+            phoneHomeScreen.classList.remove('hidden');
+            playChime(440);
+        }
+
+        function renderPhoneAppPeta() {
+            phoneAppBody.innerHTML = `
+                <div class="flex flex-col gap-3">
+                    <p class="text-[11px] text-stone-300">Pilih lokasi luar rumah yang ingin dikunjungi.</p>
+                    <div class="flex flex-col gap-2">
+                        ${LOCATIONS_DATA.map(loc => `
+                            <div class="p-3 rounded-2xl bg-black/40 border ${loc.id === currentLocation ? 'border-amber-400/80 bg-amber-900/20' : 'border-white/15'} flex flex-col gap-1.5">
+                                <span class="font-bold text-white text-xs">${loc.name}</span>
+                                <span class="text-[9px] text-amber-200">${loc.subtext}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPhoneAppWallet() {
+            phoneAppBody.innerHTML = `
+                <div class="flex flex-col gap-3">
+                    <div class="p-4 rounded-2xl bg-gradient-to-tr from-amber-500/30 to-amber-200/10 border border-amber-300/40 text-center">
+                        <span class="text-[10px] text-amber-200 uppercase font-semibold">Saldo E-Wallet</span>
+                        <span class="font-serif text-3xl font-extrabold text-white block mt-1">Rp ${player.uang}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPhoneAppChat() {
+            phoneAppBody.innerHTML = `
+                <div class="flex flex-col gap-2">
+                    <div class="p-3 rounded-2xl bg-black/40 border border-white/10">
+                        <span class="text-[9px] font-bold text-amber-300 block mb-1">Mentor UTBK</span>
+                        <p class="text-xs text-stone-100">Halo ${player.nama}! Semangat belajar di Ruang Kerja ya!</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPhoneAppProfil() {
+            phoneAppBody.innerHTML = `
+                <div class="flex flex-col gap-3 text-center">
+                    <h4 class="font-serif text-xl font-bold text-white">${player.nama}</h4>
+                    <span class="text-[10px] text-amber-200">${player.gender} • ${player.tempatLahir}</span>
+                </div>
+            `;
+        }
+
+        function renderPhoneAppMusik() {
+            phoneAppBody.innerHTML = `
+                <div class="flex flex-col items-center text-center gap-4 py-2">
+                    <h4 class="font-bold text-base text-white">Garden Harmony</h4>
+                    <button onclick="toggleBGM(); renderPhoneAppMusik();" class="px-6 py-2 rounded-2xl bg-amber-400 text-stone-950 font-bold text-xs">
+                        ${isBgmPlaying ? 'Jeda Musik' : 'Putar Musik'}
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderPhoneAppCuaca() {
+            phoneAppBody.innerHTML = `
+                <div class="p-4 rounded-2xl bg-gradient-to-tr from-sky-500/30 to-indigo-500/20 text-center">
+                    <span class="font-serif text-3xl font-extrabold text-white">28°C</span>
+                    <span class="text-xs font-semibold text-sky-200 block mt-0.5">Cerah Berawan</span>
+                </div>
+            `;
+        }
+
+        // Audio Synthesizer
+        let audioCtx = null;
+        function playChime(freq = 440) {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.65);
+            } catch(e){}
+        }
+
+        // ACTION LOG SYSTEM (DI BAWAH STATKar)
+        let journalLogs = [];
+        const journalStack = document.getElementById('journalStack');
+
+        function addLogEntry(title, text, icon, colorClass, borderClass) {
+            const simTimeStr = getFormattedSimTime();
+            journalLogs.unshift({ id: Date.now(), title, text, icon, colorClass, borderClass, simTimeStr });
+            if (journalLogs.length > 10) journalLogs.pop();
+            renderJournalStack();
+        }
+
+        function renderJournalStack() {
+            if (!journalStack) return;
+            journalStack.innerHTML = '';
+            journalLogs.forEach((log) => {
+                const item = document.createElement('div');
+                item.className = `journal-entry animate-slide-in flex items-start gap-2.5 border-l-2 ${log.borderClass} pl-2.5 py-1.5 my-0.5 w-full bg-black/35 rounded-r-xl backdrop-blur-md border-t border-b border-r border-white/10 shrink-0`;
+                item.innerHTML = `
+                    <div class="p-1 rounded-lg bg-white/10 ${log.colorClass} shrink-0 mt-0.5">
+                        <i data-lucide="${log.icon}" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-xs text-white leading-tight">${log.title}</span>
+                            <span class="text-[9px] text-stone-400 font-mono">${log.simTimeStr}</span>
+                        </div>
+                        <p class="text-[11px] text-stone-200/90 leading-tight mt-0.5">${log.text}</p>
+                    </div>
+                `;
+                journalStack.appendChild(item);
+            });
+            lucide.createIcons();
+        }
+
+        document.getElementById('btnClearLogs')?.addEventListener('click', () => {
+            journalLogs = [];
+            renderJournalStack();
         });
     </script>
 </body>
