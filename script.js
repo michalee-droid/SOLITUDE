@@ -896,3 +896,60 @@ function playChime(freq) {
         osc.stop(ctx.currentTime + 0.6);
     } catch(e) {}
 }
+// Variable State Waktu
+let currentTimeInMinutes = 480; // Contoh: 08:00 Pagi (480 menit)
+let isAccelerating = false;
+
+// Format menit menjadi jam & menit (HH:MM)
+function formatTime(totalMinutes) {
+  const hours = Math.floor(totalMinutes / 60) % 24;
+  const minutes = totalMinutes % 60;
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+}
+
+function updateDisplay() {
+  const displayElement = document.getElementById('time-display');
+  if (displayElement) {
+    displayElement.textContent = formatTime(currentTimeInMinutes);
+  }
+}
+
+/**
+ * Fungsi Pengganti Pop-up: Mempercepat Waktu Display
+ * @param {number} addedMinutes - Durasi waktu kegiatan/perjalanan (misal: 60 menit)
+ * @param {function} onComplete - Action setelah percepatan selesai
+ */
+function accelerateTime(addedMinutes, onComplete = null) {
+  if (isAccelerating) return; // Kunci input jika animasi sedang berjalan
+  
+  isAccelerating = true;
+  const targetTime = currentTimeInMinutes + addedMinutes;
+  
+  // Tentukan kecepatan tick animasi (makin kecil ms, makin cepat)
+  const stepDuration = 15; 
+  const incrementStep = Math.max(1, Math.floor(addedMinutes / 30)); // Langkah lompatan angka
+
+  const timer = setInterval(() => {
+    currentTimeInMinutes += incrementStep;
+
+    // Jika melebihi atau mencapai target
+    if (currentTimeInMinutes >= targetTime) {
+      currentTimeInMinutes = targetTime; // Tepatkan ke target
+      updateDisplay();
+      clearInterval(timer);
+      isAccelerating = false;
+      
+      if (onComplete) onComplete();
+    } else {
+      updateDisplay();
+    }
+  }, stepDuration);
+}
+
+// === Event Listener Tombol Kegiatan / Berpergian ===
+document.getElementById('btn-kegiatan').addEventListener('click', () => {
+  // Langsung eksekusi tanpa membuka pop-up (misal: tambah 120 menit)
+  accelerateTime(120, () => {
+    console.log("Kegiatan selesai, waktu telah diperbarui.");
+  });
+});
