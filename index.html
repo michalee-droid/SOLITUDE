@@ -407,6 +407,20 @@
                         </div>
                         <span id="statSosialXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
                     </div>
+
+                    <div class="h-5 w-px bg-white/15 shrink-0"></div>
+
+                    <!-- STAT PESONA (TAMBAHAN) -->
+                    <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
+                        <div class="flex justify-between text-[10px] text-stone-200 gap-1">
+                            <span class="flex items-center gap-1"><i data-lucide="sparkles" class="w-3 h-3 text-amber-300"></i> Pesona</span>
+                            <span id="statPesonaVal" class="font-bold text-amber-200">Lv. 1</span>
+                        </div>
+                        <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
+                            <div id="statPesonaBar" class="bg-gradient-to-r from-amber-500 to-yellow-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                        </div>
+                        <span id="statPesonaXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
+                    </div>
                 </div>
 
             </div>
@@ -444,14 +458,14 @@
         <div class="w-full flex justify-center pointer-events-auto z-30 pb-1">
             <div class="glass-dock rounded-3xl p-2 sm:p-2.5 w-full max-w-5xl flex items-center gap-3 overflow-hidden shadow-2xl border border-white/30">
                 
-                <!-- 1. FIXED LEFT: PUSAT RUANGAN CONTROL -->
+                <!-- 1. FIXED LEFT: BERPINDAH CONTROL (PENGGANTI PUSAT RUANGAN) -->
                 <div id="centralRoomControl" class="shrink-0">
                     <button id="btnOpenRoomMenu" class="glass-btn-primary elastic-stretch px-3.5 sm:px-4 py-2.5 rounded-2xl flex items-center gap-2.5 border border-white/60 cursor-pointer">
                         <div class="p-1.5 rounded-xl bg-amber-400/30 text-amber-900 shrink-0">
                             <i data-lucide="layout-grid" class="w-4 h-4"></i>
                         </div>
                         <div class="text-left hidden sm:block">
-                            <span class="text-[8px] uppercase font-extrabold tracking-widest text-stone-700 block leading-none">Pusat Ruangan</span>
+                            <span class="text-[8px] uppercase font-extrabold tracking-widest text-stone-700 block leading-none">Berpindah</span>
                             <span id="currentRoomNameDisplay" class="font-serif text-xs font-bold text-stone-900 leading-tight">Kamar Tidur</span>
                         </div>
                         <i data-lucide="chevron-up" class="w-3.5 h-3.5 text-stone-800 ml-0.5"></i>
@@ -486,18 +500,18 @@
 
     </div>
 
-    <!-- MODAL PUSAT RUANGAN -->
+    <!-- MODAL BERPINDAH (SUBLOKASI/RUANGAN) -->
     <div id="roomMenuModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
         <div id="roomMenuModalCard" class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-xl w-full flex flex-col transform scale-95 transition-all duration-300 ease-out border border-white/20 shadow-2xl relative">
             
             <div class="flex items-center justify-between pb-4 border-b border-white/15 mb-4 shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="p-2.5 rounded-2xl bg-amber-400/20 border border-amber-300/30 text-amber-200">
-                        <i data-lucide="home" class="w-6 h-6"></i>
+                        <i data-lucide="map-pin" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h3 class="font-serif text-xl sm:text-2xl font-bold text-white tracking-wide">Pusat Navigasi Ruangan</h3>
-                        <p class="text-xs text-stone-200">Pilih ruangan tujuan di dalam rumah.</p>
+                        <h3 class="font-serif text-xl sm:text-2xl font-bold text-white tracking-wide">Navigasi Berpindah</h3>
+                        <p class="text-xs text-stone-200">Pilih sublokasi tujuan di area saat ini.</p>
                     </div>
                 </div>
                 <button id="btnCloseRoomMenuModal" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-stone-200 hover:text-white flex items-center justify-center transition-all cursor-pointer">
@@ -522,9 +536,8 @@
                 <div class="w-1.5 h-1.5 rounded-full bg-blue-900/60 animate-pulse"></div>
             </div>
 
-            <!-- Header Status Bar Phone -->
-            <div class="w-full flex items-center justify-between px-6 pt-3 pb-1 text-[10px] font-bold text-white z-30 select-none">
-                <span id="phoneClockDisplay" class="font-serif font-extrabold text-xs">06:00 AM</span>
+            <!-- Header Status Bar Phone (Display Jam Atas Dihapus) -->
+            <div class="w-full flex items-center justify-end px-6 pt-3 pb-1 text-[10px] font-bold text-white z-30 select-none">
                 <div class="flex items-center gap-1.5 text-stone-200">
                     <i data-lucide="wifi" class="w-3 h-3"></i>
                     <i data-lucide="signal" class="w-3 h-3"></i>
@@ -876,9 +889,6 @@
             const simDisplay = document.getElementById('simTimeDisplay');
             if (simDisplay) simDisplay.innerText = formattedTime;
 
-            const phoneClock = document.getElementById('phoneClockDisplay');
-            if (phoneClock) phoneClock.innerText = formattedTime;
-
             const widgetClock = document.getElementById('phoneWidgetClock');
             if (widgetClock) widgetClock.innerText = formattedTime;
 
@@ -886,7 +896,7 @@
             if (widgetDate) widgetDate.innerText = fullFormattedDate;
         }
 
-        // Player Data State Default
+        // Player Data State Default (Stat Pesona Ditambahkan)
         let player = {
             nama: 'Pemain',
             gender: 'Laki-Laki',
@@ -900,7 +910,8 @@
 
             fisik: { level: 1, xp: 0 },
             kecerdasan: { level: 1, xp: 0 },
-            sosial: { level: 1, xp: 0 }
+            sosial: { level: 1, xp: 0 },
+            pesona: { level: 1, xp: 0 }
         };
 
         function getRequiredXP(level) {
@@ -908,17 +919,35 @@
         }
 
         let currentLocation = 'rumah_saya';
-        let currentHouseRoom = 'kamar_tidur';
 
-        const HOUSE_ROOMS = {
-            teras: { id: 'teras', name: 'Teras Rumah', icon: 'door-open', subtext: 'Pintu Keluar Utama', desc: 'Teras rumah tempat bersantai sekaligus gerbang utama.' },
-            ruang_tamu: { id: 'ruang_tamu', name: 'Ruang Tamu', icon: 'tv', subtext: 'Area Istirahat', desc: 'Ruang santai keluarga lengkap dengan sofa empuk.' },
-            kamar_tidur: { id: 'kamar_tidur', name: 'Kamar Tidur', icon: 'bed', subtext: 'Area Pribadi', desc: 'Kamar tidur nyaman untuk istirahat atau rehat.' },
-            dapur: { id: 'dapur', name: 'Dapur & Makan', icon: 'utensils', subtext: 'Area Kuliner', desc: 'Dapur bersih lengkap dengan kulkas makanan.' },
-            kamar_mandi: { id: 'kamar_mandi', name: 'Kamar Mandi', icon: 'bath', subtext: 'Kebersihan Diri', desc: 'Kamar mandi segar untuk membersihkan diri.' },
-            ruang_kerja: { id: 'ruang_kerja', name: 'Ruang Kerja', icon: 'laptop', subtext: 'Produktivitas', desc: 'Meja kerja tenang untuk belajar UTBK.' },
-            taman: { id: 'taman', name: 'Taman & Kolam', icon: 'sun', subtext: 'Rekreasi Belakang', desc: 'Halaman belakang asri dengan kolam renang.' },
-            garasi: { id: 'garasi', name: 'Garasi', icon: 'warehouse', subtext: 'Area Kendaraan', desc: 'Garasi untuk menyimpan kendaraan pribadi.' }
+        // SUBLOKASI SETIAP LOKASI UTAMA
+        const LOCATION_SUBLOCATIONS = {
+            rumah_saya: {
+                teras: { id: 'teras', name: 'Teras Rumah', icon: 'door-open', subtext: 'Pintu Keluar Utama', desc: 'Teras rumah tempat bersantai sekaligus gerbang utama.' },
+                ruang_tamu: { id: 'ruang_tamu', name: 'Ruang Tamu', icon: 'tv', subtext: 'Area Istirahat', desc: 'Ruang santai keluarga lengkap dengan sofa empuk.' },
+                kamar_tidur: { id: 'kamar_tidur', name: 'Kamar Tidur', icon: 'bed', subtext: 'Area Pribadi', desc: 'Kamar tidur nyaman untuk istirahat atau rehat.' },
+                dapur: { id: 'dapur', name: 'Dapur & Makan', icon: 'utensils', subtext: 'Area Kuliner', desc: 'Dapur bersih lengkap dengan kulkas makanan.' },
+                kamar_mandi: { id: 'kamar_mandi', name: 'Kamar Mandi', icon: 'bath', subtext: 'Kebersihan Diri', desc: 'Kamar mandi segar untuk membersihkan diri.' },
+                ruang_kerja: { id: 'ruang_kerja', name: 'Ruang Kerja', icon: 'laptop', subtext: 'Produktivitas', desc: 'Meja kerja tenang untuk belajar UTBK.' },
+                taman: { id: 'taman', name: 'Taman & Kolam', icon: 'sun', subtext: 'Rekreasi Belakang', desc: 'Halaman belakang asri dengan kolam renang.' },
+                garasi: { id: 'garasi', name: 'Garasi', icon: 'warehouse', subtext: 'Area Kendaraan', desc: 'Garasi untuk menyimpan kendaraan pribadi.' }
+            },
+            sekitar_rumah: {
+                jalan_komplek: { id: 'jalan_komplek', name: 'Jalan Komplek', icon: 'footprints', subtext: 'Area Pemukiman', desc: 'Jalanan komplek yang tenang dan asri.' },
+                taman_komplek: { id: 'taman_komplek', name: 'Taman Komplek', icon: 'trees', subtext: 'Ruang Hijau', desc: 'Taman publik warga komplek.' },
+                pos_ronda: { id: 'pos_ronda', name: 'Pos Ronda', icon: 'shield', subtext: 'Pos Keamanan', desc: 'Pos penjagaan warga sekitar.' }
+            },
+            kawasan_komersial: {
+                pusat_belanja: { id: 'pusat_belanja', name: 'Pusat Belanja', icon: 'shopping-bag', subtext: 'Mall & Ruko', desc: 'Pusat perbelanjaan ramai.' },
+                kafe_kota: { id: 'kafe_kota', name: 'Kafe Perkotaan', icon: 'coffee', subtext: 'Area Nongkrong', desc: 'Kafe santai untuk minum kopi.' },
+                area_perkantoran: { id: 'area_perkantoran', name: 'Perkantoran', icon: 'building', subtext: 'Pusat Bisnis', desc: 'Gedung perkantoran dan bisnis.' }
+            }
+        };
+
+        let currentSublocations = {
+            rumah_saya: 'kamar_tidur',
+            sekitar_rumah: 'jalan_komplek',
+            kawasan_komersial: 'pusat_belanja'
         };
 
         const LOCATIONS_DATA = [
@@ -982,20 +1011,27 @@
             let reqSosial = getRequiredXP(player.sosial.level);
             document.getElementById('statSosialBar').style.width = `${(player.sosial.xp / reqSosial) * 100}%`;
             document.getElementById('statSosialXpText').innerText = `${player.sosial.xp}/${reqSosial} XP`;
+
+            // STAT PESONA UI UPDATE
+            document.getElementById('statPesonaVal').innerText = `Lv. ${player.pesona.level}`;
+            let reqPesona = getRequiredXP(player.pesona.level);
+            document.getElementById('statPesonaBar').style.width = `${(player.pesona.xp / reqPesona) * 100}%`;
+            document.getElementById('statPesonaXpText').innerText = `${player.pesona.xp}/${reqPesona} XP`;
         }
 
-        function switchHouseRoom(roomId) {
-            if (!HOUSE_ROOMS[roomId]) return;
+        function switchSublocation(subId) {
+            const sublocs = LOCATION_SUBLOCATIONS[currentLocation];
+            if (!sublocs || !sublocs[subId]) return;
             if (activeTimer) return;
 
             closeRoomMenuModal();
-            if (currentHouseRoom === roomId) return;
+            if (currentSublocations[currentLocation] === subId) return;
 
-            const targetRoom = HOUSE_ROOMS[roomId];
-            currentHouseRoom = roomId;
+            const targetSub = sublocs[subId];
+            currentSublocations[currentLocation] = subId;
             updateLocationUI(); 
             
-            addLogEntry('NAVIGASI', targetRoom.name, `Melangkah masuk ke area ${targetRoom.name.toLowerCase()}.`, targetRoom.icon, 'text-amber-200', 'border-l-amber-400', 'bg-amber-400/20 text-amber-200 border-amber-300/40');
+            addLogEntry('BERPINDAH', targetSub.name, `Melangkah ke ${targetSub.name.toLowerCase()}.`, targetSub.icon, 'text-amber-200', 'border-l-amber-400', 'bg-amber-400/20 text-amber-200 border-amber-300/40');
             playChime(659.25);
         }
 
@@ -1004,7 +1040,6 @@
             const targetLoc = LOCATIONS_DATA.find(l => l.id === locId);
             if (!targetLoc) return;
 
-            // Jika berpindah ke Sekitar Rumah, ada hitungan waktu tunggu 5 detik
             if (locId === 'sekitar_rumah') {
                 let waitTime = 5;
                 startGenericActivity(
@@ -1070,17 +1105,20 @@
             const centralRoomCtrl = document.getElementById('centralRoomControl');
             const currentLocNameText = document.getElementById('currentLocNameText');
 
-            if (currentLocation === 'rumah_saya') {
-                centralRoomCtrl.style.display = 'block';
-                const curRoom = HOUSE_ROOMS[currentHouseRoom];
-                document.getElementById('currentRoomNameDisplay').innerText = curRoom.name;
-                currentLocNameText.innerText = `Rumah Saya • ${curRoom.name}`;
+            centralRoomCtrl.style.display = 'block';
 
-                document.getElementById('bodyBg').className = `bg-room-${currentHouseRoom} bg-dynamic min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative`;
+            const sublocs = LOCATION_SUBLOCATIONS[currentLocation];
+            const activeSubId = currentSublocations[currentLocation];
+            const activeSub = sublocs ? sublocs[activeSubId] : null;
+
+            const subName = activeSub ? activeSub.name : 'Area Utama';
+            document.getElementById('currentRoomNameDisplay').innerText = subName;
+            currentLocNameText.innerText = `${locObj.name} • ${subName}`;
+
+            if (currentLocation === 'rumah_saya') {
+                document.getElementById('bodyBg').className = `bg-room-${activeSubId} bg-dynamic min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative`;
             } else {
-                centralRoomCtrl.style.display = 'none';
                 document.getElementById('bodyBg').className = locObj.bgClass;
-                currentLocNameText.innerText = `${locObj.name} • Luar Rumah`;
             }
 
             renderActionTray();
@@ -1091,23 +1129,28 @@
             if (!container) return;
             container.innerHTML = '';
 
-            Object.keys(HOUSE_ROOMS).forEach(rId => {
-                const room = HOUSE_ROOMS[rId];
-                const isActive = rId === currentHouseRoom;
+            const sublocs = LOCATION_SUBLOCATIONS[currentLocation];
+            if (!sublocs) return;
+
+            const currentSubId = currentSublocations[currentLocation];
+
+            Object.keys(sublocs).forEach(sId => {
+                const sub = sublocs[sId];
+                const isActive = sId === currentSubId;
 
                 const btn = document.createElement('button');
                 btn.className = `glass-panel rounded-2xl p-3 flex flex-col items-center text-center gap-2 border transition-all duration-300 cursor-pointer ${
                     isActive ? 'border-amber-300/80 bg-amber-500/25 shadow-lg scale-105' : 'border-white/15 hover:border-white/40 hover:bg-white/10'
                 }`;
-                btn.onclick = () => switchHouseRoom(rId);
+                btn.onclick = () => switchSublocation(sId);
 
                 btn.innerHTML = `
                     <div class="w-10 h-10 rounded-xl ${isActive ? 'bg-amber-400 text-stone-900' : 'bg-white/15 text-white'} flex items-center justify-center transition-colors">
-                        <i data-lucide="${room.icon}" class="w-5 h-5"></i>
+                        <i data-lucide="${sub.icon || 'map-pin'}" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <span class="font-serif font-bold text-xs text-white block leading-tight">${room.name}</span>
-                        <span class="text-[9px] text-stone-300 block mt-0.5">${room.subtext}</span>
+                        <span class="font-serif font-bold text-xs text-white block leading-tight">${sub.name}</span>
+                        <span class="text-[9px] text-stone-300 block mt-0.5">${sub.subtext}</span>
                     </div>
                 `;
                 container.appendChild(btn);
@@ -1120,15 +1163,17 @@
             if (!tray) return;
             tray.innerHTML = '';
 
+            const activeSubId = currentSublocations[currentLocation];
+
             const activeActions = Object.keys(ACTIONS_CONFIG).filter(actKey => {
                 const act = ACTIONS_CONFIG[actKey];
                 if (act.location !== currentLocation) return false;
-                if (currentLocation === 'rumah_saya' && act.room !== currentHouseRoom) return false;
+                if (act.room && act.room !== activeSubId) return false;
                 return true;
             });
 
             if (activeActions.length === 0) {
-                tray.innerHTML = `<span class="text-xs text-stone-300/80 italic px-3 py-2">Tidak ada aktivitas khusus di area ini...</span>`;
+                tray.innerHTML = `<span class="text-xs text-stone-300/80 italic px-3 py-2">Tidak ada aktivitas khusus di sublokasi ini...</span>`;
                 return;
             }
 
@@ -1147,7 +1192,7 @@
             lucide.createIcons();
         }
 
-        // AKSI RUNTIME TIMER LOGIC (DISESUAIKAN: 1 detik = 1 XP)
+        // AKSI RUNTIME TIMER LOGIC (1 detik = 1 XP)
         let activeTimer = null;
         let currentActionKey = null;
 
@@ -1181,7 +1226,6 @@
                 timeRemaining--;
                 updateTimerProgress(timeRemaining, totalTime);
 
-                // Tambah 1 XP per detik jika aktivitas memiliki penambahan stat
                 if (act.statType) {
                     addXP(act.statType, 1);
                 }
@@ -1536,7 +1580,7 @@
             lucide.createIcons();
         }
 
-        // AUDIO CHIME SINTESIS Sederhana
+        // AUDIO CHIME SINTESIS
         function playChime(freq) {
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
