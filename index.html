@@ -1602,21 +1602,6 @@
                 osc.stop(ctx.currentTime + 0.6);
             } catch(e) {}
         }
-
-        import { initSmartphoneModule } from './smartphone.js';
-
-    // Hubungkan state game utama ke modul smartphone
-    document.addEventListener('DOMContentLoaded', () => {
-        initSmartphoneModule(
-            player, // Objek data player utama
-            LOCATIONS_DATA, // Data array lokasi
-            {
-                onTravel: (locId) => travelToLocation(locId),
-                onToggleBgm: () => toggleBGM()
-            }
-        );
-    });
-        
     </script>
     
 </body>
