@@ -68,207 +68,8 @@
         }
     </script>
 
-    <style>
-        /* Background Dynamic Locations & Individual Rooms */
-        .bg-dynamic {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            transition: background-image 0.8s ease-in-out;
-        }
-
-        .bg-room-teras {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
-                linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
-                url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1920&auto=format&fit=crop');
-        }
-
-        .bg-room-ruang_tamu {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
-                linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
-                url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop');
-        }
-
-        .bg-room-kamar_tidur {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(40, 25, 20, 0.65) 100%),
-                linear-gradient(to bottom, rgba(20, 12, 10, 0.3), rgba(12, 8, 7, 0.65)),
-                url('https://res.cloudinary.com/dl2egfdw2/image/upload/v1790011636/image_7670664_hkysbf.png');
-        }
-
-        .bg-room-dapur {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
-                linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
-                url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1920&auto=format&fit=crop');
-        }
-
-        .bg-room-kamar_mandi {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(15, 25, 35, 0.65) 100%),
-                linear-gradient(to bottom, rgba(10, 15, 20, 0.3), rgba(8, 12, 16, 0.65)),
-                url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1920&auto=format&fit=crop');
-        }
-
-        .bg-room-ruang_kerja {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(25, 20, 30, 0.65) 100%),
-                linear-gradient(to bottom, rgba(12, 10, 18, 0.3), rgba(8, 7, 12, 0.65)),
-                url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1920&auto=format&fit=crop');
-        }
-
-        .bg-room-taman {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(15, 30, 20, 0.65) 100%),
-                linear-gradient(to bottom, rgba(10, 18, 12, 0.3), rgba(7, 12, 8, 0.65)),
-                url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1920&auto=format&fit=crop');
-        }
-
-        .bg-room-garasi {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(25, 25, 25, 0.65) 100%),
-                linear-gradient(to bottom, rgba(15, 15, 15, 0.3), rgba(10, 10, 10, 0.65)),
-                url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=1920&auto=format&fit=crop');
-        }
-
-        .bg-sekitar-rumah {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.15) 0%, rgba(30, 20, 18, 0.55) 100%),
-                linear-gradient(to bottom, rgba(15, 12, 10, 0.2), rgba(10, 8, 7, 0.55)),
-                url('https://res.cloudinary.com/dl2egfdw2/image/upload/v1789994307/Gemini_Generated_Image_7dncd07dncd07dnc_wcorle.jpg');
-        }
-
-        .bg-kawasan-komersial {
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(18, 24, 38, 0.65) 100%),
-                linear-gradient(to bottom, rgba(10, 15, 25, 0.3), rgba(8, 12, 20, 0.65)),
-                url('https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=1920&auto=format&fit=crop');
-        }
-
-        /* Glassmorphism & High Quality Blur */
-        .glass-panel {
-            background: rgba(20, 16, 15, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Transparansi Dikurangi untuk Kotak Log (Sangat Halus Latar Belakangnya) */
-        .glass-log-card {
-            background: rgba(15, 12, 10, 0.35);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-
-        .glass-dock {
-            background: rgba(18, 14, 12, 0.72);
-            backdrop-filter: blur(20px) saturate(130%);
-            -webkit-backdrop-filter: blur(20px) saturate(130%);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .glass-modal-transparent {
-            background: rgba(18, 14, 12, 0.7) !important;
-            backdrop-filter: blur(24px) saturate(140%) !important;
-            -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 
-                        0 0 35px rgba(255, 230, 180, 0.25) !important;
-        }
-
-        .glass-pill {
-            background: rgba(20, 16, 14, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-        }
-
-        /* Efek Transparan & Blur Menggulung pada Log */
-        .glass-pill-transparent {
-            background: transparent;
-            border: none;
-            box-shadow: none;
-        }
-
-        .blur-bottom-mask {
-            mask-image: linear-gradient(to bottom, black 0%, black 80%, rgba(0, 0, 0, 0.3) 92%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, rgba(0, 0, 0, 0.3) 92%, transparent 100%);
-        }
-
-        /* Interactive Elastic Drag/Stretch Rubber Effects */
-        .elastic-stretch {
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            touch-action: pan-y;
-            user-select: none;
-        }
-        .elastic-stretch:active {
-            transform: scaleX(1.28) scaleY(0.85);
-        }
-
-        .glass-btn-primary {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 242, 232, 0.85) 100%);
-            color: #3a2618;
-            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.3);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
-        }
-
-        .glass-btn-primary:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 15px 30px -5px rgba(255, 255, 255, 0.45);
-        }
-
-        .glass-btn-action {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #ffffff;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s, border-color 0.3s;
-        }
-
-        .glass-btn-action:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.6);
-            transform: translateY(-2px) scale(1.02);
-        }
-
-        /* Sembunyikan Scrollbar secara global */
-        * {
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-        }
-        *::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-        }
-
-        .phone-wallpaper {
-            background: radial-gradient(circle at 50% 20%, rgba(60, 40, 80, 0.8), rgba(15, 12, 25, 0.95)),
-                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Canvas Weather Particles Overlay */
-        #weatherCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 2;
-        }
-    </style>
+    <!-- Menghubungkan File CSS Eksternal -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body id="bodyBg" class="bg-dynamic bg-room-kamar_tidur min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative">
 
@@ -280,13 +81,11 @@
     <!-- UI LAYER UTAMA GAME -->
     <div id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 flex flex-col justify-between pointer-events-auto opacity-100 transition-opacity duration-700">
 
-        <!-- TOP BAR: Profil & Stat Karakter (Satu Frame) + Frame Log Di Bawahnya -->
+        <!-- TOP BAR: Profil & Stat Karakter -->
         <div class="w-full flex flex-col gap-2.5 pointer-events-auto max-w-full sm:max-w-md md:max-w-lg z-20">
             
-            <!-- TOP-LEFT: Character Stats Status Bar + Display Uang, Cuaca, & Waktu sebaris -->
             <div class="glass-pill rounded-2xl p-3 flex flex-col gap-2 text-xs font-medium text-white max-w-full overflow-x-auto">
                 
-                <!-- Info Karakter & Status Display (Uang, Cuaca, & Waktu) Sebaris -->
                 <div class="flex items-center gap-3 pb-1 border-b border-white/10 justify-between flex-wrap sm:flex-nowrap">
                     <div class="flex items-center gap-2 shrink-0">
                         <div class="w-7 h-7 rounded-full bg-amber-100/20 border border-white/40 flex items-center justify-center text-amber-200">
@@ -298,9 +97,7 @@
                         </div>
                     </div>
 
-                    <!-- DISPLAY UANG, CUACA, & WAKTU (MASUK KE DALAM BARIS PROFIL) -->
                     <div class="flex items-center gap-2.5 text-[11px] font-semibold text-white shrink-0 ml-auto bg-black/30 px-2.5 py-1 rounded-xl border border-white/10">
-                        <!-- UANG -->
                         <div class="flex items-center gap-1 text-emerald-400">
                             <i data-lucide="wallet" class="w-3.5 h-3.5"></i>
                             <span id="statUangVal" class="font-extrabold">Rp 150</span>
@@ -308,7 +105,6 @@
 
                         <div class="h-3 w-px bg-white/20"></div>
 
-                        <!-- CUACA -->
                         <div class="flex items-center gap-1 text-sky-300">
                             <i id="weatherBadgeIcon" data-lucide="sun" class="w-3.5 h-3.5 text-amber-300"></i>
                             <span id="weatherBadgeText" class="font-bold">28°C Cerah</span>
@@ -316,7 +112,6 @@
 
                         <div class="h-3 w-px bg-white/20"></div>
 
-                        <!-- WAKTU -->
                         <div class="flex items-center gap-1 text-amber-300">
                             <i data-lucide="clock" class="w-3.5 h-3.5"></i>
                             <span id="simTimeDisplay" class="font-serif font-extrabold tracking-wider text-xs">06:00 AM</span>
@@ -410,7 +205,6 @@
 
                     <div class="h-5 w-px bg-white/15 shrink-0"></div>
 
-                    <!-- STAT PESONA (TAMBAHAN) -->
                     <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
                         <div class="flex justify-between text-[10px] text-stone-200 gap-1">
                             <span class="flex items-center gap-1"><i data-lucide="sparkles" class="w-3 h-3 text-amber-300"></i> Pesona</span>
@@ -428,7 +222,6 @@
             <!-- ACTION LOG SYSTEM -->
             <div class="glass-pill-transparent rounded-2xl p-3 flex flex-col w-full overflow-hidden transition-all duration-300 relative" style="height: calc(100vh - 280px); max-height: calc(100vh - 280px);">
                 
-                <!-- BARIS HEADER JURNAL -->
                 <div class="w-full flex items-center justify-between pb-2 mb-2 border-b border-white/15 shrink-0">
                     <div class="flex items-center gap-2">
                         <div class="p-1 rounded-md bg-amber-400/20 text-amber-300 border border-amber-300/30">
@@ -446,7 +239,6 @@
                     </button>
                 </div>
 
-                <!-- STACK CATATAN JURNAL -->
                 <div id="journalStack" class="flex flex-col gap-1.5 overflow-y-auto pr-1 flex-1 blur-bottom-mask">
                 </div>
 
@@ -458,7 +250,6 @@
         <div class="w-full flex justify-center pointer-events-auto z-30 pb-1">
             <div class="glass-dock rounded-3xl p-2 sm:p-2.5 w-full max-w-5xl flex items-center gap-3 overflow-hidden shadow-2xl border border-white/30">
                 
-                <!-- 1. FIXED LEFT: BERPINDAH CONTROL (PENGGANTI PUSAT RUANGAN) -->
                 <div id="centralRoomControl" class="shrink-0">
                     <button id="btnOpenRoomMenu" class="glass-btn-primary elastic-stretch px-3.5 sm:px-4 py-2.5 rounded-2xl flex items-center gap-2.5 border border-white/60 cursor-pointer">
                         <div class="p-1.5 rounded-xl bg-amber-400/30 text-amber-900 shrink-0">
@@ -472,19 +263,15 @@
                     </button>
                 </div>
 
-                <!-- SEPARATOR LINE -->
                 <div class="h-8 w-px bg-white/20 shrink-0"></div>
 
-                <!-- 2. SCROLLABLE CENTER: TRAY AKTIVITAS DINAMIS -->
                 <div class="flex-1 flex items-center overflow-x-auto py-1 px-1">
                     <div id="actionsTray" class="flex items-center gap-2.5 whitespace-nowrap min-w-full">
                     </div>
                 </div>
 
-                <!-- SEPARATOR LINE -->
                 <div class="h-8 w-px bg-white/20 shrink-0"></div>
 
-                <!-- 3. FIXED RIGHT: SMARTPHONE BUTTON -->
                 <div class="shrink-0">
                     <button id="btnOpenSmartphone" class="glass-btn-primary elastic-stretch px-3.5 sm:px-4 py-2.5 rounded-2xl flex items-center gap-2 font-bold text-xs tracking-wide shadow-xl relative group border border-white/60 cursor-pointer bg-gradient-to-r from-stone-900 to-stone-800 text-white hover:text-amber-200">
                         <div class="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-stone-900 group-hover:scale-110 transition-transform">
@@ -500,7 +287,7 @@
 
     </div>
 
-    <!-- MODAL BERPINDAH (SUBLOKASI/RUANGAN) -->
+    <!-- MODAL BERPINDAH -->
     <div id="roomMenuModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
         <div id="roomMenuModalCard" class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-xl w-full flex flex-col transform scale-95 transition-all duration-300 ease-out border border-white/20 shadow-2xl relative">
             
@@ -525,18 +312,16 @@
         </div>
     </div>
 
-    <!-- MODAL POPUP SMARTPHONE VIRTUAL REALISTIS -->
+    <!-- MODAL SMARTPHONE VIRTUAL -->
     <div id="smartphoneModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 bg-white/10 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
         
         <div id="smartphoneCard" class="w-[340px] sm:w-[370px] h-[650px] sm:h-[680px] rounded-[48px] border-[10px] border-stone-800/90 bg-stone-950 flex flex-col relative overflow-hidden transform scale-90 transition-all duration-300 ease-out border-stone-700/80 ring-1 ring-white/20 shadow-2xl">
             
-            <!-- Dynamic Island / Notch Camera -->
             <div class="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-5 bg-black rounded-full z-40 flex items-center justify-between px-3 shadow-md border border-stone-800">
                 <div class="w-2.5 h-2.5 rounded-full bg-stone-900 border border-stone-700"></div>
                 <div class="w-1.5 h-1.5 rounded-full bg-blue-900/60 animate-pulse"></div>
             </div>
 
-            <!-- Header Status Bar Phone (Display Jam Atas Dihapus) -->
             <div class="w-full flex items-center justify-end px-6 pt-3 pb-1 text-[10px] font-bold text-white z-30 select-none">
                 <div class="flex items-center gap-1.5 text-stone-200">
                     <i data-lucide="wifi" class="w-3 h-3"></i>
@@ -545,10 +330,8 @@
                 </div>
             </div>
 
-            <!-- LAYAR KONTEN HP -->
             <div id="phoneScreenContainer" class="flex-1 relative phone-wallpaper flex flex-col overflow-hidden">
                 
-                <!-- HOME SCREEN SMARTPHONE -->
                 <div id="phoneHomeScreen" class="flex-1 flex flex-col p-5 justify-between transition-all duration-300">
                     
                     <div class="mt-4 flex flex-col items-center text-center text-white drop-shadow-md">
@@ -561,7 +344,6 @@
                         </div>
                     </div>
 
-                    <!-- Grid Aplikasi Smartphone -->
                     <div class="grid grid-cols-3 gap-4 my-auto px-1">
                         <button onclick="openPhoneApp('peta')" class="flex flex-col items-center gap-1.5 group cursor-pointer">
                             <div class="w-12 h-12 rounded-2xl bg-emerald-950/60 backdrop-blur-md border border-emerald-400/30 p-2.5 text-emerald-300 shadow-lg group-hover:scale-110 group-hover:border-emerald-300 transition-all flex items-center justify-center">
@@ -633,7 +415,6 @@
                     </div>
                 </div>
 
-                <!-- DYNAMIC APP VIEW CONTAINER -->
                 <div id="phoneAppView" class="absolute inset-0 bg-stone-900/95 backdrop-blur-2xl text-white flex flex-col hidden transition-all duration-300 z-20">
                     <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-black/40 shrink-0 pt-6">
                         <button onclick="closePhoneApp()" class="flex items-center gap-1 text-xs font-semibold text-amber-300 hover:text-white cursor-pointer">
@@ -683,7 +464,6 @@
                 </div>
             </div>
 
-            <!-- TOMBOL MENGHENTIKAN AKTIVITAS -->
             <button id="btnStopActivity" onclick="stopCurrentActivity()" class="px-5 py-2.5 rounded-xl bg-rose-600/80 hover:bg-rose-600 border border-rose-300/40 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-lg hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2">
                 <i data-lucide="square" class="w-4 h-4 fill-current"></i>
                 <span>Hentikan Aktivitas</span>
@@ -691,918 +471,8 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        lucide.createIcons();
-
-        // Audio Elements & Controls
-        const bgmAudio = document.getElementById('bgmAudio');
-        bgmAudio.volume = 0.35;
-        let isBgmPlaying = false;
-
-        function playBGM() {
-            bgmAudio.play().then(() => {
-                isBgmPlaying = true;
-            }).catch(err => {
-                isBgmPlaying = false;
-            });
-        }
-
-        function pauseBGM() {
-            bgmAudio.pause();
-            isBgmPlaying = false;
-        }
-
-        function toggleBGM() {
-            if (isBgmPlaying) pauseBGM();
-            else playBGM();
-        }
-
-        // DEKLARASI DATA CUACA
-        const WEATHER_LIST = [
-            { cond: 'Cerah', tempMin: 28, tempMax: 33, icon: 'sun' },
-            { cond: 'Cerah Berawan', tempMin: 26, tempMax: 30, icon: 'cloud-sun' },
-            { cond: 'Berawan', tempMin: 24, tempMax: 27, icon: 'cloud' },
-            { cond: 'Hujan Gerimis', tempMin: 22, tempMax: 25, icon: 'cloud-drizzle' },
-            { cond: 'Hujan Lebat', tempMin: 20, tempMax: 23, icon: 'cloud-rain' }
-        ];
-
-        let currentWeather = { cond: 'Cerah Berawan', temp: 28, icon: 'cloud-sun' };
-
-        // SISTEM EFEK PARTIKEL CUACA CANVAS
-        const weatherCanvas = document.getElementById('weatherCanvas');
-        const ctx = weatherCanvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            weatherCanvas.width = window.innerWidth;
-            weatherCanvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class WeatherParticle {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * weatherCanvas.width;
-                this.y = weatherCanvas.height + Math.random() * 20;
-                this.size = Math.random() * 3 + 1;
-                this.speedY = Math.random() * 0.25 + 0.1; 
-                this.speedX = (Math.random() - 0.5) * 0.2;
-                this.opacity = 0;
-                this.maxOpacity = Math.random() * 0.4 + 0.15;
-                this.fadeSpeed = 0.003 + Math.random() * 0.003;
-                this.state = 'fadeIn';
-            }
-
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
-
-                const topBoundary = weatherCanvas.height * 0.55;
-
-                if (this.state === 'fadeIn') {
-                    this.opacity += this.fadeSpeed;
-                    if (this.opacity >= this.maxOpacity) {
-                        this.opacity = this.maxOpacity;
-                        this.state = 'active';
-                    }
-                }
-                
-                if (this.y <= topBoundary || this.state === 'fadeOut') {
-                    this.state = 'fadeOut';
-                    this.opacity -= this.fadeSpeed * 1.5;
-                    if (this.opacity <= 0) {
-                        this.reset();
-                    }
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                
-                let color = '255, 230, 180';
-                if (currentWeather.cond.includes('Berawan')) color = '200, 220, 240';
-                if (currentWeather.cond.includes('Hujan')) color = '160, 200, 255';
-
-                ctx.fillStyle = `rgba(${color}, ${Math.max(0, this.opacity)})`;
-                ctx.shadowBlur = 5;
-                ctx.shadowColor = `rgba(${color}, ${Math.max(0, this.opacity)})`;
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 20; i++) {
-                particles.push(new WeatherParticle());
-            }
-        }
-        initParticles();
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, weatherCanvas.width, weatherCanvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-        // SISTEM CUACA DINAMIS & SIMULASI SIKLUS WAKTU & TANGGAL
-        let simMinutes = 360; 
-        let currentDate = new Date(2026, 0, 15);
-
-        const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-        const DAY_NAMES = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-
-        function updateWeatherLogic() {
-            const index = Math.floor(Math.random() * WEATHER_LIST.length);
-            const w = WEATHER_LIST[index];
-            const randomTemp = Math.floor(Math.random() * (w.tempMax - w.tempMin + 1)) + w.tempMin;
-            currentWeather = { cond: w.cond, temp: randomTemp, icon: w.icon };
-            updateWeatherUI();
-        }
-
-        function updateWeatherUI() {
-            const badgeIcon = document.getElementById('weatherBadgeIcon');
-            const badgeText = document.getElementById('weatherBadgeText');
-            if (badgeIcon) badgeIcon.setAttribute('data-lucide', currentWeather.icon);
-            if (badgeText) badgeText.innerText = `${currentWeather.temp}°C ${currentWeather.cond}`;
-
-            const phoneWidgetIcon = document.getElementById('phoneWeatherWidgetIcon');
-            const phoneWidgetText = document.getElementById('phoneWeatherWidgetText');
-            if (phoneWidgetIcon) phoneWidgetIcon.setAttribute('data-lucide', currentWeather.icon);
-            if (phoneWidgetText) phoneWidgetText.innerText = `${currentWeather.temp}°C ${currentWeather.cond}`;
-
-            lucide.createIcons();
-        }
-        
-        function tickSimTime() {
-            simMinutes += 1;
-            if (simMinutes >= 1440) {
-                simMinutes = simMinutes % 1440;
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
-            updateClockDisplays();
-
-            if (simMinutes % 180 === 0) {
-                updateWeatherLogic();
-            }
-        }
-        setInterval(tickSimTime, 1500);
-
-        function getFormattedSimTime() {
-            let hours = Math.floor(simMinutes / 60);
-            let mins = simMinutes % 60;
-            let ampm = hours >= 12 ? 'PM' : 'AM';
-            let formattedHours = hours % 12;
-            formattedHours = formattedHours ? formattedHours : 12;
-            let strHours = formattedHours < 10 ? '0' + formattedHours : formattedHours;
-            let strMins = mins < 10 ? '0' + mins : mins;
-            return `${strHours}:${strMins} ${ampm}`;
-        }
-
-        function getFormattedSimDate() {
-            const dayNum = currentDate.getDate();
-            const monthStr = MONTH_NAMES[currentDate.getMonth()];
-            const yearNum = currentDate.getFullYear();
-            return `${dayNum} ${monthStr} ${yearNum}`;
-        }
-
-        function getFullFormattedSimDate() {
-            const dayName = DAY_NAMES[currentDate.getDay()];
-            return `${dayName}, ${getFormattedSimDate()}`;
-        }
-
-        function updateClockDisplays() {
-            const formattedTime = getFormattedSimTime();
-            const fullFormattedDate = getFullFormattedSimDate();
-
-            const simDisplay = document.getElementById('simTimeDisplay');
-            if (simDisplay) simDisplay.innerText = formattedTime;
-
-            const widgetClock = document.getElementById('phoneWidgetClock');
-            if (widgetClock) widgetClock.innerText = formattedTime;
-
-            const widgetDate = document.getElementById('phoneWidgetDate');
-            if (widgetDate) widgetDate.innerText = fullFormattedDate;
-        }
-
-        // Player Data State Default (Stat Pesona Ditambahkan)
-        let player = {
-            nama: 'Pemain',
-            gender: 'Laki-Laki',
-            tempatLahir: 'Jakarta',
-            umur: 17,
-            uang: 150,
-            
-            energi: 100,
-            kesegaran: 80,
-            kebahagiaan: 75,
-
-            fisik: { level: 1, xp: 0 },
-            kecerdasan: { level: 1, xp: 0 },
-            sosial: { level: 1, xp: 0 },
-            pesona: { level: 1, xp: 0 }
-        };
-
-        function getRequiredXP(level) {
-            return 10 + (level - 1) * 5;
-        }
-
-        let currentLocation = 'rumah_saya';
-
-        // SUBLOKASI SETIAP LOKASI UTAMA
-        const LOCATION_SUBLOCATIONS = {
-            rumah_saya: {
-                teras: { id: 'teras', name: 'Teras Rumah', icon: 'door-open', subtext: 'Pintu Keluar Utama', desc: 'Teras rumah tempat bersantai sekaligus gerbang utama.' },
-                ruang_tamu: { id: 'ruang_tamu', name: 'Ruang Tamu', icon: 'tv', subtext: 'Area Istirahat', desc: 'Ruang santai keluarga lengkap dengan sofa empuk.' },
-                kamar_tidur: { id: 'kamar_tidur', name: 'Kamar Tidur', icon: 'bed', subtext: 'Area Pribadi', desc: 'Kamar tidur nyaman untuk istirahat atau rehat.' },
-                dapur: { id: 'dapur', name: 'Dapur & Makan', icon: 'utensils', subtext: 'Area Kuliner', desc: 'Dapur bersih lengkap dengan kulkas makanan.' },
-                kamar_mandi: { id: 'kamar_mandi', name: 'Kamar Mandi', icon: 'bath', subtext: 'Kebersihan Diri', desc: 'Kamar mandi segar untuk membersihkan diri.' },
-                ruang_kerja: { id: 'ruang_kerja', name: 'Ruang Kerja', icon: 'laptop', subtext: 'Produktivitas', desc: 'Meja kerja tenang untuk belajar UTBK.' },
-                taman: { id: 'taman', name: 'Taman & Kolam', icon: 'sun', subtext: 'Rekreasi Belakang', desc: 'Halaman belakang asri dengan kolam renang.' },
-                garasi: { id: 'garasi', name: 'Garasi', icon: 'warehouse', subtext: 'Area Kendaraan', desc: 'Garasi untuk menyimpan kendaraan pribadi.' }
-            },
-            sekitar_rumah: {
-                jalan_komplek: { id: 'jalan_komplek', name: 'Jalan Komplek', icon: 'footprints', subtext: 'Area Pemukiman', desc: 'Jalanan komplek yang tenang dan asri.' },
-                taman_komplek: { id: 'taman_komplek', name: 'Taman Komplek', icon: 'trees', subtext: 'Ruang Hijau', desc: 'Taman publik warga komplek.' },
-                pos_ronda: { id: 'pos_ronda', name: 'Pos Ronda', icon: 'shield', subtext: 'Pos Keamanan', desc: 'Pos penjagaan warga sekitar.' }
-            },
-            kawasan_komersial: {
-                pusat_belanja: { id: 'pusat_belanja', name: 'Pusat Belanja', icon: 'shopping-bag', subtext: 'Mall & Ruko', desc: 'Pusat perbelanjaan ramai.' },
-                kafe_kota: { id: 'kafe_kota', name: 'Kafe Perkotaan', icon: 'coffee', subtext: 'Area Nongkrong', desc: 'Kafe santai untuk minum kopi.' },
-                area_perkantoran: { id: 'area_perkantoran', name: 'Perkantoran', icon: 'building', subtext: 'Pusat Bisnis', desc: 'Gedung perkantoran dan bisnis.' }
-            }
-        };
-
-        let currentSublocations = {
-            rumah_saya: 'kamar_tidur',
-            sekitar_rumah: 'jalan_komplek',
-            kawasan_komersial: 'pusat_belanja'
-        };
-
-        const LOCATIONS_DATA = [
-            { id: 'rumah_saya', name: 'Rumah Saya', subtext: 'Area Dalam Rumah', bgClass: 'bg-room-kamar_tidur bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' },
-            { id: 'sekitar_rumah', name: 'Sekitar Rumah', subtext: 'Area Pemukiman Luar', bgClass: 'bg-sekitar-rumah bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' },
-            { id: 'kawasan_komersial', name: 'Kawasan Komersial', subtext: 'Pusat Perkantoran & Perkotaan', bgClass: 'bg-kawasan-komersial bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' }
-        ];
-
-        const ACTIONS_CONFIG = {
-            santai_teras: { title: 'Bersantai di Teras', duration: 6, location: 'rumah_saya', room: 'teras', energiGain: 15, kebahagiaanGain: 10, icon: 'coffee', category: 'SANTAY', color: 'text-amber-200', borderColor: 'border-l-amber-400', badgeBg: 'bg-amber-400/20 text-amber-200 border-amber-300/40', startDesc: 'Duduk santai sambil menghirup udara pagi yang segar...', finishDesc: 'Pikiran terasa tenang. Energi kembali pulih (+15 Energi, +10 Kebahagiaan).' },
-            siram_bunga: { title: 'Menyiram Bunga', duration: 5, location: 'rumah_saya', room: 'teras', kebahagiaanGain: 15, kesegaranGain: 10, icon: 'flower2', category: 'RUMAH', color: 'text-emerald-300', borderColor: 'border-l-emerald-400', badgeBg: 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40', startDesc: 'Menyiram pot tanaman hias di teras rumah...', finishDesc: 'Tanaman tampak berseri dan harum (+15 Kebahagiaan, +10 Kesegaran).' },
-            nonton_tv: { title: 'Menonton TV', duration: 8, location: 'rumah_saya', room: 'ruang_tamu', kebahagiaanGain: 20, icon: 'tv', category: 'HIBURAN', color: 'text-sky-300', borderColor: 'border-l-sky-400', badgeBg: 'bg-sky-400/20 text-sky-200 border-sky-300/40', startDesc: 'Menonton tayangan favorit di sofa empuk...', finishDesc: 'Perasaan gembira terisi kembali (+20 Kebahagiaan).' },
-            istirahat_tidur: { title: 'Tidur & Rehat', duration: 10, location: 'rumah_saya', room: 'kamar_tidur', energiGain: 45, kesegaranGain: 20, icon: 'moon', category: 'ISTIRAHAT', color: 'text-indigo-200', borderColor: 'border-l-indigo-300', badgeBg: 'bg-indigo-400/20 text-indigo-200 border-indigo-300/40', startDesc: 'Tidur nyenyak di atas kasur empuk kamar pribadi...', finishDesc: 'Tubuh terasa bugar dan siap beraktivitas (+45 Energi, +20 Kesegaran).' },
-            makan_kulkas: { title: 'Makan Makanan', duration: 8, location: 'rumah_saya', room: 'dapur', kesegaranGain: 35, energiGain: 10, icon: 'utensils', category: 'KULINER', color: 'text-orange-300', borderColor: 'border-l-orange-400', badgeBg: 'bg-orange-400/20 text-orange-200 border-orange-300/40', startDesc: 'Menyantap hidangan lezat di meja makan...', finishDesc: 'Perut kenyang dan energi terisi (+35 Kesegaran, +10 Energi).' },
-            mandi_segar: { title: 'Mandi Air Segar', duration: 6, location: 'rumah_saya', room: 'kamar_mandi', kesegaranGain: 40, energiGain: 25, icon: 'bath', category: 'SEGAR', color: 'text-cyan-200', borderColor: 'border-l-cyan-300', badgeBg: 'bg-cyan-400/20 text-cyan-200 border-cyan-300/40', startDesc: 'Mandi air dingin yang membasuh kelelahan...', finishDesc: 'Badan terasa sangat bersih dan harum (+40 Kesegaran, +25 Energi).' },
-            belajar_utbk: { title: 'Belajar UTBK', duration: 10, location: 'rumah_saya', room: 'ruang_kerja', statType: 'kecerdasan', icon: 'laptop', category: 'UTBK', color: 'text-purple-300', borderColor: 'border-l-purple-400', badgeBg: 'bg-purple-400/20 text-purple-200 border-purple-300/40', startDesc: 'Fokus membedah simulasi soal-soal UTBK...', finishDesc: 'Pemahaman materi meningkat secara signifikan.' },
-            renang_taman: { title: 'Berenang Kolam', duration: 9, location: 'rumah_saya', room: 'taman', statType: 'fisik', kesegaranGain: 15, kebahagiaanGain: 10, icon: 'sun', category: 'OLAHARAGA', color: 'text-pink-300', borderColor: 'border-l-pink-400', badgeBg: 'bg-pink-400/20 text-pink-200 border-pink-300/40', startDesc: 'Berenang santai di kolam belakang rumah...', finishDesc: 'Stamina meningkat (+15 Kesegaran).' },
-            joging_fisik: { title: 'Joging Komplek', duration: 10, location: 'sekitar_rumah', room: null, statType: 'fisik', icon: 'activity', category: 'OLAHARAGA', color: 'text-rose-300', borderColor: 'border-l-rose-400', badgeBg: 'bg-rose-400/20 text-rose-200 border-rose-300/40', startDesc: 'Berlari pagi mengelilingi perumahan komplek...', finishDesc: 'Fisik dan stamina terasa semakin terlatih.' }
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            updatePlayerInfoUI();
-            updateStatsUI();
-            updateLocationUI();
-            updateClockDisplays();
-            updateWeatherUI();
-            
-            // LOG AWAL PERMAINAN BERBASIS SISTEM
-            addLogEntry('SISTEM', 'Simulasi Dimulai', `Selamat datang kembali, ${player.nama}. Sistem simulasi kehidupan siap dijalankan.`, 'sparkles', 'text-amber-200', 'border-l-amber-400', 'bg-amber-400/20 text-amber-200 border-amber-300/40');
-            playBGM();
-        });
-
-        function updatePlayerInfoUI() {
-            document.getElementById('charNameDisplay').innerText = player.nama;
-            document.getElementById('charMetaDisplay').innerText = `${player.gender} • ${player.tempatLahir}`;
-        }
-
-        function updateStatsUI() {
-            document.getElementById('statUangVal').innerText = `Rp ${player.uang}`;
-            
-            document.getElementById('statEnergiVal').innerText = `${player.energi}/100`;
-            document.getElementById('statEnergiBar').style.width = `${player.energi}%`;
-            
-            document.getElementById('statKesegaranVal').innerText = `${player.kesegaran}/100`;
-            document.getElementById('statKesegaranBar').style.width = `${player.kesegaran}%`;
-
-            document.getElementById('statKebahagiaanVal').innerText = `${player.kebahagiaan}/100`;
-            document.getElementById('statKebahagiaanBar').style.width = `${player.kebahagiaan}%`;
-
-            document.getElementById('statFisikVal').innerText = `Lv. ${player.fisik.level}`;
-            let reqFisik = getRequiredXP(player.fisik.level);
-            document.getElementById('statFisikBar').style.width = `${(player.fisik.xp / reqFisik) * 100}%`;
-            document.getElementById('statFisikXpText').innerText = `${player.fisik.xp}/${reqFisik} XP`;
-
-            document.getElementById('statKecerdasanVal').innerText = `Lv. ${player.kecerdasan.level}`;
-            let reqKecerdasan = getRequiredXP(player.kecerdasan.level);
-            document.getElementById('statKecerdasanBar').style.width = `${(player.kecerdasan.xp / reqKecerdasan) * 100}%`;
-            document.getElementById('statKecerdasanXpText').innerText = `${player.kecerdasan.xp}/${reqKecerdasan} XP`;
-
-            document.getElementById('statSosialVal').innerText = `Lv. ${player.sosial.level}`;
-            let reqSosial = getRequiredXP(player.sosial.level);
-            document.getElementById('statSosialBar').style.width = `${(player.sosial.xp / reqSosial) * 100}%`;
-            document.getElementById('statSosialXpText').innerText = `${player.sosial.xp}/${reqSosial} XP`;
-
-            // STAT PESONA UI UPDATE
-            document.getElementById('statPesonaVal').innerText = `Lv. ${player.pesona.level}`;
-            let reqPesona = getRequiredXP(player.pesona.level);
-            document.getElementById('statPesonaBar').style.width = `${(player.pesona.xp / reqPesona) * 100}%`;
-            document.getElementById('statPesonaXpText').innerText = `${player.pesona.xp}/${reqPesona} XP`;
-        }
-
-        function switchSublocation(subId) {
-            const sublocs = LOCATION_SUBLOCATIONS[currentLocation];
-            if (!sublocs || !sublocs[subId]) return;
-            if (activeTimer) return;
-
-            closeRoomMenuModal();
-            if (currentSublocations[currentLocation] === subId) return;
-
-            const targetSub = sublocs[subId];
-            currentSublocations[currentLocation] = subId;
-            updateLocationUI(); 
-            
-            addLogEntry('BERPINDAH', targetSub.name, `Melangkah ke ${targetSub.name.toLowerCase()}.`, targetSub.icon, 'text-amber-200', 'border-l-amber-400', 'bg-amber-400/20 text-amber-200 border-amber-300/40');
-            playChime(659.25);
-        }
-
-        function travelToLocation(locId) {
-            if (activeTimer) return;
-            const targetLoc = LOCATIONS_DATA.find(l => l.id === locId);
-            if (!targetLoc) return;
-
-            if (locId === 'sekitar_rumah') {
-                let waitTime = 5;
-                startGenericActivity(
-                    'Perjalanan Travel', 
-                    `Sedang berjalan menuju ${targetLoc.name}...`, 
-                    'compass', 
-                    waitTime, 
-                    () => {
-                        currentLocation = locId;
-                        updateLocationUI();
-                        addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
-                        playChime(783.99);
-                        if (activePhoneApp === 'peta') {
-                            renderPhoneAppPeta();
-                        }
-                    }
-                );
-            } else {
-                currentLocation = locId;
-                updateLocationUI();
-
-                addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
-                playChime(783.99);
-
-                if (activePhoneApp === 'peta') {
-                    renderPhoneAppPeta();
-                }
-            }
-        }
-
-        function startGenericActivity(title, desc, icon, duration, onComplete) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('modalIcon').setAttribute('data-lucide', icon);
-            lucide.createIcons();
-
-            const modal = document.getElementById('activityModal');
-            const card = document.getElementById('activityModalCard');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            card.classList.remove('scale-90');
-            card.classList.add('scale-100');
-
-            let totalTime = duration;
-            let timeRemaining = totalTime;
-
-            updateTimerProgress(timeRemaining, totalTime);
-
-            activeTimer = setInterval(() => {
-                timeRemaining--;
-                updateTimerProgress(timeRemaining, totalTime);
-
-                if (timeRemaining <= 0) {
-                    clearInterval(activeTimer);
-                    activeTimer = null;
-                    closeActivityModal();
-                    if (onComplete) onComplete();
-                }
-            }, 1000);
-        }
-
-        function updateLocationUI() {
-            const locObj = LOCATIONS_DATA.find(l => l.id === currentLocation) || LOCATIONS_DATA[0];
-            const centralRoomCtrl = document.getElementById('centralRoomControl');
-            const currentLocNameText = document.getElementById('currentLocNameText');
-
-            centralRoomCtrl.style.display = 'block';
-
-            const sublocs = LOCATION_SUBLOCATIONS[currentLocation];
-            const activeSubId = currentSublocations[currentLocation];
-            const activeSub = sublocs ? sublocs[activeSubId] : null;
-
-            const subName = activeSub ? activeSub.name : 'Area Utama';
-            document.getElementById('currentRoomNameDisplay').innerText = subName;
-            currentLocNameText.innerText = `${locObj.name} • ${subName}`;
-
-            if (currentLocation === 'rumah_saya') {
-                document.getElementById('bodyBg').className = `bg-room-${activeSubId} bg-dynamic min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative`;
-            } else {
-                document.getElementById('bodyBg').className = locObj.bgClass;
-            }
-
-            renderActionTray();
-        }
-
-        function renderRoomMenuGrid() {
-            const container = document.getElementById('roomsGridContainer');
-            if (!container) return;
-            container.innerHTML = '';
-
-            const sublocs = LOCATION_SUBLOCATIONS[currentLocation];
-            if (!sublocs) return;
-
-            const currentSubId = currentSublocations[currentLocation];
-
-            Object.keys(sublocs).forEach(sId => {
-                const sub = sublocs[sId];
-                const isActive = sId === currentSubId;
-
-                const btn = document.createElement('button');
-                btn.className = `glass-panel rounded-2xl p-3 flex flex-col items-center text-center gap-2 border transition-all duration-300 cursor-pointer ${
-                    isActive ? 'border-amber-300/80 bg-amber-500/25 shadow-lg scale-105' : 'border-white/15 hover:border-white/40 hover:bg-white/10'
-                }`;
-                btn.onclick = () => switchSublocation(sId);
-
-                btn.innerHTML = `
-                    <div class="w-10 h-10 rounded-xl ${isActive ? 'bg-amber-400 text-stone-900' : 'bg-white/15 text-white'} flex items-center justify-center transition-colors">
-                        <i data-lucide="${sub.icon || 'map-pin'}" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <span class="font-serif font-bold text-xs text-white block leading-tight">${sub.name}</span>
-                        <span class="text-[9px] text-stone-300 block mt-0.5">${sub.subtext}</span>
-                    </div>
-                `;
-                container.appendChild(btn);
-            });
-            lucide.createIcons();
-        }
-
-        function renderActionTray() {
-            const tray = document.getElementById('actionsTray');
-            if (!tray) return;
-            tray.innerHTML = '';
-
-            const activeSubId = currentSublocations[currentLocation];
-
-            const activeActions = Object.keys(ACTIONS_CONFIG).filter(actKey => {
-                const act = ACTIONS_CONFIG[actKey];
-                if (act.location !== currentLocation) return false;
-                if (act.room && act.room !== activeSubId) return false;
-                return true;
-            });
-
-            if (activeActions.length === 0) {
-                tray.innerHTML = `<span class="text-xs text-stone-300/80 italic px-3 py-2">Tidak ada aktivitas khusus di sublokasi ini...</span>`;
-                return;
-            }
-
-            activeActions.forEach(actKey => {
-                const act = ACTIONS_CONFIG[actKey];
-                const btn = document.createElement('button');
-                btn.className = 'glass-btn-action elastic-stretch px-3.5 py-2 rounded-2xl flex items-center gap-2 text-xs font-semibold shadow-md cursor-pointer shrink-0';
-                btn.onclick = () => startAction(actKey);
-
-                btn.innerHTML = `
-                    <i data-lucide="${act.icon}" class="w-4 h-4 ${act.color}"></i>
-                    <span>${act.title}</span>
-                `;
-                tray.appendChild(btn);
-            });
-            lucide.createIcons();
-        }
-
-        // AKSI RUNTIME TIMER LOGIC (1 detik = 1 XP)
-        let activeTimer = null;
-        let currentActionKey = null;
-
-        function startAction(actionKey) {
-            if (activeTimer) return;
-            const act = ACTIONS_CONFIG[actionKey];
-            if (!act) return;
-
-            currentActionKey = actionKey;
-            
-            // Modal Timer setup
-            document.getElementById('modalTitle').innerText = act.title;
-            document.getElementById('modalDesc').innerText = act.startDesc;
-            document.getElementById('modalIcon').setAttribute('data-lucide', act.icon);
-            lucide.createIcons();
-
-            const modal = document.getElementById('activityModal');
-            const card = document.getElementById('activityModalCard');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            card.classList.remove('scale-90');
-            card.classList.add('scale-100');
-
-            addLogEntry(act.category, act.title, act.startDesc, act.icon, act.color, act.borderColor, act.badgeBg);
-
-            let totalTime = act.duration;
-            let timeRemaining = totalTime;
-
-            updateTimerProgress(timeRemaining, totalTime);
-
-            activeTimer = setInterval(() => {
-                timeRemaining--;
-                updateTimerProgress(timeRemaining, totalTime);
-
-                if (act.statType) {
-                    addXP(act.statType, 1);
-                }
-
-                if (timeRemaining <= 0) {
-                    finishCurrentActivity(true);
-                }
-            }, 1000);
-        }
-
-        function updateTimerProgress(remaining, total) {
-            document.getElementById('modalTimerText').innerText = `${remaining}s`;
-            let percentage = (remaining / total) * 100;
-            document.getElementById('modalProgressBar').style.width = `${percentage}%`;
-        }
-
-        function stopCurrentActivity() {
-            if (!activeTimer) return;
-            clearInterval(activeTimer);
-            activeTimer = null;
-
-            closeActivityModal();
-            addLogEntry('DIBATALKAN', 'Aktivitas Dihentikan', 'Aktivitas dihentikan sebelum selesai.', 'alert-circle', 'text-rose-300', 'border-l-rose-500', 'bg-rose-500/20 text-rose-200 border-rose-300/40');
-            currentActionKey = null;
-        }
-
-        function finishCurrentActivity(completed) {
-            if (activeTimer) {
-                clearInterval(activeTimer);
-                activeTimer = null;
-            }
-
-            closeActivityModal();
-
-            if (completed && currentActionKey) {
-                const act = ACTIONS_CONFIG[currentActionKey];
-
-                if (act.energiGain) player.energi = Math.min(100, player.energi + act.energiGain);
-                if (act.kesegaranGain) player.kesegaran = Math.min(100, player.kesegaran + act.kesegaranGain);
-                if (act.kebahagiaanGain) player.kebahagiaan = Math.min(100, player.kebahagiaan + act.kebahagiaanGain);
-
-                updateStatsUI();
-                addLogEntry(act.category, act.title, act.finishDesc, act.icon, act.color, act.borderColor, act.badgeBg);
-                playChime(880);
-            }
-
-            currentActionKey = null;
-        }
-
-        function closeActivityModal() {
-            const modal = document.getElementById('activityModal');
-            const card = document.getElementById('activityModalCard');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            card.classList.remove('scale-100');
-            card.classList.add('scale-90');
-        }
-
-        // SISTEM PENAMBAHAN XP & LEVEL UP REALTIME
-        function addXP(statType, amount) {
-            if (!player[statType]) return;
-
-            let stat = player[statType];
-            stat.xp += amount;
-
-            let requiredXP = getRequiredXP(stat.level);
-
-            while (stat.xp >= requiredXP) {
-                stat.xp -= requiredXP;
-                stat.level += 1;
-                requiredXP = getRequiredXP(stat.level);
-
-                let statName = statType.toUpperCase();
-                addLogEntry('LEVEL UP!', `Level ${statName} Naik!`, `Selamat! Tingkat ${statName} kini mencapai Level ${stat.level}.`, 'award', 'text-amber-200', 'border-l-amber-400', 'bg-amber-400/30 text-amber-100 border-amber-200');
-                triggerXPAnimation(`LEVEL UP! ${statName} LV. ${stat.level}`);
-            }
-
-            updateStatsUI();
-        }
-
-        function triggerXPAnimation(text) {
-            const floatElem = document.createElement('div');
-            floatElem.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-extrabold text-lg text-amber-200 bg-black/80 px-4 py-2 rounded-2xl border border-amber-300/60 shadow-2xl z-50 pointer-events-none animate-float-xp';
-            floatElem.innerText = text;
-            document.body.appendChild(floatElem);
-            setTimeout(() => floatElem.remove(), 1200);
-        }
-
-        // JURNAL ACTION LOG SYSTEM REALTIME
-        function addLogEntry(category, title, desc, iconName, colorClass, borderColorClass, badgeBgClass) {
-            const stack = document.getElementById('journalStack');
-            if (!stack) return;
-
-            const timeStr = getFormattedSimTime();
-
-            const card = document.createElement('div');
-            card.className = `glass-log-card rounded-2xl p-2.5 sm:p-3 flex items-start gap-2.5 sm:gap-3 border-l-4 ${borderColorClass} animate-slide-in shrink-0 transition-all duration-300 hover:border-white/40`;
-
-            card.innerHTML = `
-                <div class="p-2 rounded-xl bg-white/10 text-stone-100 shrink-0 mt-0.5">
-                    <i data-lucide="${iconName || 'activity'}" class="w-4 h-4 ${colorClass}"></i>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between gap-2 mb-0.5">
-                        <div class="flex items-center gap-1.5 min-w-0">
-                            <span class="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-md border ${badgeBgClass} shrink-0">${category}</span>
-                            <h4 class="font-bold text-xs text-white truncate">${title}</h4>
-                        </div>
-                        <span class="text-[9px] text-stone-300 shrink-0">${timeStr}</span>
-                    </div>
-                    <p class="text-[11px] text-stone-200 leading-snug break-words">${desc}</p>
-                </div>
-            `;
-
-            stack.insertBefore(card, stack.firstChild);
-            lucide.createIcons();
-
-            while (stack.children.length > 20) {
-                stack.removeChild(stack.lastChild);
-            }
-        }
-
-        document.getElementById('btnClearLogs').addEventListener('click', () => {
-            const stack = document.getElementById('journalStack');
-            if (stack) stack.innerHTML = '';
-        });
-
-        // MODAL EVENT HANDLERS
-        const roomMenuModal = document.getElementById('roomMenuModal');
-        const roomMenuModalCard = document.getElementById('roomMenuModalCard');
-        
-        document.getElementById('btnOpenRoomMenu').addEventListener('click', () => {
-            renderRoomMenuGrid();
-            roomMenuModal.classList.remove('opacity-0', 'pointer-events-none');
-            roomMenuModalCard.classList.remove('scale-95');
-            roomMenuModalCard.classList.add('scale-100');
-        });
-
-        document.getElementById('btnCloseRoomMenuModal').addEventListener('click', closeRoomMenuModal);
-
-        function closeRoomMenuModal() {
-            roomMenuModal.classList.add('opacity-0', 'pointer-events-none');
-            roomMenuModalCard.classList.remove('scale-100');
-            roomMenuModalCard.classList.add('scale-95');
-        }
-
-        // SMARTPHONE VIRTUAL REALISTIS
-        const smartphoneModal = document.getElementById('smartphoneModal');
-        const smartphoneCard = document.getElementById('smartphoneCard');
-        let activePhoneApp = null;
-
-        document.getElementById('btnOpenSmartphone').addEventListener('click', () => {
-            smartphoneModal.classList.remove('opacity-0', 'pointer-events-none');
-            smartphoneCard.classList.remove('scale-90');
-            smartphoneCard.classList.add('scale-100');
-        });
-
-        function closeSmartphone() {
-            closePhoneApp();
-            smartphoneModal.classList.add('opacity-0', 'pointer-events-none');
-            smartphoneCard.classList.remove('scale-100');
-            smartphoneCard.classList.add('scale-90');
-        }
-
-        function closePhoneAppOrModal() {
-            if (activePhoneApp) {
-                closePhoneApp();
-            } else {
-                closeSmartphone();
-            }
-        }
-
-        function openPhoneApp(appName) {
-            activePhoneApp = appName;
-            const appView = document.getElementById('phoneAppView');
-            const appTitle = document.getElementById('phoneAppTitle');
-
-            appView.classList.remove('hidden');
-
-            if (appName === 'peta') {
-                appTitle.innerText = 'GPS & Peta Travel';
-                renderPhoneAppPeta();
-            } else if (appName === 'wallet') {
-                appTitle.innerText = 'Finansial & Kas';
-                renderPhoneAppWallet();
-            } else if (appName === 'bisnis') {
-                appTitle.innerText = 'Bisnis & Properti';
-                renderPhoneAppBisnis();
-            } else if (appName === 'investasi') {
-                appTitle.innerText = 'Investasi Pasar';
-                renderPhoneAppInvestasi();
-            } else if (appName === 'freelance') {
-                appTitle.innerText = 'Karir & Pekerjaan';
-                renderPhoneAppFreelance();
-            } else if (appName === 'medsos') {
-                appTitle.innerText = 'Medsos & Koneksi';
-                renderPhoneAppMedsos();
-            } else if (appName === 'chat') {
-                appTitle.innerText = 'Pesan Singkat';
-                renderPhoneAppChat();
-            } else if (appName === 'profil') {
-                appTitle.innerText = 'Profil Identitas';
-                renderPhoneAppProfil();
-            } else if (appName === 'musik') {
-                appTitle.innerText = 'Audio Player';
-                renderPhoneAppMusik();
-            }
-        }
-
-        function closePhoneApp() {
-            activePhoneApp = null;
-            const appView = document.getElementById('phoneAppView');
-            if (appView) appView.classList.add('hidden');
-        }
-
-        // RENDER APLIKASI HP
-        function renderPhoneAppPeta() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-3">
-                    <p class="text-stone-300 text-[11px]">Pilih lokasi tujuan untuk berpindah kawasan:</p>
-                    ${LOCATIONS_DATA.map(loc => `
-                        <div class="glass-panel p-3 rounded-2xl flex items-center justify-between border ${currentLocation === loc.id ? 'border-amber-400 bg-amber-400/20' : 'border-white/10'}">
-                            <div>
-                                <h5 class="font-bold text-white text-xs">${loc.name}</h5>
-                                <p class="text-[10px] text-stone-300">${loc.subtext}</p>
-                            </div>
-                            ${currentLocation === loc.id ? 
-                                `<span class="text-[9px] font-bold text-amber-200 bg-black/40 px-2 py-1 rounded-lg">Lokasi Saat Ini</span>` :
-                                `<button onclick="travelToLocation('${loc.id}')" class="px-3 py-1.5 bg-white/20 hover:bg-white/30 text-white font-bold text-[10px] rounded-xl border border-white/20 cursor-pointer">Pergi</button>`
-                            }
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function renderPhoneAppWallet() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-3">
-                    <div class="p-4 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-400 text-stone-900 shadow-xl">
-                        <span class="text-[10px] font-extrabold uppercase tracking-widest opacity-80 block">Saldo Dompet</span>
-                        <span class="font-serif text-2xl font-bold block mt-1">Rp ${player.uang}</span>
-                    </div>
-                    <div class="glass-panel p-3 rounded-2xl border border-white/10">
-                        <h5 class="font-bold text-xs text-white mb-1">Riwayat Keuangan</h5>
-                        <p class="text-[10px] text-stone-300">Belum ada transaksi besar tercatat hari ini.</p>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function renderPhoneAppBisnis() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-3 text-center py-6">
-                    <i data-lucide="building-2" class="w-10 h-10 text-indigo-300 mx-auto"></i>
-                    <h5 class="font-bold text-sm text-white">Manajemen Bisnis</h5>
-                    <p class="text-[10px] text-stone-300">Anda belum memiliki bisnis aktif. Kumpulkan modal untuk memulai usaha baru.</p>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function renderPhoneAppInvestasi() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-3 text-center py-6">
-                    <i data-lucide="line-chart" class="w-10 h-10 text-cyan-300 mx-auto"></i>
-                    <h5 class="font-bold text-sm text-white">Portofolio Saham & Kripto</h5>
-                    <p class="text-[10px] text-stone-300">Pasar saham sedang stabil. Fitur perdagangan akan segera terbuka.</p>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function renderPhoneAppFreelance() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-3 text-center py-6">
-                    <i data-lucide="briefcase" class="w-10 h-10 text-purple-300 mx-auto"></i>
-                    <h5 class="font-bold text-sm text-white">Lowongan Karir</h5>
-                    <p class="text-[10px] text-stone-300">Tingkatkan Kecerdasan dan Sosial Anda untuk membuka pekerjaan freelance berbayar tinggi.</p>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function renderPhoneAppMedsos() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-3 text-center py-6">
-                    <i data-lucide="share-2" class="w-10 h-10 text-pink-300 mx-auto"></i>
-                    <h5 class="font-bold text-sm text-white">Jaringan Sosial</h5>
-                    <p class="text-[10px] text-stone-300">Posting kegiatan sehari-hari untuk menambah jumlah pengikut sosial Anda.</p>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function renderPhoneAppChat() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-2">
-                    <div class="p-3 rounded-2xl bg-white/10 border border-white/10 flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-amber-400 text-stone-900 font-bold flex items-center justify-center text-xs">S</div>
-                        <div>
-                            <h5 class="font-bold text-xs text-white">Sistem Simulasi</h5>
-                            <p class="text-[10px] text-amber-200">Selamat datang di aplikasi virtual!</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function renderPhoneAppProfil() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-3">
-                    <div class="glass-panel p-4 rounded-2xl border border-white/10 text-center">
-                        <div class="w-12 h-12 rounded-full bg-amber-200 text-stone-900 font-bold flex items-center justify-center text-lg mx-auto mb-2">
-                            ${player.nama.charAt(0)}
-                        </div>
-                        <h5 class="font-bold text-sm text-white">${player.nama}</h5>
-                        <p class="text-[10px] text-stone-300">${player.gender} • ${player.umur} Tahun</p>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function renderPhoneAppMusik() {
-            const body = document.getElementById('phoneAppBody');
-            body.innerHTML = `
-                <div class="flex flex-col gap-4 text-center py-4">
-                    <div class="w-20 h-20 rounded-full bg-rose-500/20 border border-rose-400/40 text-rose-300 flex items-center justify-center mx-auto shadow-2xl animate-spin-slow">
-                        <i data-lucide="disc" class="w-10 h-10"></i>
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-sm text-white">Garden Ambient BGM</h5>
-                        <p class="text-[10px] text-stone-300">Musik Relaksasi Latar Belakang Game</p>
-                    </div>
-                    <button onclick="toggleBGM()" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs rounded-xl border border-rose-300/40 shadow-lg mx-auto cursor-pointer flex items-center gap-2">
-                        <i data-lucide="${isBgmPlaying ? 'pause' : 'play'}" class="w-4 h-4 fill-current"></i>
-                        <span>${isBgmPlaying ? 'Jeda Musik' : 'Putar Musik'}</span>
-                    </button>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        // AUDIO CHIME SINTESIS
-        function playChime(freq) {
-            try {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (!AudioCtx) return;
-                const ctx = new AudioCtx();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq || 523.25, ctx.currentTime);
-                
-                gain.gain.setValueAtTime(0.08, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
-
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                osc.start();
-                osc.stop(ctx.currentTime + 0.6);
-            } catch(e) {}
-        }
-    </script>
+    <!-- Menghubungkan File JavaScript Eksternal -->
+    <script src="script.js"></script>
     
 </body>
 </html>
