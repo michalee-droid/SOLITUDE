@@ -1,0 +1,194 @@
+/* Background Dynamic Locations & Individual Rooms */
+.bg-dynamic {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    transition: background-image 0.8s ease-in-out;
+}
+
+.bg-room-teras {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
+        linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
+        url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1920&auto=format&fit=crop');
+}
+
+.bg-room-ruang_tamu {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
+        linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
+        url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop');
+}
+
+.bg-room-kamar_tidur {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(40, 25, 20, 0.65) 100%),
+        linear-gradient(to bottom, rgba(20, 12, 10, 0.3), rgba(12, 8, 7, 0.65)),
+        url('https://res.cloudinary.com/dl2egfdw2/image/upload/v1790011636/image_7670664_hkysbf.png');
+}
+
+.bg-room-dapur {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(30, 20, 15, 0.65) 100%),
+        linear-gradient(to bottom, rgba(15, 10, 8, 0.3), rgba(10, 8, 7, 0.65)),
+        url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1920&auto=format&fit=crop');
+}
+
+.bg-room-kamar_mandi {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(15, 25, 35, 0.65) 100%),
+        linear-gradient(to bottom, rgba(10, 15, 20, 0.3), rgba(8, 12, 16, 0.65)),
+        url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1920&auto=format&fit=crop');
+}
+
+.bg-room-ruang_kerja {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(25, 20, 30, 0.65) 100%),
+        linear-gradient(to bottom, rgba(12, 10, 18, 0.3), rgba(8, 7, 12, 0.65)),
+        url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1920&auto=format&fit=crop');
+}
+
+.bg-room-taman {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(15, 30, 20, 0.65) 100%),
+        linear-gradient(to bottom, rgba(10, 18, 12, 0.3), rgba(7, 12, 8, 0.65)),
+        url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1920&auto=format&fit=crop');
+}
+
+.bg-room-garasi {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(25, 25, 25, 0.65) 100%),
+        linear-gradient(to bottom, rgba(15, 15, 15, 0.3), rgba(10, 10, 10, 0.65)),
+        url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=1920&auto=format&fit=crop');
+}
+
+.bg-sekitar-rumah {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.15) 0%, rgba(30, 20, 18, 0.55) 100%),
+        linear-gradient(to bottom, rgba(15, 12, 10, 0.2), rgba(10, 8, 7, 0.55)),
+        url('https://res.cloudinary.com/dl2egfdw2/image/upload/v1789994307/Gemini_Generated_Image_7dncd07dncd07dnc_wcorle.jpg');
+}
+
+.bg-kawasan-komersial {
+    background-image: 
+        radial-gradient(circle at 50% 30%, rgba(255, 253, 248, 0.1) 0%, rgba(18, 24, 38, 0.65) 100%),
+        linear-gradient(to bottom, rgba(10, 15, 25, 0.3), rgba(8, 12, 20, 0.65)),
+        url('https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=1920&auto=format&fit=crop');
+}
+
+/* Glassmorphism & High Quality Blur */
+.glass-panel {
+    background: rgba(20, 16, 15, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.glass-log-card {
+    background: rgba(15, 12, 10, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.glass-dock {
+    background: rgba(18, 14, 12, 0.72);
+    backdrop-filter: blur(20px) saturate(130%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-modal-transparent {
+    background: rgba(18, 14, 12, 0.7) !important;
+    backdrop-filter: blur(24px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 
+                0 0 35px rgba(255, 230, 180, 0.25) !important;
+}
+
+.glass-pill {
+    background: rgba(20, 16, 14, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.glass-pill-transparent {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.blur-bottom-mask {
+    mask-image: linear-gradient(to bottom, black 0%, black 80%, rgba(0, 0, 0, 0.3) 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, rgba(0, 0, 0, 0.3) 92%, transparent 100%);
+}
+
+.elastic-stretch {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    touch-action: pan-y;
+    user-select: none;
+}
+.elastic-stretch:active {
+    transform: scaleX(1.28) scaleY(0.85);
+}
+
+.glass-btn-primary {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 242, 232, 0.85) 100%);
+    color: #3a2618;
+    box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.3);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+}
+
+.glass-btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 15px 30px -5px rgba(255, 255, 255, 0.45);
+}
+
+.glass-btn-action {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s, border-color 0.3s;
+}
+
+.glass-btn-action:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px) scale(1.02);
+}
+
+* {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+*::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.phone-wallpaper {
+    background: radial-gradient(circle at 50% 20%, rgba(60, 40, 80, 0.8), rgba(15, 12, 25, 0.95)),
+                url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+}
+
+#weatherCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2;
+}
