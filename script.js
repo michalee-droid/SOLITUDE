@@ -404,10 +404,7 @@ function startGenericActivity(title, desc, icon, duration, onComplete) {
 
 function updateLocationUI() {
     const locObj = LOCATIONS_DATA.find(l => l.id === currentLocation) || LOCATIONS_DATA[0];
-    const centralRoomCtrl = document.getElementById('centralRoomControl');
     const currentLocNameText = document.getElementById('currentLocNameText');
-
-    centralRoomCtrl.style.display = 'block';
 
     const sublocs = LOCATION_SUBLOCATIONS[currentLocation];
     const activeSubId = currentSublocations[currentLocation];
@@ -422,8 +419,6 @@ function updateLocationUI() {
     } else {
         document.getElementById('bodyBg').className = locObj.bgClass;
     }
-
-    renderActionTray();
 }
 
 function renderRoomMenuGrid() {
@@ -460,10 +455,11 @@ function renderRoomMenuGrid() {
     lucide.createIcons();
 }
 
-function renderActionTray() {
-    const tray = document.getElementById('actionsTray');
-    if (!tray) return;
-    tray.innerHTML = '';
+// RENDERING MODAL AKTIVITAS PUSAT
+function renderActivitiesMenuGrid() {
+    const container = document.getElementById('activitiesGridContainer');
+    if (!container) return;
+    container.innerHTML = '';
 
     const activeSubId = currentSublocations[currentLocation];
 
@@ -475,21 +471,32 @@ function renderActionTray() {
     });
 
     if (activeActions.length === 0) {
-        tray.innerHTML = `<span class="text-xs text-stone-300/80 italic px-3 py-2">Tidak ada aktivitas khusus di sublokasi ini...</span>`;
+        container.innerHTML = `<div class="col-span-2 text-center text-xs text-stone-300/80 italic py-8">Tidak ada aktivitas khusus di sublokasi ini...</div>`;
         return;
     }
 
     activeActions.forEach(actKey => {
         const act = ACTIONS_CONFIG[actKey];
         const btn = document.createElement('button');
-        btn.className = 'glass-btn-action elastic-stretch px-3.5 py-2 rounded-2xl flex items-center gap-2 text-xs font-semibold shadow-md cursor-pointer shrink-0';
-        btn.onclick = () => startAction(actKey);
+        btn.className = 'glass-panel rounded-2xl p-3.5 flex items-center justify-between border border-white/15 hover:border-amber-300/60 hover:bg-white/10 transition-all duration-300 cursor-pointer text-left group';
+        btn.onclick = () => {
+            closeActivitiesMenuModal();
+            startAction(actKey);
+        };
 
         btn.innerHTML = `
-            <i data-lucide="${act.icon}" class="w-4 h-4 ${act.color}"></i>
-            <span>${act.title}</span>
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 rounded-xl bg-white/10 ${act.color} group-hover:scale-110 transition-transform">
+                    <i data-lucide="${act.icon}" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-md border ${act.badgeBg} block w-max mb-1">${act.category}</span>
+                    <h5 class="font-bold text-xs text-white">${act.title}</h5>
+                </div>
+            </div>
+            <i data-lucide="play" class="w-4 h-4 text-stone-400 group-hover:text-amber-200 transition-colors"></i>
         `;
-        tray.appendChild(btn);
+        container.appendChild(btn);
     });
     lucide.createIcons();
 }
@@ -650,6 +657,7 @@ document.getElementById('btnClearLogs').addEventListener('click', () => {
     if (stack) stack.innerHTML = '';
 });
 
+// EVENT LISTENERS MODAL BERPINDAH
 const roomMenuModal = document.getElementById('roomMenuModal');
 const roomMenuModalCard = document.getElementById('roomMenuModalCard');
 
@@ -668,6 +676,26 @@ function closeRoomMenuModal() {
     roomMenuModalCard.classList.add('scale-95');
 }
 
+// EVENT LISTENERS MODAL AKTIVITAS PUSAT
+const activitiesMenuModal = document.getElementById('activitiesMenuModal');
+const activitiesMenuModalCard = document.getElementById('activitiesMenuModalCard');
+
+document.getElementById('btnOpenActivitiesMenu').addEventListener('click', () => {
+    renderActivitiesMenuGrid();
+    activitiesMenuModal.classList.remove('opacity-0', 'pointer-events-none');
+    activitiesMenuModalCard.classList.remove('scale-95');
+    activitiesMenuModalCard.classList.add('scale-100');
+});
+
+document.getElementById('btnCloseActivitiesMenuModal').addEventListener('click', closeActivitiesMenuModal);
+
+function closeActivitiesMenuModal() {
+    activitiesMenuModal.classList.add('opacity-0', 'pointer-events-none');
+    activitiesMenuModalCard.classList.remove('scale-100');
+    activitiesMenuModalCard.classList.add('scale-95');
+}
+
+// EVENT LISTENERS SMARTPHONE
 const smartphoneModal = document.getElementById('smartphoneModal');
 const smartphoneCard = document.getElementById('smartphoneCard');
 let activePhoneApp = null;
@@ -896,11 +924,10 @@ function playChime(freq) {
         osc.stop(ctx.currentTime + 0.6);
     } catch(e) {}
 }
-// Variable State Waktu
-let currentTimeInMinutes = 480; // Contoh: 08:00 Pagi (480 menit)
+
+let currentTimeInMinutes = 480; 
 let isAccelerating = false;
 
-// Format menit menjadi jam & menit (HH:MM)
 function formatTime(totalMinutes) {
   const hours = Math.floor(totalMinutes / 60) % 24;
   const minutes = totalMinutes % 60;
@@ -914,27 +941,20 @@ function updateDisplay() {
   }
 }
 
-/**
- * Fungsi Pengganti Pop-up: Mempercepat Waktu Display
- * @param {number} addedMinutes - Durasi waktu kegiatan/perjalanan (misal: 60 menit)
- * @param {function} onComplete - Action setelah percepatan selesai
- */
 function accelerateTime(addedMinutes, onComplete = null) {
-  if (isAccelerating) return; // Kunci input jika animasi sedang berjalan
+  if (isAccelerating) return; 
   
   isAccelerating = true;
   const targetTime = currentTimeInMinutes + addedMinutes;
   
-  // Tentukan kecepatan tick animasi (makin kecil ms, makin cepat)
   const stepDuration = 15; 
-  const incrementStep = Math.max(1, Math.floor(addedMinutes / 30)); // Langkah lompatan angka
+  const incrementStep = Math.max(1, Math.floor(addedMinutes / 30)); 
 
   const timer = setInterval(() => {
     currentTimeInMinutes += incrementStep;
 
-    // Jika melebihi atau mencapai target
     if (currentTimeInMinutes >= targetTime) {
-      currentTimeInMinutes = targetTime; // Tepatkan ke target
+      currentTimeInMinutes = targetTime; 
       updateDisplay();
       clearInterval(timer);
       isAccelerating = false;
@@ -945,11 +965,3 @@ function accelerateTime(addedMinutes, onComplete = null) {
     }
   }, stepDuration);
 }
-
-// === Event Listener Tombol Kegiatan / Berpergian ===
-document.getElementById('btn-kegiatan').addEventListener('click', () => {
-  // Langsung eksekusi tanpa membuka pop-up (misal: tambah 120 menit)
-  accelerateTime(120, () => {
-    console.log("Kegiatan selesai, waktu telah diperbarui.");
-  });
-});
