@@ -255,3 +255,109 @@
 .dock-btn:active {
   transform: translateY(1px) scale(0.98) !important;
 }
+/* =========================================================
+   ADVANCED HOVER EFFECTS (LIGHT SWEEP & ADVANCED GLOW)
+   ========================================================= */
+
+/* Base Style Tombol Footer */
+.dock-btn {
+  position: relative;
+  overflow: hidden; /* Memastikan efek kilatan cahaya tidak keluar garis */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+/* 1. Efek Garis Terang Atas (Highlight Edge) */
+.dock-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  z-index: 2;
+}
+
+/* 2. Efek Kilatan Cahaya Menyapu (Shimmer Light Sweep) */
+.dock-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 100%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 70%
+  );
+  transform: rotate(25deg);
+  transition: all 0.65s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.dock-btn:hover::after {
+  left: 150%; /* Efek menyapu dari kiri ke kanan saat hover */
+}
+
+/* --- OPSI AMBER (NAVIGASI) --- */
+.btn-amber {
+  background: linear-gradient(135deg, rgba(180, 83, 9, 0.4) 0%, rgba(120, 53, 15, 0.65) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  box-shadow: 0 8px 20px rgba(180, 83, 9, 0.2);
+}
+
+.btn-amber:hover {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.65) 0%, rgba(146, 64, 14, 0.8) 100%);
+  border-color: rgba(251, 191, 36, 0.85);
+  box-shadow: 0 14px 30px rgba(245, 158, 11, 0.45), 0 0 20px rgba(251, 191, 36, 0.3);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* --- OPSI EMERALD (AKTIVITAS) --- */
+.btn-emerald {
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.4) 0%, rgba(6, 78, 59, 0.65) 100%);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  box-shadow: 0 8px 20px rgba(5, 150, 105, 0.2);
+}
+
+.btn-emerald:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.65) 0%, rgba(4, 120, 87, 0.8) 100%);
+  border-color: rgba(52, 211, 153, 0.85);
+  box-shadow: 0 14px 30px rgba(16, 185, 129, 0.45), 0 0 20px rgba(52, 211, 153, 0.3);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* --- OPSI INDIGO (SMARTPHONE) --- */
+.btn-indigo {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.4) 0%, rgba(49, 46, 129, 0.65) 100%);
+  border: 1px solid rgba(129, 140, 248, 0.35);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+}
+
+.btn-indigo:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.65) 0%, rgba(67, 56, 202, 0.8) 100%);
+  border-color: rgba(129, 140, 248, 0.85);
+  box-shadow: 0 14px 30px rgba(99, 102, 241, 0.45), 0 0 20px rgba(129, 140, 248, 0.3);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* 3. Animasi Mikro Pada Ikon Saat Hover */
+.dock-btn:hover .p-2,
+.dock-btn:hover .p-2.5 {
+  transform: scale(1.15) rotate(-4deg);
+  background-color: rgba(255, 255, 255, 0.25);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Respon Tekanan Saat Ditekan (Active State) */
+.dock-btn:active {
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
