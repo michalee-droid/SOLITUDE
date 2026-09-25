@@ -79,7 +79,7 @@
     <audio id="bgmAudio" loop preload="auto" src="https://res.cloudinary.com/dl2egfdw2/video/upload/v1790005591/Garden_audio_1_rwpvgz.mp3"></audio>
 
     <!-- UI LAYER UTAMA GAME -->
-    <div id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 flex flex-col justify-between pointer-events-auto opacity-100 transition-opacity duration-700">
+    <div id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 pb-28 sm:pb-32 flex flex-col justify-between pointer-events-auto opacity-100 transition-opacity duration-700">
 
         <!-- TOP BAR: Profil & Stat Karakter -->
         <div class="w-full flex flex-col gap-2.5 pointer-events-auto max-w-full sm:max-w-md md:max-w-lg z-20">
@@ -220,7 +220,7 @@
             </div>
 
             <!-- ACTION LOG SYSTEM -->
-            <div class="glass-pill-transparent rounded-2xl p-3 flex flex-col w-full overflow-hidden transition-all duration-300 relative" style="height: calc(100vh - 280px); max-height: calc(100vh - 280px);">
+            <div class="glass-pill-transparent rounded-2xl p-3 flex flex-col w-full overflow-hidden transition-all duration-300 relative" style="height: calc(100vh - 320px); max-height: calc(100vh - 320px);">
                 
                 <div class="w-full flex items-center justify-between pb-2 mb-2 border-b border-white/15 shrink-0">
                     <div class="flex items-center gap-2">
@@ -246,45 +246,45 @@
 
         </div>
 
-        <!-- BOTTOM NAVIGATION DOCK BAR -->
-        <div class="w-full flex justify-center pointer-events-auto z-30 pb-1">
-            <div class="glass-dock rounded-3xl p-2 sm:p-2.5 w-full max-w-5xl flex items-center gap-3 overflow-hidden shadow-2xl border border-white/30">
-                
-                <div id="centralRoomControl" class="shrink-0">
-                    <button id="btnOpenRoomMenu" class="glass-btn-primary elastic-stretch px-3.5 sm:px-4 py-2.5 rounded-2xl flex items-center gap-2.5 border border-white/60 cursor-pointer">
-                        <div class="p-1.5 rounded-xl bg-amber-400/30 text-amber-900 shrink-0">
-                            <i data-lucide="layout-grid" class="w-4 h-4"></i>
-                        </div>
-                        <div class="text-left hidden sm:block">
-                            <span class="text-[8px] uppercase font-extrabold tracking-widest text-stone-700 block leading-none">Berpindah</span>
-                            <span id="currentRoomNameDisplay" class="font-serif text-xs font-bold text-stone-900 leading-tight">Kamar Tidur</span>
-                        </div>
-                        <i data-lucide="chevron-up" class="w-3.5 h-3.5 text-stone-800 ml-0.5"></i>
-                    </button>
+    </div>
+
+    <!-- BOTTOM NAVIGATION DOCK BAR (KONSISTEN DI BAWAH) -->
+    <div class="fixed bottom-0 left-0 right-0 w-full flex justify-center pointer-events-auto z-40 p-3 sm:p-5 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+        <div class="glass-dock rounded-3xl p-3 sm:p-4 w-full max-w-4xl grid grid-cols-3 gap-2 sm:gap-4 items-center shadow-2xl border border-white/30">
+            
+            <!-- TOMBOL 1: BERPINDAH -->
+            <button id="btnOpenRoomMenu" class="glass-btn-primary elastic-stretch w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 border border-white/60 cursor-pointer shadow-lg">
+                <div class="p-2 rounded-xl bg-amber-400/30 text-amber-900 shrink-0">
+                    <i data-lucide="layout-grid" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </div>
-
-                <div class="h-8 w-px bg-white/20 shrink-0"></div>
-
-                <div class="flex-1 flex items-center overflow-x-auto py-1 px-1">
-                    <div id="actionsTray" class="flex items-center gap-2.5 whitespace-nowrap min-w-full">
-                    </div>
+                <div class="text-left leading-tight min-w-0">
+                    <span class="text-[9px] sm:text-[10px] uppercase font-extrabold tracking-widest text-stone-700 block truncate">Berpindah</span>
+                    <span id="currentRoomNameDisplay" class="font-serif text-xs sm:text-sm font-bold text-stone-900 block truncate">Kamar Tidur</span>
                 </div>
+                <i data-lucide="chevron-up" class="w-4 h-4 text-stone-800 ml-auto hidden sm:block shrink-0"></i>
+            </button>
 
-                <div class="h-8 w-px bg-white/20 shrink-0"></div>
-
-                <div class="shrink-0">
-                    <button id="btnOpenSmartphone" class="glass-btn-primary elastic-stretch px-3.5 sm:px-4 py-2.5 rounded-2xl flex items-center gap-2 font-bold text-xs tracking-wide shadow-xl relative group border border-white/60 cursor-pointer bg-gradient-to-r from-stone-900 to-stone-800 text-white hover:text-amber-200">
-                        <div class="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-stone-900 group-hover:scale-110 transition-transform">
-                            <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
-                        </div>
-                        <span class="font-bold hidden sm:inline">Smartphone</span>
-                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                    </button>
+            <!-- TOMBOL 2: AKTIVITAS (MEMAKAI SATU TOMBOL PUSAT) -->
+            <button id="btnOpenActivitiesMenu" class="glass-btn-primary elastic-stretch w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 border border-white/60 cursor-pointer shadow-lg bg-gradient-to-r from-amber-200 to-amber-100">
+                <div class="p-2 rounded-xl bg-amber-500/30 text-amber-900 shrink-0">
+                    <i data-lucide="sparkles" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </div>
+                <div class="text-left leading-tight min-w-0">
+                    <span class="text-[9px] sm:text-[10px] uppercase font-extrabold tracking-widest text-stone-800 block truncate">Tindakan</span>
+                    <span class="font-serif text-xs sm:text-sm font-bold text-stone-950 block truncate">Aktivitas</span>
+                </div>
+                <i data-lucide="chevron-up" class="w-4 h-4 text-stone-800 ml-auto hidden sm:block shrink-0"></i>
+            </button>
 
-            </div>
+            <!-- TOMBOL 3: SMARTPHONE (TANPA KEDIPAN) -->
+            <button id="btnOpenSmartphone" class="glass-btn-primary elastic-stretch w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 font-bold text-xs sm:text-sm tracking-wide shadow-xl relative border border-white/60 cursor-pointer bg-gradient-to-r from-stone-900 to-stone-800 text-white hover:text-amber-200">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-stone-900 shrink-0">
+                    <i data-lucide="smartphone" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                </div>
+                <span class="font-bold text-xs sm:text-sm block truncate">Smartphone</span>
+            </button>
+
         </div>
-
     </div>
 
     <!-- MODAL BERPINDAH -->
@@ -307,6 +307,31 @@
             </div>
 
             <div id="roomsGridContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-[60vh] overflow-y-auto p-1">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL MENU AKTIVITAS PUSAT -->
+    <div id="activitiesMenuModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div id="activitiesMenuModalCard" class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-xl w-full flex flex-col transform scale-95 transition-all duration-300 ease-out border border-white/20 shadow-2xl relative">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-white/15 mb-4 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 rounded-2xl bg-amber-400/20 border border-amber-300/30 text-amber-200">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-xl sm:text-2xl font-bold text-white tracking-wide">Menu Aktivitas</h3>
+                        <p class="text-xs text-stone-200">Pilih kegiatan yang ingin dilakukan saat ini.</p>
+                    </div>
+                </div>
+                <button id="btnCloseActivitiesMenuModal" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-stone-200 hover:text-white flex items-center justify-center transition-all cursor-pointer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="activitiesGridContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto p-1">
             </div>
 
         </div>
