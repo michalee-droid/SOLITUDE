@@ -248,44 +248,48 @@
 
     </div>
 
-    <!-- BOTTOM NAVIGATION DOCK BAR (FULL-WIDTH TANPA BOX PENGHALANG) -->
-    <div class="fixed bottom-0 left-0 right-0 w-full z-40 px-3 sm:px-6 py-3 sm:py-4 bg-gradient-to-t from-stone-950 via-stone-900/90 to-transparent border-t border-white/10 backdrop-blur-xl">
-        <div class="w-full max-w-6xl mx-auto grid grid-cols-3 gap-2 sm:gap-4 items-center">
-            
-            <!-- TOMBOL 1: BERPINDAH -->
-            <button id="btnOpenRoomMenu" class="glass-btn-primary elastic-stretch w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 border border-white/40 cursor-pointer shadow-lg">
-                <div class="p-2 rounded-xl bg-amber-400/30 text-amber-900 shrink-0">
-                    <i data-lucide="layout-grid" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-                </div>
-                <div class="text-left leading-tight min-w-0">
-                    <span class="text-[9px] sm:text-[10px] uppercase font-extrabold tracking-widest text-stone-700 block truncate">Berpindah</span>
-                    <span id="currentRoomNameDisplay" class="font-serif text-xs sm:text-sm font-bold text-stone-900 block truncate">Kamar Tidur</span>
-                </div>
-                <i data-lucide="chevron-up" class="w-4 h-4 text-stone-800 ml-auto hidden sm:block shrink-0"></i>
-            </button>
+    <!-- BOTTOM NAVIGATION DOCK BAR -->
+<div class="fixed bottom-0 left-0 right-0 w-full z-40 px-3 sm:px-6 py-3.5 sm:py-5 bg-gradient-to-t from-black/90 via-stone-950/70 to-transparent backdrop-blur-2xl border-t border-white/15">
+    <div class="w-full max-w-5xl mx-auto grid grid-cols-3 gap-2.5 sm:gap-5 items-center">
+        
+        <!-- TOMBOL 1: BERPINDAH (TEMA AMBER / WARM GOLD) -->
+        <button id="btnOpenRoomMenu" class="dock-btn btn-amber elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+            <div class="p-2 sm:p-2.5 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                <i data-lucide="compass" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <div class="text-left leading-tight min-w-0">
+                <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-amber-200/80 block truncate">Navigasi</span>
+                <span id="currentRoomNameDisplay" class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Kamar Tidur</span>
+            </div>
+            <i data-lucide="chevron-up" class="w-4 h-4 text-amber-200/60 ml-auto hidden sm:block shrink-0 group-hover:-translate-y-1 transition-transform"></i>
+        </button>
 
-            <!-- TOMBOL 2: AKTIVITAS (WARNA DISESUAIKAN DENGAN SUASANA GLASS/WARM TERANG) -->
-            <button id="btnOpenActivitiesMenu" class="glass-btn-primary elastic-stretch w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 border border-white/40 cursor-pointer shadow-lg bg-stone-100 hover:bg-stone-200">
-                <div class="p-2 rounded-xl bg-amber-400/30 text-amber-900 shrink-0">
-                    <i data-lucide="sparkles" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-                </div>
-                <div class="text-left leading-tight min-w-0">
-                    <span class="text-[9px] sm:text-[10px] uppercase font-extrabold tracking-widest text-stone-700 block truncate">Tindakan</span>
-                    <span class="font-serif text-xs sm:text-sm font-bold text-stone-900 block truncate">Aktivitas</span>
-                </div>
-                <i data-lucide="chevron-up" class="w-4 h-4 text-stone-800 ml-auto hidden sm:block shrink-0"></i>
-            </button>
+        <!-- TOMBOL 2: AKTIVITAS (TEMA EMERALD / FRESH VIBES) -->
+        <button id="btnOpenActivitiesMenu" class="dock-btn btn-emerald elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+            <div class="p-2 sm:p-2.5 rounded-xl bg-emerald-400/20 border border-emerald-300/40 text-emerald-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                <i data-lucide="sparkles" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <div class="text-left leading-tight min-w-0">
+                <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-emerald-200/80 block truncate">Tindakan</span>
+                <span class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Aktivitas</span>
+            </div>
+            <i data-lucide="chevron-up" class="w-4 h-4 text-emerald-200/60 ml-auto hidden sm:block shrink-0 group-hover:-translate-y-1 transition-transform"></i>
+        </button>
 
-            <!-- TOMBOL 3: SMARTPHONE -->
-            <button id="btnOpenSmartphone" class="glass-btn-primary elastic-stretch w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 font-bold text-xs sm:text-sm tracking-wide shadow-xl relative border border-white/40 cursor-pointer bg-stone-900 text-white hover:text-amber-200">
-                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-stone-900 shrink-0">
-                    <i data-lucide="smartphone" class="w-4 h-4 sm:w-5 sm:h-5"></i>
-                </div>
-                <span class="font-bold text-xs sm:text-sm block truncate">Smartphone</span>
-            </button>
+        <!-- TOMBOL 3: SMARTPHONE (TEMA INDIGO / NEON TECH) -->
+        <button id="btnOpenSmartphone" class="dock-btn btn-indigo elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+            <div class="p-2 sm:p-2.5 rounded-xl bg-indigo-400/20 border border-indigo-300/40 text-indigo-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                <i data-lucide="smartphone" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <div class="text-left leading-tight min-w-0">
+                <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-indigo-200/80 block truncate">Perangkat</span>
+                <span class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Smartphone</span>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-indigo-200/60 ml-auto hidden sm:block shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+        </button>
 
-        </div>
     </div>
+</div>
 
     <!-- MODAL BERPINDAH -->
     <div id="roomMenuModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
