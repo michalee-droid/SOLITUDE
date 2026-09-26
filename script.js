@@ -147,6 +147,11 @@ function updateWeatherUI() {
     if (phoneWidgetIcon) phoneWidgetIcon.setAttribute('data-lucide', currentWeather.icon);
     if (phoneWidgetText) phoneWidgetText.innerText = `${currentWeather.temp}°C ${currentWeather.cond}`;
 
+    const pageWeatherIcon = document.getElementById('phonePageWeatherIcon');
+    const pageWeatherText = document.getElementById('phonePageWeatherText');
+    if (pageWeatherIcon) pageWeatherIcon.setAttribute('data-lucide', currentWeather.icon);
+    if (pageWeatherText) pageWeatherText.innerText = `${currentWeather.temp}°C ${currentWeather.cond}`;
+
     lucide.createIcons();
 }
 
@@ -208,6 +213,15 @@ function updateClockDisplays() {
 
     const widgetDate = document.getElementById('phoneWidgetDate');
     if (widgetDate) widgetDate.innerText = fullFormattedDate;
+
+    const pageClock = document.getElementById('phonePageClock');
+    if (pageClock) pageClock.innerText = formattedTime;
+
+    const pageTimeLarge = document.getElementById('phonePageTimeLarge');
+    if (pageTimeLarge) pageTimeLarge.innerText = formattedTime;
+
+    const pageDate = document.getElementById('phonePageDate');
+    if (pageDate) pageDate.innerText = fullFormattedDate;
 }
 
 // FITUR PERCEPAT 1 BULAN
@@ -239,6 +253,7 @@ let player = {
     tempatLahir: 'Jakarta',
     umur: 17,
     uang: 150,
+    punyaKendaraan: false, // Opsi Kepemilikan Kendaraan Pribadi
     
     energi: 100,
     kesegaran: 80,
@@ -286,9 +301,9 @@ let currentSublocations = {
 };
 
 const LOCATIONS_DATA = [
-    { id: 'rumah_saya', name: 'Rumah Saya', subtext: 'Area Dalam Rumah', bgClass: 'bg-room-kamar_tidur bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' },
-    { id: 'sekitar_rumah', name: 'Sekitar Rumah', subtext: 'Area Pemukiman Luar', bgClass: 'bg-sekitar-rumah bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' },
-    { id: 'kawasan_komersial', name: 'Kawasan Komersial', subtext: 'Pusat Perkantoran & Perkotaan', bgClass: 'bg-kawasan-komersial bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' }
+    { id: 'rumah_saya', name: 'Rumah Saya', subtext: 'Area Dalam Rumah', baseDuration: 6, bgClass: 'bg-room-kamar_tidur bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' },
+    { id: 'sekitar_rumah', name: 'Sekitar Rumah', subtext: 'Area Pemukiman Luar', baseDuration: 8, bgClass: 'bg-sekitar-rumah bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' },
+    { id: 'kawasan_komersial', name: 'Kawasan Komersial', subtext: 'Pusat Perkantoran & Perkotaan', baseDuration: 12, bgClass: 'bg-kawasan-komersial bg-dynamic min-h-screen font-sans text-stone-100 overflow-hidden relative' }
 ];
 
 const ACTIONS_CONFIG = {
@@ -310,6 +325,15 @@ window.addEventListener('DOMContentLoaded', () => {
     updateClockDisplays();
     updateWeatherUI();
     
+    // override tombol smartphone agar membuka Halaman Baru, bukan Popup Modal HP
+    const btnSmart = document.getElementById('btnOpenSmartphone');
+    if (btnSmart) {
+        btnSmart.onclick = (e) => {
+            e.preventDefault();
+            openSmartphonePage();
+        };
+    }
+
     addLogEntry('SISTEM', 'Simulasi Dimulai', `Selamat datang kembali, ${player.nama}. Sistem simulasi kehidupan siap dijalankan.`, 'sparkles', 'text-amber-200', 'border-l-amber-400', 'bg-amber-400/20 text-amber-200 border-amber-300/40');
     playBGM();
 });
@@ -413,6 +437,457 @@ function travelToLocation(locId) {
             renderPhoneAppPeta();
         }
     }
+}
+
+// LOGIKA HALAMAN SMARTPHONE (PENGGANTI POPUP)
+function openSmartphonePage() {
+    const fullPage = document.getElementById('smartphoneFullPage');
+    fullPage.classList.remove('hidden');
+    document.getElementById('phonePageHomeView').classList.remove('hidden');
+    document.getElementById('phonePageAppDetail').classList.add('hidden');
+    updateClockDisplays();
+}
+
+function closeSmartphonePage() {
+    document.getElementById('smartphoneFullPage').classList.add('hidden');
+}
+
+function openPhonePageApp(appName) {
+    document.getElementById('phonePageHomeView').classList.add('hidden');
+    const detailView = document.getElementById('phonePageAppDetail');
+    const detailTitle = document.getElementById('phonePageAppDetailTitle');
+    const detailBody = document.getElementById('phonePageAppDetailBody');
+    
+    detailView.classList.remove('hidden');
+    detailView.classList.add('flex');
+
+    if (appName === 'peta') {
+        detailTitle.innerText = 'GPS & Peta Travel';
+        renderPhoneAppPetaToContainer(detailBody);
+    } else if (appName === 'wallet') {
+        detailTitle.innerText = 'Finansial & Dompet';
+        renderPhoneAppWalletToContainer(detailBody);
+    } else if (appName === 'bisnis') {
+        detailTitle.innerText = 'Bisnis & Properti';
+        renderPhoneAppBisnisToContainer(detailBody);
+    } else if (appName === 'investasi') {
+        detailTitle.innerText = 'Investasi Pasar';
+        renderPhoneAppInvestasiToContainer(detailBody);
+    } else if (appName === 'freelance') {
+        detailTitle.innerText = 'Karir & Pekerjaan';
+        renderPhoneAppFreelanceToContainer(detailBody);
+    } else if (appName === 'medsos') {
+        detailTitle.innerText = 'Medsos & Koneksi';
+        renderPhoneAppMedsosToContainer(detailBody);
+    } else if (appName === 'chat') {
+        detailTitle.innerText = 'Pesan Singkat';
+        renderPhoneAppChatToContainer(detailBody);
+    } else if (appName === 'profil') {
+        detailTitle.innerText = 'Profil Identitas';
+        renderPhoneAppProfilToContainer(detailBody);
+    } else if (appName === 'musik') {
+        detailTitle.innerText = 'Audio Player';
+        renderPhoneAppMusikToContainer(detailBody);
+    }
+}
+
+function closePhonePageApp() {
+    document.getElementById('phonePageAppDetail').classList.add('hidden');
+    document.getElementById('phonePageAppDetail').classList.remove('flex');
+    document.getElementById('phonePageHomeView').classList.remove('hidden');
+}
+
+function renderPhoneAppPetaToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-3 max-w-lg mx-auto">
+            <p class="text-stone-300 text-xs mb-1">Pilih lokasi tujuan untuk berpindah kawasan:</p>
+            ${LOCATIONS_DATA.map(loc => `
+                <div class="glass-panel p-4 rounded-2xl flex items-center justify-between border ${currentLocation === loc.id ? 'border-amber-400 bg-amber-400/20' : 'border-white/10'}">
+                    <div>
+                        <h5 class="font-bold text-white text-sm">${loc.name}</h5>
+                        <p class="text-xs text-stone-300">${loc.subtext}</p>
+                    </div>
+                    ${currentLocation === loc.id ? 
+                        `<span class="text-xs font-bold text-amber-200 bg-black/40 px-3 py-1.5 rounded-xl border border-amber-300/30">Lokasi Saat Ini</span>` :
+                        `<button onclick="travelToLocation('${loc.id}'); closeSmartphonePage();" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl border border-emerald-300/40 cursor-pointer shadow-lg transition-all">Pergi</button>`
+                    }
+                </div>
+            `).join('')}
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderPhoneAppWalletToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-4 max-w-lg mx-auto">
+            <div class="p-6 rounded-3xl bg-gradient-to-tr from-amber-600 to-amber-400 text-stone-900 shadow-xl border border-amber-200">
+                <span class="text-xs font-extrabold uppercase tracking-widest opacity-80 block">Saldo Dompet Saat Ini</span>
+                <span class="font-serif text-3xl font-bold block mt-1">Rp ${player.uang}</span>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-white/10">
+                <h5 class="font-bold text-xs text-white mb-1">Riwayat Keuangan</h5>
+                <p class="text-xs text-stone-300">Belum ada transaksi besar tercatat hari ini.</p>
+            </div>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderPhoneAppBisnisToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-3 text-center py-10 max-w-lg mx-auto">
+            <i data-lucide="building-2" class="w-12 h-12 text-indigo-300 mx-auto"></i>
+            <h5 class="font-bold text-base text-white">Manajemen Bisnis</h5>
+            <p class="text-xs text-stone-300">Anda belum memiliki bisnis aktif. Kumpulkan modal untuk memulai usaha baru.</p>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderPhoneAppInvestasiToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-3 text-center py-10 max-w-lg mx-auto">
+            <i data-lucide="line-chart" class="w-12 h-12 text-cyan-300 mx-auto"></i>
+            <h5 class="font-bold text-base text-white">Portofolio Saham & Kripto</h5>
+            <p class="text-xs text-stone-300">Pasar saham sedang stabil. Fitur perdagangan akan segera terbuka.</p>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderPhoneAppFreelanceToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-3 text-center py-10 max-w-lg mx-auto">
+            <i data-lucide="briefcase" class="w-12 h-12 text-purple-300 mx-auto"></i>
+            <h5 class="font-bold text-base text-white">Lowongan Karir</h5>
+            <p class="text-xs text-stone-300">Tingkatkan Kecerdasan dan Sosial Anda untuk membuka pekerjaan freelance berbayar tinggi.</p>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderPhoneAppMedsosToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-3 text-center py-10 max-w-lg mx-auto">
+            <i data-lucide="share-2" class="w-12 h-12 text-pink-300 mx-auto"></i>
+            <h5 class="font-bold text-base text-white">Jaringan Sosial</h5>
+            <p class="text-xs text-stone-300">Posting kegiatan sehari-hari untuk menambah jumlah pengikut sosial Anda.</p>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderPhoneAppChatToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-3 max-w-lg mx-auto">
+            <div class="p-4 rounded-2xl bg-white/10 border border-white/10 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-amber-400 text-stone-900 font-bold flex items-center justify-center text-sm">S</div>
+                <div>
+                    <h5 class="font-bold text-xs text-white">Sistem Simulasi</h5>
+                    <p class="text-xs text-amber-200">Selamat datang di aplikasi virtual smartphone!</p>
+                </div>
+            </div>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderPhoneAppProfilToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-3 max-w-lg mx-auto">
+            <div class="glass-panel p-6 rounded-3xl border border-white/10 text-center">
+                <div class="w-16 h-16 rounded-full bg-amber-200 text-stone-900 font-bold flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg">
+                    ${player.nama.charAt(0)}
+                </div>
+                <h5 class="font-bold text-base text-white">${player.nama}</h5>
+                <p class="text-xs text-stone-300 mt-0.5">${player.gender} • ${player.umur} Tahun</p>
+                <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-around text-xs">
+                    <div>
+                        <span class="text-stone-400 block">Kendaraan</span>
+                        <span class="font-bold text-amber-200">${player.punyaKendaraan ? 'Punya' : 'Tidak Punya'}</span>
+                    </div>
+                    <div>
+                        <span class="text-stone-400 block">Kota</span>
+                        <span class="font-bold text-amber-200">${player.tempatLahir}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+function renderPhoneAppMusikToContainer(container) {
+    container.innerHTML = `
+        <div class="flex flex-col gap-5 text-center py-6 max-w-lg mx-auto">
+            <div class="w-24 h-24 rounded-full bg-rose-500/20 border border-rose-400/40 text-rose-300 flex items-center justify-center mx-auto shadow-2xl animate-spin-slow">
+                <i data-lucide="disc" class="w-12 h-12"></i>
+            </div>
+            <div>
+                <h5 class="font-bold text-base text-white">Garden Ambient BGM</h5>
+                <p class="text-xs text-stone-300 mt-1">Musik Relaksasi Latar Belakang Game</p>
+            </div>
+            <button onclick="toggleBGM()" class="px-6 py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs rounded-xl border border-rose-300/40 shadow-lg mx-auto cursor-pointer flex items-center gap-2">
+                <i data-lucide="${isBgmPlaying ? 'pause' : 'play'}" class="w-4 h-4 fill-current"></i>
+                <span>${isBgmPlaying ? 'Jeda Musik' : 'Putar Musik'}</span>
+            </button>
+        </div>
+    `;
+    lucide.createIcons();
+}
+
+// LOGIKA SELEKSI LOKASI & TRANSPORTASI LOKASI
+let selectedTransport = null;
+
+function openLocationTransportModal() {
+    selectedTransport = null;
+    const modal = document.getElementById('transportLocationModal');
+    const card = document.getElementById('transportLocationModalCard');
+    
+    document.getElementById('stepTransportOptions').classList.remove('hidden');
+    document.getElementById('stepLocationOptions').classList.add('hidden');
+    document.getElementById('transportModalSubtitle').innerText = 'Pilih moda transportasi yang tersedia untuk memulai perjalanan.';
+
+    renderPribadiOptionBox();
+
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    card.classList.remove('scale-95');
+    card.classList.add('scale-100');
+    lucide.createIcons();
+}
+
+function closeTransportLocationModal() {
+    const modal = document.getElementById('transportLocationModal');
+    const card = document.getElementById('transportLocationModalCard');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    card.classList.remove('scale-100');
+    card.classList.add('scale-95');
+}
+
+function renderPribadiOptionBox() {
+    const container = document.getElementById('pribadiOptionBox');
+    if (!container) return;
+
+    if (player.punyaKendaraan) {
+        container.innerHTML = `
+            <button onclick="selectTransportMode('pribadi')" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-indigo-400/30 hover:border-indigo-300 hover:bg-white/10 transition-all text-left cursor-pointer group w-full">
+                <div class="p-3 rounded-xl bg-indigo-400/20 border border-indigo-300/40 text-indigo-300 group-hover:scale-110 transition-transform shrink-0">
+                    <i data-lucide="navigation-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h4 class="font-bold text-sm text-white">Kendaraan Pribadi</h4>
+                        <span class="text-[9px] bg-indigo-400/30 text-indigo-200 border border-indigo-300/40 px-2 py-0.5 rounded-md font-bold">Milik Sendiri</span>
+                    </div>
+                    <p class="text-[10px] text-stone-300 mt-0.5">Bebas biaya, paling leluasa.</p>
+                </div>
+            </button>
+        `;
+    } else {
+        container.innerHTML = `
+            <div class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-white/10 opacity-60 cursor-not-allowed w-full">
+                <div class="p-3 rounded-xl bg-stone-700/40 border border-white/10 text-stone-400 shrink-0">
+                    <i data-lucide="lock" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h4 class="font-bold text-sm text-stone-300">Kendaraan Pribadi</h4>
+                        <span class="text-[9px] bg-rose-500/30 text-rose-200 border border-rose-300/30 px-2 py-0.5 rounded-md font-bold">Terkunci</span>
+                    </div>
+                    <p class="text-[10px] text-stone-400 mt-0.5">Belum memiliki kendaraan pribadi.</p>
+                </div>
+            </div>
+        `;
+    }
+}
+
+function selectTransportMode(mode) {
+    let cost = 0;
+    let modeLabel = '';
+
+    if (mode === 'taksi') {
+        cost = 25;
+        modeLabel = 'Taksi Konvensional (Rp 25)';
+    } else if (mode === 'ojek') {
+        cost = 12;
+        modeLabel = 'Ojek Online (Rp 12)';
+    } else if (mode === 'pribadi') {
+        cost = 0;
+        modeLabel = 'Kendaraan Pribadi';
+    } else if (mode === 'bus') {
+        cost = 0;
+        modeLabel = 'Bus Umum (Gratis)';
+    }
+
+    if (player.uang < cost) {
+        addLogEntry('KEUANGAN', 'Gagal Naik Transportasi', `Uang Anda tidak cukup untuk membayar ${modeLabel}.`, 'alert-circle', 'text-rose-300', 'border-l-rose-500', 'bg-rose-500/20 text-rose-200 border-rose-300/40');
+        playChime(300);
+        return;
+    }
+
+    selectedTransport = { mode, cost, label: modeLabel };
+    
+    document.getElementById('stepTransportOptions').classList.add('hidden');
+    document.getElementById('stepLocationOptions').classList.remove('hidden');
+    document.getElementById('transportModalSubtitle').innerText = 'Pilih lokasi yang ingin dituju.';
+    document.getElementById('selectedVehicleLabel').innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> Mode: ${modeLabel}`;
+    
+    renderLocationsForTransport();
+    lucide.createIcons();
+}
+
+function backToTransportSelection() {
+    selectedTransport = null;
+    document.getElementById('stepTransportOptions').classList.remove('hidden');
+    document.getElementById('stepLocationOptions').classList.add('hidden');
+    document.getElementById('transportModalSubtitle').innerText = 'Pilih moda transportasi yang tersedia untuk memulai perjalanan.';
+}
+
+function renderLocationsForTransport() {
+    const grid = document.getElementById('locationCardsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    LOCATIONS_DATA.forEach(loc => {
+        const isCurrent = loc.id === currentLocation;
+        
+        let speedMultiplier = 1;
+        if (selectedTransport.mode === 'ojek') speedMultiplier = 0.8;
+        if (selectedTransport.mode === 'pribadi') speedMultiplier = 0.7;
+        if (selectedTransport.mode === 'bus') speedMultiplier = 1.2;
+
+        let duration = Math.round(loc.baseDuration * speedMultiplier);
+
+        const card = document.createElement('div');
+        card.className = `glass-panel p-4 rounded-2xl flex items-center justify-between border ${isCurrent ? 'border-amber-400/50 bg-amber-400/10' : 'border-white/15 hover:border-cyan-300/50'} transition-all`;
+
+        card.innerHTML = `
+            <div>
+                <h4 class="font-bold text-sm text-white flex items-center gap-2">
+                    ${loc.name}
+                    ${isCurrent ? '<span class="text-[9px] bg-amber-400/30 text-amber-200 px-2 py-0.5 rounded-md">Lokasi Anda</span>' : ''}
+                </h4>
+                <p class="text-[10px] text-stone-300 mt-0.5">${loc.subtext}</p>
+                <div class="flex items-center gap-3 mt-2 text-[10px] text-cyan-200 font-semibold">
+                    <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> Est. ${duration} detik</span>
+                    <span class="flex items-center gap-1"><i data-lucide="coins" class="w-3 h-3"></i> Rp ${selectedTransport.cost}</span>
+                </div>
+            </div>
+            <div>
+                ${isCurrent ? 
+                    '<button disabled class="px-4 py-2 bg-stone-700 text-stone-400 font-bold text-xs rounded-xl cursor-not-allowed">Di Sini</button>' : 
+                    `<button onclick="confirmTravelWithMinigame('${loc.id}',${duration})" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs rounded-xl border border-cyan-300/40 cursor-pointer shadow-lg transition-all active:scale-95">Berangkat</button>`
+                }
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+    lucide.createIcons();
+}
+
+// MINIGAME BERKENDARA LOGIK
+let minigameTargetLocId = null;
+let minigameBaseDuration = 10;
+let minigameInterval = null;
+let minigameTimer = 10;
+let carPosition = 20; // left %
+let obstaclePosition = 60; // obstacle left %
+let obstacleTop = 0;
+let hasCrashed = false;
+
+function confirmTravelWithMinigame(targetLocId, duration) {
+    if (selectedTransport.cost > 0) {
+        player.uang -= selectedTransport.cost;
+        updateStatsUI();
+    }
+
+    minigameTargetLocId = targetLocId;
+    minigameBaseDuration = duration;
+    closeTransportLocationModal();
+    startMinigame();
+}
+
+function startMinigame() {
+    hasCrashed = false;
+    carPosition = 20;
+    obstaclePosition = Math.random() > 0.5 ? 20 : 60;
+    obstacleTop = 0;
+    minigameTimer = 10.0;
+
+    const modal = document.getElementById('drivingMinigameModal');
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+
+    updateMinigameCarPositions();
+
+    minigameInterval = setInterval(() => {
+        minigameTimer -= 0.1;
+        document.getElementById('minigameTimerDisplay').innerText = `${Math.max(0, minigameTimer).toFixed(1)}s`;
+
+        // Move obstacle down
+        obstacleTop += 4;
+        if (obstacleTop > 80) {
+            obstacleTop = 0;
+            obstaclePosition = Math.random() > 0.5 ? 20 : 60;
+        }
+
+        // Detect Collision
+        if (obstacleTop > 50 && obstacleTop < 80 && Math.abs(carPosition - obstaclePosition) < 15) {
+            hasCrashed = true;
+        }
+
+        updateMinigameCarPositions();
+
+        if (minigameTimer <= 0) {
+            clearInterval(minigameInterval);
+            finishMinigame();
+        }
+    }, 100);
+}
+
+function moveMinigameCar(dir) {
+    if (dir === 'left') carPosition = 20;
+    if (dir === 'right') carPosition = 60;
+    updateMinigameCarPositions();
+}
+
+function updateMinigameCarPositions() {
+    const pCar = document.getElementById('playerMinigameCar');
+    const oCar = document.getElementById('obstacleMinigameCar');
+    if (pCar) pCar.style.left = `${carPosition}%`;
+    if (oCar) {
+        oCar.style.left = `${obstaclePosition}%`;
+        oCar.style.top = `${obstacleTop}%`;
+    }
+}
+
+function finishMinigame() {
+    const modal = document.getElementById('drivingMinigameModal');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+
+    let finalDuration = minigameBaseDuration;
+    if (hasCrashed) {
+        finalDuration = Math.round(minigameBaseDuration * 1.5);
+        addLogEntry('MINIGAME', 'Kecelakaan Jalan', 'Mengalami tabrakan ringan! Durasi perjalanan bertambah.', 'alert-triangle', 'text-rose-300', 'border-l-rose-500', 'bg-rose-500/20 text-rose-200 border-rose-300/40');
+    } else {
+        finalDuration = Math.max(3, Math.round(minigameBaseDuration * 0.7));
+        addLogEntry('MINIGAME', 'Berkendara Mulus', 'Perjalanan lancar tanpa kendala! Tiba lebih cepat.', 'sparkles', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
+    }
+
+    const targetLoc = LOCATIONS_DATA.find(l => l.id === minigameTargetLocId);
+    
+    startGenericActivity(
+        'Perjalanan Transportasi', 
+        `Sedang menuju ${targetLoc ? targetLoc.name : 'tujuan'} dengan ${selectedTransport ? selectedTransport.label : 'kendaraan'}...`, 
+        'navigation', 
+        finalDuration, 
+        () => {
+            currentLocation = minigameTargetLocId;
+            updateLocationUI();
+            addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
+            playChime(783.99);
+        }
+    );
 }
 
 function startGenericActivity(title, desc, icon, duration, onComplete) {
@@ -742,12 +1217,6 @@ function closeActivitiesMenuModal() {
 const smartphoneModal = document.getElementById('smartphoneModal');
 const smartphoneCard = document.getElementById('smartphoneCard');
 let activePhoneApp = null;
-
-document.getElementById('btnOpenSmartphone').addEventListener('click', () => {
-    smartphoneModal.classList.remove('opacity-0', 'pointer-events-none');
-    smartphoneCard.classList.remove('scale-90');
-    smartphoneCard.classList.add('scale-100');
-});
 
 function closeSmartphone() {
     closePhoneApp();
