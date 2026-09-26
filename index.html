@@ -79,12 +79,12 @@
     <audio id="bgmAudio" loop preload="auto" src="https://res.cloudinary.com/dl2egfdw2/video/upload/v1790005591/Garden_audio_1_rwpvgz.mp3"></audio>
 
     <!-- UI LAYER UTAMA GAME -->
-    <div id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 pb-28 sm:pb-32 flex flex-col justify-between pointer-events-auto opacity-100 transition-opacity duration-700">
+    <div id="mainGameUI" class="relative z-10 w-full h-screen p-3 sm:p-5 pb-36 sm:pb-40 flex flex-col justify-between pointer-events-auto opacity-100 transition-opacity duration-700">
 
         <!-- TOP BAR: Profil & Stat Karakter -->
         <div class="w-full flex flex-col gap-2.5 pointer-events-auto max-w-full sm:max-w-md md:max-w-lg z-20">
             
-            <div class="glass-pill rounded-2xl p-3 flex flex-col gap-2 text-xs font-medium text-white max-w-full overflow-x-auto">
+            <div class="glass-pill rounded-2xl p-3 flex flex-col gap-2.5 text-xs font-medium text-white max-w-full overflow-x-auto">
                 
                 <div class="flex items-center gap-3 pb-1 border-b border-white/10 justify-between flex-wrap sm:flex-nowrap">
                     <div class="flex items-center gap-2 shrink-0">
@@ -112,115 +112,123 @@
 
                         <div class="h-3 w-px bg-white/20"></div>
 
+                        <!-- DISPLAY WAKTU DIGANTI DENGAN BULAN DAN TAHUN -->
                         <div class="flex items-center gap-1 text-amber-300">
-                            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                            <span id="simTimeDisplay" class="font-serif font-extrabold tracking-wider text-xs">06:00 AM</span>
+                            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                            <span id="simTimeDisplay" class="font-serif font-extrabold tracking-wider text-xs">Jan 2026</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- BARIS 1: Stat Kapasitas -->
-                <div class="flex items-center gap-3 overflow-x-auto py-0.5">
-                    <span class="text-[9px] font-bold uppercase tracking-wider text-amber-200/70 shrink-0 flex items-center gap-1">
-                        <i data-lucide="battery-charging" class="w-3 h-3 text-amber-300"></i> Kapasitas:
-                    </span>
-
-                    <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-1">
-                            <span class="flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3 text-amber-300"></i> Energi</span>
-                            <span id="statEnergiVal" class="font-bold text-amber-200">100/100</span>
+                <!-- STAT DIPERSIMPEL: BAR MELINGKAR DENGAN SIMBOL STAT DI TENTAHNYA -->
+                <div class="flex items-center justify-between gap-1 overflow-x-auto py-1">
+                    
+                    <!-- Energi -->
+                    <div class="stat-ring-container flex flex-col items-center gap-1 cursor-pointer group" title="Energi">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-black/40" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="statEnergiRing" class="text-amber-400 transition-all duration-500" stroke-dasharray="100, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform">
+                                <i data-lucide="zap" class="w-4 h-4"></i>
+                            </div>
                         </div>
-                        <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statEnergiBar" class="bg-gradient-to-r from-amber-400 to-amber-100 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
-                        </div>
+                        <span id="statEnergiVal" class="text-[9px] font-bold text-amber-200">100</span>
                     </div>
 
-                    <div class="h-5 w-px bg-white/15 shrink-0"></div>
-
-                    <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-1">
-                            <span class="flex items-center gap-1"><i data-lucide="sparkles" class="w-3 h-3 text-emerald-300"></i> Kesegaran</span>
-                            <span id="statKesegaranVal" class="font-bold text-emerald-200">80/100</span>
+                    <!-- Kesegaran -->
+                    <div class="stat-ring-container flex flex-col items-center gap-1 cursor-pointer group" title="Kesegaran">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-black/40" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="statKesegaranRing" class="text-emerald-400 transition-all duration-500" stroke-dasharray="80, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-emerald-300 group-hover:scale-110 transition-transform">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            </div>
                         </div>
-                        <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statKesegaranBar" class="bg-gradient-to-r from-emerald-500 to-teal-200 h-full rounded-full transition-all duration-300" style="width: 80%;"></div>
-                        </div>
+                        <span id="statKesegaranVal" class="text-[9px] font-bold text-emerald-200">80</span>
                     </div>
 
-                    <div class="h-5 w-px bg-white/15 shrink-0"></div>
-
-                    <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-1">
-                            <span class="flex items-center gap-1"><i data-lucide="smile" class="w-3 h-3 text-pink-300"></i> Kebahagiaan</span>
-                            <span id="statKebahagiaanVal" class="font-bold text-pink-200">75/100</span>
+                    <!-- Kebahagiaan -->
+                    <div class="stat-ring-container flex flex-col items-center gap-1 cursor-pointer group" title="Kebahagiaan">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-black/40" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="statKebahagiaanRing" class="text-pink-400 transition-all duration-500" stroke-dasharray="75, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-pink-300 group-hover:scale-110 transition-transform">
+                                <i data-lucide="smile" class="w-4 h-4"></i>
+                            </div>
                         </div>
-                        <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statKebahagiaanBar" class="bg-gradient-to-r from-pink-500 to-rose-200 h-full rounded-full transition-all duration-300" style="width: 75%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BARIS 2: Stat Level -->
-                <div class="flex items-center gap-3 overflow-x-auto py-0.5 border-t border-white/10 pt-1.5">
-                    <span class="text-[9px] font-bold uppercase tracking-wider text-amber-200/70 shrink-0 flex items-center gap-1">
-                        <i data-lucide="trending-up" class="w-3 h-3 text-amber-300"></i> Level:
-                    </span>
-
-                    <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-1">
-                            <span class="flex items-center gap-1"><i data-lucide="activity" class="w-3 h-3 text-rose-300"></i> Fisik</span>
-                            <span id="statFisikVal" class="font-bold text-rose-200">Lv. 1</span>
-                        </div>
-                        <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statFisikBar" class="bg-gradient-to-r from-rose-500 to-rose-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
-                        </div>
-                        <span id="statFisikXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
+                        <span id="statKebahagiaanVal" class="text-[9px] font-bold text-pink-200">75</span>
                     </div>
 
-                    <div class="h-5 w-px bg-white/15 shrink-0"></div>
+                    <div class="h-8 w-px bg-white/15 mx-0.5"></div>
 
-                    <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-1">
-                            <span class="flex items-center gap-1"><i data-lucide="brain" class="w-3 h-3 text-purple-300"></i> Kecerdasan</span>
-                            <span id="statKecerdasanVal" class="font-bold text-purple-200">Lv. 1</span>
+                    <!-- Fisik -->
+                    <div class="stat-ring-container flex flex-col items-center gap-1 cursor-pointer group" title="Level Fisik">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-black/40" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="statFisikRing" class="text-rose-400 transition-all duration-500" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-rose-300 group-hover:scale-110 transition-transform">
+                                <i data-lucide="activity" class="w-4 h-4"></i>
+                            </div>
                         </div>
-                        <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statKecerdasanBar" class="bg-gradient-to-r from-purple-500 to-indigo-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
-                        </div>
-                        <span id="statKecerdasanXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
+                        <span id="statFisikVal" class="text-[9px] font-bold text-rose-200">Lv.1</span>
                     </div>
 
-                    <div class="h-5 w-px bg-white/15 shrink-0"></div>
-
-                    <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-1">
-                            <span class="flex items-center gap-1"><i data-lucide="users" class="w-3 h-3 text-cyan-300"></i> Sosial</span>
-                            <span id="statSosialVal" class="font-bold text-cyan-200">Lv. 1</span>
+                    <!-- Kecerdasan -->
+                    <div class="stat-ring-container flex flex-col items-center gap-1 cursor-pointer group" title="Level Kecerdasan">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-black/40" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="statKecerdasanRing" class="text-purple-400 transition-all duration-500" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform">
+                                <i data-lucide="brain" class="w-4 h-4"></i>
+                            </div>
                         </div>
-                        <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statSosialBar" class="bg-gradient-to-r from-cyan-500 to-sky-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
-                        </div>
-                        <span id="statSosialXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
+                        <span id="statKecerdasanVal" class="text-[9px] font-bold text-purple-200">Lv.1</span>
                     </div>
 
-                    <div class="h-5 w-px bg-white/15 shrink-0"></div>
-
-                    <div class="flex flex-col gap-0.5 min-w-[75px] shrink-0">
-                        <div class="flex justify-between text-[10px] text-stone-200 gap-1">
-                            <span class="flex items-center gap-1"><i data-lucide="sparkles" class="w-3 h-3 text-amber-300"></i> Pesona</span>
-                            <span id="statPesonaVal" class="font-bold text-amber-200">Lv. 1</span>
+                    <!-- Sosial -->
+                    <div class="stat-ring-container flex flex-col items-center gap-1 cursor-pointer group" title="Level Sosial">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-black/40" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="statSosialRing" class="text-cyan-400 transition-all duration-500" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-cyan-300 group-hover:scale-110 transition-transform">
+                                <i data-lucide="users" class="w-4 h-4"></i>
+                            </div>
                         </div>
-                        <div class="w-full bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
-                            <div id="statPesonaBar" class="bg-gradient-to-r from-amber-500 to-yellow-200 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
-                        </div>
-                        <span id="statPesonaXpText" class="text-[8px] text-stone-300/80 text-right">0/10 XP</span>
+                        <span id="statSosialVal" class="text-[9px] font-bold text-cyan-200">Lv.1</span>
                     </div>
+
+                    <!-- Pesona -->
+                    <div class="stat-ring-container flex flex-col items-center gap-1 cursor-pointer group" title="Level Pesona">
+                        <div class="relative w-10 h-10 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-black/40" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path id="statPesonaRing" class="text-amber-300 transition-all duration-500" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-amber-200 group-hover:scale-110 transition-transform">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <span id="statPesonaVal" class="text-[9px] font-bold text-amber-200">Lv.1</span>
+                    </div>
+
                 </div>
 
             </div>
 
             <!-- ACTION LOG SYSTEM -->
-            <div class="glass-pill-transparent rounded-2xl p-3 flex flex-col w-full overflow-hidden transition-all duration-300 relative" style="height: calc(100vh - 320px); max-height: calc(100vh - 320px);">
+            <div class="glass-pill-transparent rounded-2xl p-3 flex flex-col w-full overflow-hidden transition-all duration-300 relative" style="height: calc(100vh - 300px); max-height: calc(100vh - 300px);">
                 
                 <div class="w-full flex items-center justify-between pb-2 mb-2 border-b border-white/15 shrink-0">
                     <div class="flex items-center gap-2">
@@ -248,48 +256,63 @@
 
     </div>
 
-    <!-- BOTTOM NAVIGATION DOCK BAR -->
-<div class="fixed bottom-0 left-0 right-0 w-full z-40 px-3 sm:px-6 py-3.5 sm:py-5 bg-gradient-to-t from-black/90 via-stone-950/70 to-transparent backdrop-blur-2xl border-t border-white/15">
-    <div class="w-full max-w-5xl mx-auto grid grid-cols-3 gap-2.5 sm:gap-5 items-center">
+    <!-- BOTTOM NAVIGATION DOCK BAR (DILENGKAPI TOMBOL PERCEPAT 1 BULAN DI ATASNYA) -->
+    <div class="fixed bottom-0 left-0 right-0 w-full z-40 px-3 sm:px-6 py-3.5 sm:py-5 bg-gradient-to-t from-black/90 via-stone-950/70 to-transparent backdrop-blur-2xl border-t border-white/15 flex flex-col gap-3">
         
-        <!-- TOMBOL 1: BERPINDAH (TEMA AMBER / WARM GOLD) -->
-        <button id="btnOpenRoomMenu" class="dock-btn btn-amber elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
-            <div class="p-2 sm:p-2.5 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                <i data-lucide="compass" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-            </div>
-            <div class="text-left leading-tight min-w-0">
-                <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-amber-200/80 block truncate">Navigasi</span>
-                <span id="currentRoomNameDisplay" class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Kamar Tidur</span>
-            </div>
-            <i data-lucide="chevron-up" class="w-4 h-4 text-amber-200/60 ml-auto hidden sm:block shrink-0 group-hover:-translate-y-1 transition-transform"></i>
-        </button>
+        <!-- TOMBOL PERCEPAT 1 BULAN (+ 1 Bulan) DENGAN KUALITAS VISUAL EKUIVALEN FOOTER -->
+        <div class="w-full max-w-5xl mx-auto">
+            <button id="btnFastForwardMonth" onclick="fastForwardOneMonth()" class="dock-btn btn-amber elastic-stretch w-full py-2.5 sm:py-3 px-4 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group shadow-xl">
+                <div class="p-1.5 sm:p-2 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                    <i data-lucide="fast-forward" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                </div>
+                <div class="text-center leading-tight">
+                    <span class="font-serif text-xs sm:text-sm font-extrabold text-white block drop-shadow tracking-wider">Percepat 1 Bulan ( + 1 Bulan )</span>
+                </div>
+                <i data-lucide="chevrons-right" class="w-4 h-4 text-amber-200/60 ml-auto hidden sm:block shrink-0 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+        </div>
 
-        <!-- TOMBOL 2: AKTIVITAS (TEMA EMERALD / FRESH VIBES) -->
-        <button id="btnOpenActivitiesMenu" class="dock-btn btn-emerald elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
-            <div class="p-2 sm:p-2.5 rounded-xl bg-emerald-400/20 border border-emerald-300/40 text-emerald-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                <i data-lucide="sparkles" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-            </div>
-            <div class="text-left leading-tight min-w-0">
-                <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-emerald-200/80 block truncate">Tindakan</span>
-                <span class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Aktivitas</span>
-            </div>
-            <i data-lucide="chevron-up" class="w-4 h-4 text-emerald-200/60 ml-auto hidden sm:block shrink-0 group-hover:-translate-y-1 transition-transform"></i>
-        </button>
+        <!-- BARIS TOMBOL DOCK FOOTER -->
+        <div class="w-full max-w-5xl mx-auto grid grid-cols-3 gap-2.5 sm:gap-5 items-center">
+            
+            <!-- TOMBOL 1: BERPINDAH (TEMA AMBER / WARM GOLD) -->
+            <button id="btnOpenRoomMenu" class="dock-btn btn-amber elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+                <div class="p-2 sm:p-2.5 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                    <i data-lucide="compass" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                </div>
+                <div class="text-left leading-tight min-w-0">
+                    <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-amber-200/80 block truncate">Navigasi</span>
+                    <span id="currentRoomNameDisplay" class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Kamar Tidur</span>
+                </div>
+                <i data-lucide="chevron-up" class="w-4 h-4 text-amber-200/60 ml-auto hidden sm:block shrink-0 group-hover:-translate-y-1 transition-transform"></i>
+            </button>
 
-        <!-- TOMBOL 3: SMARTPHONE (TEMA INDIGO / NEON TECH) -->
-        <button id="btnOpenSmartphone" class="dock-btn btn-indigo elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
-            <div class="p-2 sm:p-2.5 rounded-xl bg-indigo-400/20 border border-indigo-300/40 text-indigo-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
-                <i data-lucide="smartphone" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-            </div>
-            <div class="text-left leading-tight min-w-0">
-                <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-indigo-200/80 block truncate">Perangkat</span>
-                <span class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Smartphone</span>
-            </div>
-            <i data-lucide="arrow-up-right" class="w-4 h-4 text-indigo-200/60 ml-auto hidden sm:block shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-        </button>
+            <!-- TOMBOL 2: AKTIVITAS (TEMA EMERALD / FRESH VIBES) -->
+            <button id="btnOpenActivitiesMenu" class="dock-btn btn-emerald elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+                <div class="p-2 sm:p-2.5 rounded-xl bg-emerald-400/20 border border-emerald-300/40 text-emerald-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                    <i data-lucide="sparkles" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                </div>
+                <div class="text-left leading-tight min-w-0">
+                    <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-emerald-200/80 block truncate">Tindakan</span>
+                    <span class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Aktivitas</span>
+                </div>
+                <i data-lucide="chevron-up" class="w-4 h-4 text-emerald-200/60 ml-auto hidden sm:block shrink-0 group-hover:-translate-y-1 transition-transform"></i>
+            </button>
 
+            <!-- TOMBOL 3: SMARTPHONE (TEMA INDIGO / NEON TECH) -->
+            <button id="btnOpenSmartphone" class="dock-btn btn-indigo elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+                <div class="p-2 sm:p-2.5 rounded-xl bg-indigo-400/20 border border-indigo-300/40 text-indigo-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                    <i data-lucide="smartphone" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                </div>
+                <div class="text-left leading-tight min-w-0">
+                    <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-indigo-200/80 block truncate">Perangkat</span>
+                    <span class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Smartphone</span>
+                </div>
+                <i data-lucide="arrow-up-right" class="w-4 h-4 text-indigo-200/60 ml-auto hidden sm:block shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+            </button>
+
+        </div>
     </div>
-</div>
 
     <!-- MODAL BERPINDAH -->
     <div id="roomMenuModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
