@@ -182,23 +182,54 @@ function getFormattedSimDate() {
     return `${dayNum} ${monthStr} ${yearNum}`;
 }
 
+// PERBAHARUAN: Display waktu digantikan dengan Bulan dan Tahun
+function getMonthYearSimDate() {
+    const monthStr = MONTH_NAMES[currentDate.getMonth()];
+    const yearNum = currentDate.getFullYear();
+    return `${monthStr} ${yearNum}`;
+}
+
 function getFullFormattedSimDate() {
     const dayName = DAY_NAMES[currentDate.getDay()];
     return `${dayName}, ${getFormattedSimDate()}`;
 }
 
 function updateClockDisplays() {
+    const monthYearFormatted = getMonthYearSimDate();
     const formattedTime = getFormattedSimTime();
     const fullFormattedDate = getFullFormattedSimDate();
 
+    // Display Waktu Utama menggantikan tampilan jam menjadi Bulan dan Tahun
     const simDisplay = document.getElementById('simTimeDisplay');
-    if (simDisplay) simDisplay.innerText = formattedTime;
+    if (simDisplay) simDisplay.innerText = monthYearFormatted;
 
     const widgetClock = document.getElementById('phoneWidgetClock');
     if (widgetClock) widgetClock.innerText = formattedTime;
 
     const widgetDate = document.getElementById('phoneWidgetDate');
     if (widgetDate) widgetDate.innerText = fullFormattedDate;
+}
+
+// FITUR PERCEPAT 1 BULAN
+function fastForwardOneMonth() {
+    if (activeTimer) return;
+    
+    // Menambah 1 Bulan
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    updateClockDisplays();
+    updateWeatherLogic();
+    
+    addLogEntry(
+        'WAKTU',
+        'Maju 1 Bulan',
+        `Waktu dipercepat satu bulan menjadi ${getMonthYearSimDate()}.`,
+        'fast-forward',
+        'text-amber-200',
+        'border-l-amber-400',
+        'bg-amber-400/20 text-amber-200 border-amber-300/40'
+    );
+    playChime(987.77);
+    triggerXPAnimation(`+1 BULAN (${getMonthYearSimDate()})`);
 }
 
 // Player Data State Default
@@ -288,37 +319,49 @@ function updatePlayerInfoUI() {
     document.getElementById('charMetaDisplay').innerText = `${player.gender} • ${player.tempatLahir}`;
 }
 
+// PERBAHARUAN: Memperbarui Circular Progress Rings untuk Stat
+function setRingDashArray(elementId, percentage) {
+    const ring = document.getElementById(elementId);
+    if (ring) {
+        const value = Math.max(0, Math.min(100, percentage));
+        ring.setAttribute('stroke-dasharray', `${value}, 100`);
+    }
+}
+
 function updateStatsUI() {
     document.getElementById('statUangVal').innerText = `Rp ${player.uang}`;
     
-    document.getElementById('statEnergiVal').innerText = `${player.energi}/100`;
-    document.getElementById('statEnergiBar').style.width = `${player.energi}%`;
+    // Energi Ring
+    document.getElementById('statEnergiVal').innerText = `${player.energi}`;
+    setRingDashArray('statEnergiRing', player.energi);
     
-    document.getElementById('statKesegaranVal').innerText = `${player.kesegaran}/100`;
-    document.getElementById('statKesegaranBar').style.width = `${player.kesegaran}%`;
+    // Kesegaran Ring
+    document.getElementById('statKesegaranVal').innerText = `${player.kesegaran}`;
+    setRingDashArray('statKesegaranRing', player.kesegaran);
 
-    document.getElementById('statKebahagiaanVal').innerText = `${player.kebahagiaan}/100`;
-    document.getElementById('statKebahagiaanBar').style.width = `${player.kebahagiaan}%`;
+    // Kebahagiaan Ring
+    document.getElementById('statKebahagiaanVal').innerText = `${player.kebahagiaan}`;
+    setRingDashArray('statKebahagiaanRing', player.kebahagiaan);
 
-    document.getElementById('statFisikVal').innerText = `Lv. ${player.fisik.level}`;
+    // Fisik Level Ring
+    document.getElementById('statFisikVal').innerText = `Lv.${player.fisik.level}`;
     let reqFisik = getRequiredXP(player.fisik.level);
-    document.getElementById('statFisikBar').style.width = `${(player.fisik.xp / reqFisik) * 100}%`;
-    document.getElementById('statFisikXpText').innerText = `${player.fisik.xp}/${reqFisik} XP`;
+    setRingDashArray('statFisikRing', (player.fisik.xp / reqFisik) * 100);
 
-    document.getElementById('statKecerdasanVal').innerText = `Lv. ${player.kecerdasan.level}`;
+    // Kecerdasan Level Ring
+    document.getElementById('statKecerdasanVal').innerText = `Lv.${player.kecerdasan.level}`;
     let reqKecerdasan = getRequiredXP(player.kecerdasan.level);
-    document.getElementById('statKecerdasanBar').style.width = `${(player.kecerdasan.xp / reqKecerdasan) * 100}%`;
-    document.getElementById('statKecerdasanXpText').innerText = `${player.kecerdasan.xp}/${reqKecerdasan} XP`;
+    setRingDashArray('statKecerdasanRing', (player.kecerdasan.xp / reqKecerdasan) * 100);
 
-    document.getElementById('statSosialVal').innerText = `Lv. ${player.sosial.level}`;
+    // Sosial Level Ring
+    document.getElementById('statSosialVal').innerText = `Lv.${player.sosial.level}`;
     let reqSosial = getRequiredXP(player.sosial.level);
-    document.getElementById('statSosialBar').style.width = `${(player.sosial.xp / reqSosial) * 100}%`;
-    document.getElementById('statSosialXpText').innerText = `${player.sosial.xp}/${reqSosial} XP`;
+    setRingDashArray('statSosialRing', (player.sosial.xp / reqSosial) * 100);
 
-    document.getElementById('statPesonaVal').innerText = `Lv. ${player.pesona.level}`;
+    // Pesona Level Ring
+    document.getElementById('statPesonaVal').innerText = `Lv.${player.pesona.level}`;
     let reqPesona = getRequiredXP(player.pesona.level);
-    document.getElementById('statPesonaBar').style.width = `${(player.pesona.xp / reqPesona) * 100}%`;
-    document.getElementById('statPesonaXpText').innerText = `${player.pesona.xp}/${reqPesona} XP`;
+    setRingDashArray('statPesonaRing', (player.pesona.xp / reqPesona) * 100);
 }
 
 function switchSublocation(subId) {
