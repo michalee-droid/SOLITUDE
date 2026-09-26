@@ -256,6 +256,149 @@
 
     </div>
 
+    <!-- TAMPILAN HALAMAN PENGGANTI POPUP SMARTPHONE -->
+    <div id="smartphoneFullPage" class="fixed inset-0 z-50 bg-stone-950/95 backdrop-blur-2xl flex flex-col hidden overflow-hidden">
+        <div class="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/15 bg-black/60 shrink-0">
+            <button onclick="closeSmartphonePage()" class="flex items-center gap-2 text-xs font-bold text-amber-300 hover:text-white transition-colors cursor-pointer bg-white/10 px-3 py-1.5 rounded-xl border border-white/15">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span>Kembali ke Game</span>
+            </button>
+            <div class="flex items-center gap-2">
+                <i data-lucide="smartphone" class="w-4 h-4 text-indigo-300"></i>
+                <span class="font-serif font-bold text-sm sm:text-base text-white">Smartphone Virtual</span>
+            </div>
+            <div class="text-xs text-stone-300 font-mono" id="phonePageClock">06:00 AM</div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 max-w-4xl mx-auto w-full flex flex-col gap-6">
+            <div id="phonePageHomeView" class="flex flex-col gap-6">
+                <!-- Phone Header Banner -->
+                <div class="p-6 rounded-3xl bg-gradient-to-r from-indigo-900/60 via-purple-900/50 to-stone-900/80 border border-indigo-400/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xl">
+                    <div class="text-center sm:text-left">
+                        <span id="phonePageDate" class="text-xs uppercase tracking-widest text-amber-300 font-semibold">Kamis, 15 Jan 2026</span>
+                        <h2 id="phonePageTimeLarge" class="font-serif text-4xl sm:text-5xl font-extrabold text-white mt-1">06:00 AM</h2>
+                        <p class="text-xs text-stone-300 mt-1">Perangkat pintar serbaguna - Akses cepat layanan virtual.</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-black/40 px-4 py-2 rounded-2xl border border-white/10">
+                        <i id="phonePageWeatherIcon" data-lucide="sun" class="w-5 h-5 text-amber-300"></i>
+                        <span id="phonePageWeatherText" class="text-xs font-bold text-stone-200">28°C Cerah Berawan</span>
+                    </div>
+                </div>
+
+                <!-- Apps Grid -->
+                <div>
+                    <h3 class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-3 px-1">Aplikasi Terpasang</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5">
+                        <button onclick="openPhonePageApp('peta')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-emerald-400/60 hover:bg-emerald-500/10 transition-all cursor-pointer group">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-950/70 border border-emerald-400/40 p-2.5 text-emerald-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="compass" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Travel</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">GPS & Peta Area</span>
+                            </div>
+                        </button>
+
+                        <button onclick="openPhonePageApp('wallet')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-amber-400/60 hover:bg-amber-500/10 transition-all cursor-pointer group">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-950/70 border border-amber-400/40 p-2.5 text-amber-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="credit-card" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Finansial</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">Saldo & Kas</span>
+                            </div>
+                        </button>
+
+                        <button onclick="openPhonePageApp('bisnis')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-indigo-400/60 hover:bg-indigo-500/10 transition-all cursor-pointer group">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-950/70 border border-indigo-400/40 p-2.5 text-indigo-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="building-2" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Bisnis</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">Manajemen Properti</span>
+                            </div>
+                        </button>
+
+                        <button onclick="openPhonePageApp('investasi')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-cyan-400/60 hover:bg-cyan-500/10 transition-all cursor-pointer group">
+                            <div class="w-12 h-12 rounded-2xl bg-cyan-950/70 border border-cyan-400/40 p-2.5 text-cyan-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="line-chart" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Investasi</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">Pasar Modal</span>
+                            </div>
+                        </button>
+
+                        <button onclick="openPhonePageApp('freelance')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-purple-400/60 hover:bg-purple-500/10 transition-all cursor-pointer group">
+                            <div class="w-12 h-12 rounded-2xl bg-purple-950/70 border border-purple-400/40 p-2.5 text-purple-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="briefcase" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Karir</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">Lowongan Kerja</span>
+                            </div>
+                        </button>
+
+                        <button onclick="openPhonePageApp('medsos')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-pink-400/60 hover:bg-pink-500/10 transition-all cursor-pointer group">
+                            <div class="w-12 h-12 rounded-2xl bg-pink-950/70 border border-pink-400/40 p-2.5 text-pink-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="share-2" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Medsos</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">Jaringan Publik</span>
+                            </div>
+                        </button>
+
+                        <button onclick="openPhonePageApp('chat')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-blue-400/60 hover:bg-blue-500/10 transition-all cursor-pointer group relative">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-950/70 border border-blue-400/40 p-2.5 text-blue-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="message-square" class="w-6 h-6"></i>
+                            </div>
+                            <span class="absolute top-3 right-3 w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center border border-white">1</span>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Pesan</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">Obrolan Singkat</span>
+                            </div>
+                        </button>
+
+                        <button onclick="openPhonePageApp('profil')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-slate-400/60 hover:bg-slate-500/10 transition-all cursor-pointer group">
+                            <div class="w-12 h-12 rounded-2xl bg-slate-900/70 border border-slate-400/40 p-2.5 text-stone-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="fingerprint" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Profil</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">Identitas Diri</span>
+                            </div>
+                        </button>
+
+                        <button onclick="openPhonePageApp('musik')" class="glass-panel p-4 rounded-2xl flex flex-col items-center text-center gap-2.5 hover:border-rose-400/60 hover:bg-rose-500/10 transition-all cursor-pointer group">
+                            <div class="w-12 h-12 rounded-2xl bg-rose-950/70 border border-rose-400/40 p-2.5 text-rose-300 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                <i data-lucide="disc" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-xs text-white block">Audio</span>
+                                <span class="text-[10px] text-stone-400 block mt-0.5">Musik Latar</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single App View Page -->
+            <div id="phonePageAppDetail" class="hidden flex-1 flex-col gap-4">
+                <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                    <button onclick="closePhonePageApp()" class="flex items-center gap-1.5 text-xs font-semibold text-amber-300 hover:text-white cursor-pointer">
+                        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                        <span>Kembali ke Beranda HP</span>
+                    </button>
+                    <h3 id="phonePageAppDetailTitle" class="font-bold text-sm text-white">Nama Aplikasi</h3>
+                    <div class="w-16"></div>
+                </div>
+                <div id="phonePageAppDetailBody" class="flex-1 overflow-y-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- BOTTOM NAVIGATION DOCK BAR (DILENGKAPI TOMBOL PERCEPAT 1 BULAN DI ATASNYA) -->
     <div class="fixed bottom-0 left-0 right-0 w-full z-40 px-3 sm:px-6 py-3.5 sm:py-5 bg-gradient-to-t from-black/90 via-stone-950/70 to-transparent backdrop-blur-2xl border-t border-white/15 flex flex-col gap-3">
         
@@ -273,10 +416,10 @@
         </div>
 
         <!-- BARIS TOMBOL DOCK FOOTER -->
-        <div class="w-full max-w-5xl mx-auto grid grid-cols-3 gap-2.5 sm:gap-5 items-center">
+        <div class="w-full max-w-5xl mx-auto grid grid-cols-4 gap-2 sm:gap-4 items-center">
             
             <!-- TOMBOL 1: BERPINDAH (TEMA AMBER / WARM GOLD) -->
-            <button id="btnOpenRoomMenu" class="dock-btn btn-amber elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+            <button id="btnOpenRoomMenu" class="dock-btn btn-amber elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group shadow-lg">
                 <div class="p-2 sm:p-2.5 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
                     <i data-lucide="compass" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </div>
@@ -288,7 +431,7 @@
             </button>
 
             <!-- TOMBOL 2: AKTIVITAS (TEMA EMERALD / FRESH VIBES) -->
-            <button id="btnOpenActivitiesMenu" class="dock-btn btn-emerald elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+            <button id="btnOpenActivitiesMenu" class="dock-btn btn-emerald elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group shadow-lg">
                 <div class="p-2 sm:p-2.5 rounded-xl bg-emerald-400/20 border border-emerald-300/40 text-emerald-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
                     <i data-lucide="sparkles" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </div>
@@ -300,7 +443,7 @@
             </button>
 
             <!-- TOMBOL 3: SMARTPHONE (TEMA INDIGO / NEON TECH) -->
-            <button id="btnOpenSmartphone" class="dock-btn btn-indigo elastic-stretch w-full py-3 sm:py-4 px-3 sm:px-5 rounded-2xl flex items-center justify-center gap-2.5 sm:gap-3 cursor-pointer group shadow-lg">
+            <button id="btnOpenSmartphone" class="dock-btn btn-indigo elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group shadow-lg">
                 <div class="p-2 sm:p-2.5 rounded-xl bg-indigo-400/20 border border-indigo-300/40 text-indigo-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
                     <i data-lucide="smartphone" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </div>
@@ -311,6 +454,144 @@
                 <i data-lucide="arrow-up-right" class="w-4 h-4 text-indigo-200/60 ml-auto hidden sm:block shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
             </button>
 
+            <!-- TOMBOL 4: LOKASI (TEMA CYAN / MAP EXPLORER) - BARU -->
+            <button id="btnOpenLocationMenu" onclick="openLocationTransportModal()" class="dock-btn btn-cyan elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group shadow-lg">
+                <div class="p-2 sm:p-2.5 rounded-xl bg-cyan-400/20 border border-cyan-300/40 text-cyan-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
+                    <i data-lucide="map-pin" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                </div>
+                <div class="text-left leading-tight min-w-0">
+                    <span class="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-cyan-200/80 block truncate">Wilayah</span>
+                    <span class="font-serif text-xs sm:text-sm font-extrabold text-white block truncate drop-shadow">Lokasi</span>
+                </div>
+                <i data-lucide="map" class="w-4 h-4 text-cyan-200/60 ml-auto hidden sm:block shrink-0 group-hover:scale-110 transition-transform"></i>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- MODAL POPUP TRANSPORTASI & LOKASI (BARU) -->
+    <div id="transportLocationModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div id="transportLocationModalCard" class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-xl w-full flex flex-col transform scale-95 transition-all duration-300 ease-out border border-white/20 shadow-2xl relative max-h-[85vh] overflow-hidden">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-white/15 mb-4 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 rounded-2xl bg-cyan-400/20 border border-cyan-300/30 text-cyan-200">
+                        <i data-lucide="navigation" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-xl sm:text-2xl font-bold text-white tracking-wide">Pilih Transportasi</h3>
+                        <p id="transportModalSubtitle" class="text-xs text-stone-200">Pilih kendaraan untuk melakukan perjalanan ke lokasi lain.</p>
+                    </div>
+                </div>
+                <button onclick="closeTransportLocationModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-stone-200 hover:text-white flex items-center justify-center transition-all cursor-pointer">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="transportModalContent" class="overflow-y-auto pr-1 flex-1">
+                <!-- Step 1: Mode Transportasi -->
+                <div id="stepTransportOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- Taksi -->
+                    <button onclick="selectTransportMode('taksi')" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-amber-400/30 hover:border-amber-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
+                        <div class="p-3 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform shrink-0">
+                            <i data-lucide="car" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-sm text-white">Taksi Konvensional</h4>
+                                <span class="text-[9px] bg-amber-400/30 text-amber-200 border border-amber-300/40 px-2 py-0.5 rounded-md font-bold">Rp 25</span>
+                            </div>
+                            <p class="text-[10px] text-stone-300 mt-0.5">Nyaman dan aman, biaya sedang.</p>
+                        </div>
+                    </button>
+
+                    <!-- Ojek Online -->
+                    <button onclick="selectTransportMode('ojek')" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-emerald-400/30 hover:border-emerald-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
+                        <div class="p-3 rounded-xl bg-emerald-400/20 border border-emerald-300/40 text-emerald-300 group-hover:scale-110 transition-transform shrink-0">
+                            <i data-lucide="bike" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-sm text-white">Ojek Online</h4>
+                                <span class="text-[9px] bg-emerald-400/30 text-emerald-200 border border-emerald-300/40 px-2 py-0.5 rounded-md font-bold">Rp 12</span>
+                            </div>
+                            <p class="text-[10px] text-stone-300 mt-0.5">Lincah menembus kemacetan.</p>
+                        </div>
+                    </button>
+
+                    <!-- Kendaraan Pribadi -->
+                    <div id="pribadiOptionBox">
+                        <!-- Rendered by JS based on ownership -->
+                    </div>
+
+                    <!-- Bus Umum -->
+                    <button onclick="selectTransportMode('bus')" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-sky-400/30 hover:border-sky-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
+                        <div class="p-3 rounded-xl bg-sky-400/20 border border-sky-300/40 text-sky-300 group-hover:scale-110 transition-transform shrink-0">
+                            <i data-lucide="bus" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-sm text-white">Bus Umum</h4>
+                                <span class="text-[9px] bg-emerald-500/40 text-emerald-100 border border-emerald-300/40 px-2 py-0.5 rounded-md font-extrabold uppercase">GRATIS</span>
+                            </div>
+                            <p class="text-[10px] text-stone-300 mt-0.5">Tanpa biaya, waktu tempuh standar.</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Step 2: Destinasi Lokasi -->
+                <div id="stepLocationOptions" class="hidden flex-col gap-3">
+                    <div class="flex items-center justify-between bg-black/40 p-2.5 rounded-xl border border-white/10 mb-2">
+                        <span id="selectedVehicleLabel" class="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> Mode Transportasi: Taksi
+                        </span>
+                        <button onclick="backToTransportSelection()" class="text-[10px] text-amber-300 hover:underline cursor-pointer">Ganti Moda</button>
+                    </div>
+                    <div id="locationCardsGrid" class="flex flex-col gap-2.5">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL MINIGAME BERKENDARA -->
+    <div id="drivingMinigameModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-md w-full flex flex-col items-center text-center border border-white/20 shadow-2xl relative overflow-hidden">
+            <div class="flex items-center justify-between w-full pb-3 border-b border-white/15 mb-3">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="gamepad-2" class="w-5 h-5 text-amber-300"></i>
+                    <h3 class="font-bold text-sm text-white">Minigame Berkendara</h3>
+                </div>
+                <span id="minigameTimerDisplay" class="text-xs font-mono font-bold text-amber-300 bg-black/50 px-2.5 py-1 rounded-lg border border-amber-300/30">10.0s</span>
+            </div>
+
+            <p class="text-xs text-stone-200 mb-4">Hindari hambatan jalan dengan menekan tombol <strong>KIRI</strong> / <strong>KANAN</strong>! Bebas kecelakaan memberikan durasi tempuh lebih cepat.</p>
+
+            <div class="w-full bg-stone-900 border-2 border-stone-700 h-48 rounded-2xl relative overflow-hidden flex justify-around p-2 mb-4" id="roadCanvasArea">
+                <!-- Track Lanes -->
+                <div class="w-1/2 border-r border-dashed border-white/30 h-full relative"></div>
+                <div class="w-1/2 h-full relative"></div>
+
+                <!-- Player Vehicle -->
+                <div id="playerMinigameCar" class="absolute bottom-2 w-10 h-14 bg-emerald-500 rounded-lg border-2 border-white flex items-center justify-center text-white shadow-lg transition-all duration-150" style="left: 20%;">
+                    <i data-lucide="car" class="w-6 h-6"></i>
+                </div>
+
+                <!-- Obstacle Vehicle -->
+                <div id="obstacleMinigameCar" class="absolute top-0 w-10 h-14 bg-rose-600 rounded-lg border-2 border-white flex items-center justify-center text-white shadow-lg" style="left: 60%;">
+                    <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 w-full">
+                <button onclick="moveMinigameCar('left')" class="py-3 bg-white/15 hover:bg-white/30 rounded-xl font-bold text-white text-xs border border-white/20 flex items-center justify-center gap-2 cursor-pointer active:scale-95">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Kiri
+                </button>
+                <button onclick="moveMinigameCar('right')" class="py-3 bg-white/15 hover:bg-white/30 rounded-xl font-bold text-white text-xs border border-white/20 flex items-center justify-center gap-2 cursor-pointer active:scale-95">
+                    Kanan <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
         </div>
     </div>
 
