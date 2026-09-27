@@ -3,7 +3,7 @@ import { updateClockDisplays, updateWeatherUI, addLogEntry, triggerXPAnimation }
 import { playChime } from './audio.js';
 
 export let simMinutes = 360; 
-export let currentDate = new Date(2026, 0, 15);
+export let currentDate = new Date(2008, 0, 15);
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 const DAY_NAMES = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
