@@ -1,4 +1,5 @@
-// 1. Pengimporan Modul
+// src/js/app.js
+
 import { playBGM, playChime } from './systems/audio.js';
 import { initWeatherCanvas } from './systems/weather.js';
 import { tickSimTime, fastForwardOneMonth } from './systems/timeSystem.js';
@@ -120,7 +121,7 @@ function switchSublocation(subId) {
     if (window.lucide) window.lucide.createIcons();
 }
 
-// Travel Location Manager (Langsung tanpa minigame/loading)
+// Travel Location Manager (Direct/Instant)
 function travelToLocation(locId) {
     if (activeTimer) return;
     const targetLoc = LOCATIONS_DATA.find(l => l.id === locId);
@@ -139,8 +140,8 @@ function travelToLocation(locId) {
 function confirmTravelWithLoading(targetLocId, duration) {
     if (selectedTransport && selectedTransport.cost > 0) {
         player.uang -= selectedTransport.cost;
-        updatePlayerInfoUI(); // Meng-update UI saldo uang
-        updateStatsUI();      // Meng-update UI stats
+        updatePlayerInfoUI();
+        updateStatsUI();
     }
 
     // Tutup Modal Pilihan Transportasi
@@ -148,7 +149,9 @@ function confirmTravelWithLoading(targetLocId, duration) {
 
     const targetLoc = LOCATIONS_DATA.find(l => l.id === targetLocId);
     const destinationName = targetLoc ? targetLoc.name : 'Tujuan';
-    const transportType = selectedTransport ? selectedTransport.id : 'ojek';
+    
+    // Mengecek properti mode maupun id
+    const transportType = selectedTransport ? (selectedTransport.mode || selectedTransport.id) : 'ojek';
 
     // Jalankan Loading Screen dengan Latar Belakang Gambar
     startTravelLoading(transportType, destinationName, () => {
@@ -170,9 +173,7 @@ function confirmTravelWithLoading(targetLocId, duration) {
     });
 }
 
-// =========================================================================
-// 🌐 Mendaftarkan Fungsi Penting ke Objek Global (window)
-// =========================================================================
+// Mendaftarkan Fungsi ke Objek Global (window)
 window.switchSublocation = switchSublocation;
 window.travelToLocation = travelToLocation;
 window.openRoomMenuModal = () => openRoomMenuModal(switchSublocation);
