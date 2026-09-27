@@ -32,9 +32,10 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
     }
 
     // Set teks status perjalanan
-    if (loadingText) {
-        const transportLabel = transportType ? transportType.toUpperCase() : 'PERJALANAN';
-        loadingText.textContent = `Sedang menuju ke ${destinationName || 'lokasi tujuan'} menggunakan ${transportLabel}...`;
+    if (loadingBg) {
+        const defaultBg = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1200&auto=format&fit=crop';
+        const bgUrl = backgrounds[transportType] || defaultBg;
+        loadingBg.style.backgroundImage = `url('${bgUrl}')`;
     }
 
     // Tampilkan Loading Screen
