@@ -45,7 +45,7 @@ export function renderRoomMenuGrid(onSublocationSwitch) {
         btn.className = `glass-panel rounded-2xl p-3 flex flex-col items-center text-center gap-2 border transition-all duration-300 cursor-pointer ${
             isActive ? 'border-amber-300/80 bg-amber-500/25 shadow-lg scale-105' : 'border-white/15 hover:border-white/40 hover:bg-white/10'
         }`;
-        
+
         btn.onclick = () => {
             if (typeof onSublocationSwitch === 'function') {
                 onSublocationSwitch(sId);
@@ -138,7 +138,7 @@ export function startAction(actionKey) {
     if (!act) return;
 
     currentActionKey = actionKey;
-    
+
     document.getElementById('modalTitle').innerText = act.title;
     document.getElementById('modalDesc').innerText = act.startDesc;
     document.getElementById('modalIcon').setAttribute('data-lucide', act.icon);
@@ -254,7 +254,7 @@ export function openLocationTransportModal(onConfirmTravel) {
     selectedTransport = null;
     const modal = document.getElementById('transportLocationModal');
     const card = document.getElementById('transportLocationModalCard');
-    
+
     document.getElementById('stepTransportOptions').classList.remove('hidden');
     document.getElementById('stepLocationOptions').classList.add('hidden');
     document.getElementById('transportModalSubtitle').innerText = 'Pilih moda transportasi yang tersedia untuk memulai perjalanan.';
@@ -330,12 +330,12 @@ export function selectTransportMode(mode, onConfirmTravel) {
     }
 
     selectedTransport = { mode, cost, label: modeLabel };
-    
+
     document.getElementById('stepTransportOptions').classList.add('hidden');
     document.getElementById('stepLocationOptions').classList.remove('hidden');
     document.getElementById('transportModalSubtitle').innerText = 'Pilih lokasi yang ingin dituju.';
     document.getElementById('selectedVehicleLabel').innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> Mode: ${modeLabel}`;
-    
+
     renderLocationsForTransport(onConfirmTravel);
     if (window.lucide) window.lucide.createIcons();
 }
@@ -354,11 +354,11 @@ export function renderLocationsForTransport(onConfirmTravel) {
 
     LOCATIONS_DATA.forEach(loc => {
         const isCurrent = loc.id === currentLocation;
-        
+
         let speedMultiplier = 1;
-        if (selectedTransport.mode === 'ojek') speedMultiplier = 0.8;
-        if (selectedTransport.mode === 'pribadi') speedMultiplier = 0.7;
-        if (selectedTransport.mode === 'bus') speedMultiplier = 1.2;
+        if (selectedTransport && selectedTransport.mode === 'ojek') speedMultiplier = 0.8;
+        if (selectedTransport && selectedTransport.mode === 'pribadi') speedMultiplier = 0.7;
+        if (selectedTransport && selectedTransport.mode === 'bus') speedMultiplier = 1.2;
 
         let duration = Math.round(loc.baseDuration * speedMultiplier);
 
@@ -374,7 +374,7 @@ export function renderLocationsForTransport(onConfirmTravel) {
                 <p class="text-[10px] text-stone-300 mt-0.5">${loc.subtext}</p>
                 <div class="flex items-center gap-3 mt-2 text-[10px] text-cyan-200 font-semibold">
                     <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> Est. ${duration} detik</span>
-                    <span class="flex items-center gap-1"><i data-lucide="coins" class="w-3 h-3"></i> Rp ${selectedTransport.cost}</span>
+                    <span class="flex items-center gap-1"><i data-lucide="coins" class="w-3 h-3"></i> Rp ${selectedTransport ? selectedTransport.cost : 0}</span>
                 </div>
             </div>
             <div>
