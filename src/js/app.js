@@ -180,9 +180,13 @@ function confirmTravelWithMinigame(targetLocId, duration) {
 
 // =========================================================================
 // 🌐 Mendaftarkan Fungsi Penting ke Objek Global (window)
-// Agar tombol HTML dengan onclick="..." bisa mengakses fungsi di bawah ini.
 // =========================================================================
 window.switchSublocation = switchSublocation;
 window.travelToLocation = travelToLocation;
 window.openRoomMenuModal = () => openRoomMenuModal(switchSublocation);
 window.openLocationTransportModal = () => openLocationTransportModal(confirmTravelWithMinigame);
+
+// ➕ Tambahkan fungsi-fungsi ini agar onclick di HTML bekerja:
+window.closeSmartphonePage = closeSmartphonePage;
+window.moveMinigameCar = moveMinigameCar;
+window.closeTransportLocationModal = closeTransportLocationModal;
