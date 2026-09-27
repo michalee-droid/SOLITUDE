@@ -1,7 +1,6 @@
 import { player, currentLocation, LOCATIONS_DATA } from '../state/gameState.js';
 import { updateClockDisplays } from './uiPlayer.js';
 import { toggleBGM, isBgmPlaying } from '../systems/audio.js';
-import { openModal } from './uiModals.js';
 
 // Inisialisasi Event Listener Tombol UI Smartphone Utama
 export function initSmartphoneUI() {
