@@ -555,45 +555,47 @@
         </div>
     </div>
 
-    <!-- MODAL MINIGAME BERKENDARA -->
-    <div id="drivingMinigameModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg opacity-0 pointer-events-none transition-all duration-300 ease-out">
-        <div class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-md w-full flex flex-col items-center text-center border border-white/20 shadow-2xl relative overflow-hidden">
-            <div class="flex items-center justify-between w-full pb-3 border-b border-white/15 mb-3">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="gamepad-2" class="w-5 h-5 text-amber-300"></i>
-                    <h3 class="font-bold text-sm text-white">Minigame Berkendara</h3>
-                </div>
-                <span id="minigameTimerDisplay" class="text-xs font-mono font-bold text-amber-300 bg-black/50 px-2.5 py-1 rounded-lg border border-amber-300/30">10.0s</span>
+    <div id="drivingMinigameModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="drivingMinigameModalContent" class="relative w-80 bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-2xl overflow-hidden flex flex-col items-center">
+        
+        <!-- Header Info -->
+        <div class="w-full flex justify-between items-center mb-3 px-2">
+            <span id="minigameTimerDisplay" class="text-xl font-mono font-bold text-amber-400">10.0s</span>
+            <span id="minigameScoreDisplay" class="text-sm font-semibold text-emerald-400">Bonus: +0</span>
+        </div>
+
+        <!-- Track / Highway Canvas -->
+        <div class="relative w-full h-80 bg-slate-800 rounded-lg overflow-hidden border-2 border-slate-600 road-stripes">
+            <!-- Lane Divider Line -->
+            <div class="absolute left-1/2 top-0 bottom-0 w-1 border-r-2 border-dashed border-amber-400/50 -translate-x-1/2"></div>
+
+            <!-- Player Car -->
+            <div id="playerMinigameCar" class="absolute bottom-4 w-1/3 h-12 bg-blue-500 rounded-md transition-all duration-75 ease-out shadow-lg shadow-blue-500/50 flex items-center justify-center text-white font-bold text-xs">
+                🚗 YOU
             </div>
 
-            <p class="text-xs text-stone-200 mb-4">Hindari hambatan jalan dengan menekan tombol <strong>KIRI</strong> / <strong>KANAN</strong>! Bebas kecelakaan memberikan durasi tempuh lebih cepat.</p>
-
-            <div class="w-full bg-stone-900 border-2 border-stone-700 h-48 rounded-2xl relative overflow-hidden flex justify-around p-2 mb-4" id="roadCanvasArea">
-                <!-- Track Lanes -->
-                <div class="w-1/2 border-r border-dashed border-white/30 h-full relative"></div>
-                <div class="w-1/2 h-full relative"></div>
-
-                <!-- Player Vehicle -->
-                <div id="playerMinigameCar" class="absolute bottom-2 w-10 h-14 bg-emerald-500 rounded-lg border-2 border-white flex items-center justify-center text-white shadow-lg transition-all duration-150" style="left: 20%;">
-                    <i data-lucide="car" class="w-6 h-6"></i>
-                </div>
-
-                <!-- Obstacle Vehicle -->
-                <div id="obstacleMinigameCar" class="absolute top-0 w-10 h-14 bg-rose-600 rounded-lg border-2 border-white flex items-center justify-center text-white shadow-lg" style="left: 60%;">
-                    <i data-lucide="alert-triangle" class="w-5 h-5"></i>
-                </div>
+            <!-- Obstacle Car -->
+            <div id="obstacleMinigameCar" class="absolute w-1/3 h-12 bg-rose-600 rounded-md shadow-lg shadow-rose-600/50 flex items-center justify-center text-white font-bold text-xs">
+                🚘
             </div>
 
-            <div class="grid grid-cols-2 gap-3 w-full">
-                <button onclick="moveMinigameCar('left')" class="py-3 bg-white/15 hover:bg-white/30 rounded-xl font-bold text-white text-xs border border-white/20 flex items-center justify-center gap-2 cursor-pointer active:scale-95">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Kiri
-                </button>
-                <button onclick="moveMinigameCar('right')" class="py-3 bg-white/15 hover:bg-white/30 rounded-xl font-bold text-white text-xs border border-white/20 flex items-center justify-center gap-2 cursor-pointer active:scale-95">
-                    Kanan <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </button>
+            <!-- Collectible Bonus Item -->
+            <div id="bonusMinigameItem" class="absolute w-12 h-12 flex items-center justify-center text-2xl animate-bounce">
+                ⚡
             </div>
         </div>
+
+        <!-- Controls (Mobile/Touch) -->
+        <div class="w-full grid grid-cols-2 gap-3 mt-4">
+            <button onclick="moveMinigameCar('left')" class="py-3 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white font-bold rounded-lg border border-slate-600 active:scale-95 transition-all">
+                ◀ KIRI (A)
+            </button>
+            <button onclick="moveMinigameCar('right')" class="py-3 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white font-bold rounded-lg border border-slate-600 active:scale-95 transition-all">
+                KANAN (D) ▶
+            </button>
+        </div>
     </div>
+</div>
 
     <!-- MODAL BERPINDAH -->
     <div id="roomMenuModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
