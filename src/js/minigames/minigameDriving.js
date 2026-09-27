@@ -23,9 +23,11 @@ const LANES = [20, 60]; // Persentase 'left' untuk 2 jalur
 let obstacle = { lane: 1, top: -20, speed: NORMAL_SPEED };
 let collectible = { lane: 0, top: -50, speed: 50, active: true };
 
-// Key listener reference for cleanup
+// Key & Touch listener references for cleanup
 let handleKeyDown = null;
 let handleKeyUp = null;
+let handleTouchStart = null;
+let handleTouchEnd = null;
 
 export function startMinigame(targetLocId, duration, onMinigameFinish) {
     // Reset State & Safety Cleanup
@@ -197,6 +199,24 @@ function setupInputListeners() {
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+
+    // Touch & Click Listeners untuk Tombol Rem UI
+    const brakeBtn = document.getElementById('btn-brake') || document.querySelector('[data-action="brake"]');
+    if (brakeBtn) {
+        handleTouchStart = (e) => {
+            e.preventDefault();
+            setBrakeState(true);
+        };
+        handleTouchEnd = (e) => {
+            e.preventDefault();
+            setBrakeState(false);
+        };
+
+        brakeBtn.addEventListener('mousedown', handleTouchStart);
+        brakeBtn.addEventListener('mouseup', handleTouchEnd);
+        brakeBtn.addEventListener('touchstart', handleTouchStart);
+        brakeBtn.addEventListener('touchend', handleTouchEnd);
+    }
 }
 
 function removeInputListeners() {
@@ -207,6 +227,16 @@ function removeInputListeners() {
     if (handleKeyUp) {
         window.removeEventListener('keyup', handleKeyUp);
         handleKeyUp = null;
+    }
+
+    const brakeBtn = document.getElementById('btn-brake') || document.querySelector('[data-action="brake"]');
+    if (brakeBtn && handleTouchStart && handleTouchEnd) {
+        brakeBtn.removeEventListener('mousedown', handleTouchStart);
+        brakeBtn.removeEventListener('mouseup', handleTouchEnd);
+        brakeBtn.removeEventListener('touchstart', handleTouchStart);
+        brakeBtn.removeEventListener('touchend', handleTouchEnd);
+        handleTouchStart = null;
+        handleTouchEnd = null;
     }
 }
 
