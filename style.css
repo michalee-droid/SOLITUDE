@@ -289,3 +289,24 @@
   box-shadow: 0 12px 28px rgba(6, 182, 212, 0.45), inset 0 0 15px rgba(34, 211, 238, 0.2);
   transform: translateY(-3px) scale(1.02);
 }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Animasi sederhana untuk latar jalanan bergerak */
+.road-stripes {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 50%, transparent 50%);
+  background-size: 100% 40px;
+  animation: roadMove 0.8s linear infinite;
+}
+
+@keyframes roadMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 40px; }
+}
