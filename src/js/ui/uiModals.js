@@ -6,8 +6,8 @@ export let selectedTransport = null;
 export let activeTimer = null;
 export let currentActionKey = null;
 
-export function openRoomMenuModal() {
-    renderRoomMenuGrid();
+export function openRoomMenuModal(onSublocationSwitch) {
+    renderRoomMenuGrid(onSublocationSwitch);
     const modal = document.getElementById('roomMenuModal');
     const card = document.getElementById('roomMenuModalCard');
     if (modal && card) {
@@ -45,7 +45,13 @@ export function renderRoomMenuGrid(onSublocationSwitch) {
         btn.className = `glass-panel rounded-2xl p-3 flex flex-col items-center text-center gap-2 border transition-all duration-300 cursor-pointer ${
             isActive ? 'border-amber-300/80 bg-amber-500/25 shadow-lg scale-105' : 'border-white/15 hover:border-white/40 hover:bg-white/10'
         }`;
-        btn.onclick = () => onSublocationSwitch(sId);
+        
+        btn.onclick = () => {
+            if (typeof onSublocationSwitch === 'function') {
+                onSublocationSwitch(sId);
+            }
+            closeRoomMenuModal();
+        };
 
         btn.innerHTML = `
             <div class="w-10 h-10 rounded-xl ${isActive ? 'bg-amber-400 text-stone-900' : 'bg-white/15 text-white'} flex items-center justify-center transition-colors">
@@ -53,7 +59,7 @@ export function renderRoomMenuGrid(onSublocationSwitch) {
             </div>
             <div>
                 <span class="font-serif font-bold text-xs text-white block leading-tight">${sub.name}</span>
-                <span class="text-[9px] text-stone-300 block mt-0.5">${sub.subtext}</span>
+                <span class="text-[9px] text-stone-300 block mt-0.5">${sub.subtext || ''}</span>
             </div>
         `;
         container.appendChild(btn);
@@ -383,7 +389,12 @@ export function renderLocationsForTransport(onConfirmTravel) {
         if (!isCurrent) {
             const btn = document.getElementById(`btn-travel-confirm-${loc.id}`);
             if (btn) {
-                btn.onclick = () => onConfirmTravel(loc.id, duration);
+                btn.onclick = () => {
+                    closeTransportLocationModal();
+                    if (typeof onConfirmTravel === 'function') {
+                        onConfirmTravel(loc.id, duration);
+                    }
+                };
             }
         }
     });
