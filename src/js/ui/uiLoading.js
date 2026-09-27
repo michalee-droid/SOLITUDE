@@ -18,7 +18,7 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
         return;
     }
 
-    // Pemetaan Latar Belakang Gambar Berdasarkan Transportasi (Cloudinary & Unsplash Fallback)
+    // Pemetaan Latar Belakang Gambar Berdasarkan Transportasi
     const backgrounds = {
         ojek: 'https://res.cloudinary.com/dl2egfdw2/image/upload/v1790492573/taksi_2_cdl6py.png',
         taksi: 'https://res.cloudinary.com/dl2egfdw2/image/upload/v1790492567/taksi_1_mzbpvx.png',
@@ -28,13 +28,13 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
 
     const defaultBg = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1200&auto=format&fit=crop';
 
-    // 1. Set gambar latar belakang
+    // 1. Set background image secara valid
     if (loadingBg) {
         const bgUrl = backgrounds[transportType] || defaultBg;
         loadingBg.style.backgroundImage = `url('${bgUrl}')`;
     }
 
-    // 2. Set teks indikator perjalanan
+    // 2. Set teks status indikator perjalanan
     if (loadingText) {
         const modeLabel = transportType ? transportType.toUpperCase() : 'PERJALANAN';
         const destination = destinationName || 'LOKASI TUJUAN';
@@ -46,7 +46,7 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
     if (progressBar) progressBar.style.width = '0%';
 
     let progress = 0;
-    const duration = 2500; // Durasi loading 2.5 detik
+    const duration = 2500; // Durasi loading (2.5 detik)
     const intervalTime = 40;
     const step = (intervalTime / duration) * 100;
 
