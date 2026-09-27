@@ -1,4 +1,4 @@
-
+import { startMinigame, moveMinigameCar, setBrakeState } from './minigames/minigameDriving.js';
 import { playBGM, playChime } from './systems/audio.js';
 import { initWeatherCanvas, updateWeatherLogic } from './systems/weather.js';
 import { tickSimTime, fastForwardOneMonth } from './systems/timeSystem.js';
@@ -191,4 +191,4 @@ window.openLocationTransportModal = () => openLocationTransportModal(confirmTrav
 window.closeSmartphonePage = closeSmartphonePage;
 window.moveMinigameCar = moveMinigameCar;
 window.closeTransportLocationModal = closeTransportLocationModal;
-
+window.setBrakeState = setBrakeState;
