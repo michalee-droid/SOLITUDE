@@ -22,7 +22,7 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
     const backgrounds = {
         ojek: 'assets/images/bg-ojek.jpg',
         taksi: 'assets/images/bg-taksi.jpg',
-        bus: 'assets/images/bg-bus.jpg'
+        bus: 'https://res.cloudinary.com/dl2egfdw2/image/upload/v1790492569/taksi_3_louv6s.png'
     };
 
     // Set background image
