@@ -1,5 +1,3 @@
-// src/js/ui/uiLoading.js
-
 /**
  * Menjalankan Loading Screen Perjalanan dengan Latar Gambar
  * @param {string} transportType - Jenis transportasi ('ojek', 'taksi', 'bus', 'pribadi')
@@ -18,7 +16,7 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
         return;
     }
 
-    // Pemetaan Latar Belakang Gambar Berdasarkan Transportasi
+    // Pemetaan Gambar Latar Belakang
     const backgrounds = {
         ojek: 'https://res.cloudinary.com/dl2egfdw2/image/upload/v1790492573/taksi_2_cdl6py.png',
         taksi: 'https://res.cloudinary.com/dl2egfdw2/image/upload/v1790492567/taksi_1_mzbpvx.png',
@@ -28,26 +26,26 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
 
     const defaultBg = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1200&auto=format&fit=crop';
 
-    // 1. Set background image secara valid
+    // 1. Set background image
     if (loadingBg) {
         const bgUrl = backgrounds[transportType] || defaultBg;
         loadingBg.style.backgroundImage = `url('${bgUrl}')`;
     }
 
-    // 2. Set teks status indikator perjalanan
+    // 2. Set teks lokasi tujuan
     if (loadingText) {
         const modeLabel = transportType ? transportType.toUpperCase() : 'PERJALANAN';
         const destination = destinationName || 'LOKASI TUJUAN';
         loadingText.textContent = `Sedang menuju ke ${destination} (${modeLabel})...`;
     }
 
-    // 3. Tampilkan Loading Screen
-    loadingScreen.classList.add('active');
+    // 3. Tampilkan Loading Screen menggunakan kelas '.show' sesuai style.css
+    loadingScreen.classList.add('show');
     if (progressBar) progressBar.style.width = '0%';
 
     let progress = 0;
-    const duration = 2500; // Durasi loading (2.5 detik)
-    const intervalTime = 40;
+    const duration = 2500; // Total durasi 2.5 detik
+    const intervalTime = 30;
     const step = (intervalTime / duration) * 100;
 
     const interval = setInterval(() => {
@@ -60,9 +58,9 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
             clearInterval(interval);
             setTimeout(() => {
                 // Sembunyikan Loading Screen
-                loadingScreen.classList.remove('active');
+                loadingScreen.classList.remove('show');
                 
-                // Eksekusi callback perpindahan lokasi
+                // Jalankan callback perpindahan lokasi
                 if (typeof onComplete === 'function') {
                     onComplete();
                 }
