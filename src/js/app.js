@@ -174,12 +174,6 @@ function confirmTravelWithMinigame(targetLocId, duration) {
                 addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
                 playChime(783.99);
             }
-
-            // Mendaftarkan fungsi-fungsi navigasi ke scope global window
-window.openLocationTransportModal = () => openLocationTransportModal(confirmTravelWithMinigame);
-window.openRoomMenuModal = () => openRoomMenuModal(switchSublocation);
-window.switchSublocation = switchSublocation;
-window.travelToLocation = travelToLocation;
         );
     });
 }
