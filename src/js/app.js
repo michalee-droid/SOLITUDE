@@ -1,18 +1,18 @@
-// 1. Pengimporan Modul (Ganda telah dihapus)
-import { startMinigame, moveMinigameCar, setBrakeState } from './minigames/minigameDriving.js';
+// 1. Pengimporan Modul
 import { playBGM, playChime } from './systems/audio.js';
-import { initWeatherCanvas, updateWeatherLogic } from './systems/weather.js';
+import { initWeatherCanvas } from './systems/weather.js';
 import { tickSimTime, fastForwardOneMonth } from './systems/timeSystem.js';
 import { player, currentLocation, setCurrentLocation, currentSublocations, LOCATION_SUBLOCATIONS, LOCATIONS_DATA } from './state/gameState.js';
 import { updatePlayerInfoUI, updateStatsUI, updateClockDisplays, updateWeatherUI, updateLocationUI, addLogEntry } from './ui/uiPlayer.js';
-import { openSmartphonePage, closeSmartphonePage, openPhonePageApp, closePhonePageApp } from './ui/uiSmartphone.js';
+import { openSmartphonePage, closeSmartphonePage, openPhonePageApp, closePhonePageApp, initSmartphoneUI } from './ui/uiSmartphone.js';
 import { 
     openRoomMenuModal, closeRoomMenuModal, 
     openActivitiesMenuModal, closeActivitiesMenuModal, 
     openLocationTransportModal, closeTransportLocationModal,
     selectTransportMode, backToTransportSelection,
-    startGenericActivity, activeTimer, stopCurrentActivity, selectedTransport
+    activeTimer, stopCurrentActivity, selectedTransport
 } from './ui/uiModals.js';
+import { startTravelLoading } from './ui/uiLoading.js';
 
 window.addEventListener('DOMContentLoaded', () => {
     if (window.lucide) window.lucide.createIcons();
@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
     updateLocationUI();
     updateClockDisplays();
     updateWeatherUI();
+    initSmartphoneUI();
 
     // Loop interval simulasi waktu
     setInterval(() => tickSimTime(activeTimer), 1500);
@@ -68,7 +69,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Event Listener Modal Transportasi
     const btnOpenTransport = document.getElementById('btnOpenTransportModal');
-    if (btnOpenTransport) btnOpenTransport.onclick = () => openLocationTransportModal(confirmTravelWithMinigame);
+    if (btnOpenTransport) btnOpenTransport.onclick = () => openLocationTransportModal(confirmTravelWithLoading);
 
     const btnCloseTransport = document.getElementById('btnCloseTransportModal');
     if (btnCloseTransport) btnCloseTransport.onclick = closeTransportLocationModal;
@@ -79,15 +80,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // Transport Mode Option Selection Listeners
     ['taksi', 'ojek', 'bus', 'pribadi'].forEach(mode => {
         const btn = document.getElementById(`btnSelectMode_${mode}`);
-        if (btn) btn.onclick = () => selectTransportMode(mode, confirmTravelWithMinigame);
+        if (btn) btn.onclick = () => selectTransportMode(mode, confirmTravelWithLoading);
     });
-
-    // Event Listener Minigame Berkendara
-    const btnMinigameLeft = document.getElementById('btnMinigameLeft');
-    if (btnMinigameLeft) btnMinigameLeft.onclick = () => moveMinigameCar('left');
-
-    const btnMinigameRight = document.getElementById('btnMinigameRight');
-    if (btnMinigameRight) btnMinigameRight.onclick = () => moveMinigameCar('right');
 
     // Event Listener Log
     const btnClearLogs = document.getElementById('btnClearLogs');
@@ -124,58 +118,48 @@ function switchSublocation(subId) {
     playChime(659.25);
 }
 
-// Travel Location Manager
+// Travel Location Manager (Langsung tanpa minigame)
 function travelToLocation(locId) {
     if (activeTimer) return;
     const targetLoc = LOCATIONS_DATA.find(l => l.id === locId);
     if (!targetLoc) return;
 
-    if (locId === 'sekitar_rumah') {
-        let waitTime = 5;
-        startGenericActivity(
-            'Perjalanan Travel', 
-            `Sedang berjalan menuju ${targetLoc.name}...`, 
-            'compass', 
-            waitTime, 
-            () => {
-                setCurrentLocation(locId);
-                updateLocationUI();
-                addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
-                playChime(783.99);
-            }
-        );
-    } else {
-        setCurrentLocation(locId);
-        updateLocationUI();
+    setCurrentLocation(locId);
+    updateLocationUI();
 
-        addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
-        playChime(783.99);
-    }
+    addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
+    playChime(783.99);
 }
 
-// Minigame Travel Confirmation Callback
-function confirmTravelWithMinigame(targetLocId, duration) {
+// Sistem Perjalanan Transportasi Menggunakan Loading Screen Latar Gambar
+function confirmTravelWithLoading(targetLocId, duration) {
     if (selectedTransport && selectedTransport.cost > 0) {
         player.uang -= selectedTransport.cost;
         updateStatsUI();
     }
 
+    // Tutup Modal Pilihan Transportasi
     closeTransportLocationModal();
     
-    startMinigame(targetLocId, duration, (finalDuration) => {
-        const targetLoc = LOCATIONS_DATA.find(l => l.id === targetLocId);
-        startGenericActivity(
-            'Perjalanan Transportasi', 
-            `Sedang menuju ${targetLoc ? targetLoc.name : 'tujuan'} dengan ${selectedTransport ? selectedTransport.label : 'kendaraan'}...`, 
-            'navigation', 
-            finalDuration, 
-            () => {
-                setCurrentLocation(targetLocId);
-                updateLocationUI();
-                addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
-                playChime(783.99);
-            }
+    const targetLoc = LOCATIONS_DATA.find(l => l.id === targetLocId);
+    const destinationName = targetLoc ? targetLoc.name : 'Tujuan';
+    const transportType = selectedTransport ? selectedTransport.id : 'ojek';
+
+    // Jalankan Loading Screen dengan Latar Belakang Gambar
+    startTravelLoading(transportType, destinationName, () => {
+        // Callback Setelah Loading Selesai
+        setCurrentLocation(targetLocId);
+        updateLocationUI();
+        addLogEntry(
+            'TRAVEL', 
+            destinationName, 
+            `Tiba di kawasan ${destinationName} menggunakan ${selectedTransport ? selectedTransport.label : 'transportasi'}.`, 
+            'map-pin', 
+            'text-emerald-300', 
+            'border-l-emerald-400', 
+            'bg-emerald-400/20 text-emerald-200 border-emerald-300/40'
         );
+        playChime(783.99);
     });
 }
 
@@ -185,8 +169,6 @@ function confirmTravelWithMinigame(targetLocId, duration) {
 window.switchSublocation = switchSublocation;
 window.travelToLocation = travelToLocation;
 window.openRoomMenuModal = () => openRoomMenuModal(switchSublocation);
-window.openLocationTransportModal = () => openLocationTransportModal(confirmTravelWithMinigame);
+window.openLocationTransportModal = () => openLocationTransportModal(confirmTravelWithLoading);
 window.closeSmartphonePage = closeSmartphonePage;
-window.moveMinigameCar = moveMinigameCar;
 window.closeTransportLocationModal = closeTransportLocationModal;
-window.setBrakeState = setBrakeState;
