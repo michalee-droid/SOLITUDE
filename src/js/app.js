@@ -1,5 +1,4 @@
-// src/js/app.js
-
+// 1. Pengimporan Modul
 import { playBGM, playChime } from './systems/audio.js';
 import { initWeatherCanvas } from './systems/weather.js';
 import { tickSimTime, fastForwardOneMonth } from './systems/timeSystem.js';
@@ -68,9 +67,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const btnStopAct = document.getElementById('btnStopActivity');
     if (btnStopAct) btnStopAct.onclick = stopCurrentActivity;
 
-    // Event Listener Modal Transportasi
-    const btnOpenTransport = document.getElementById('btnOpenTransportModal');
-    if (btnOpenTransport) btnOpenTransport.onclick = () => openLocationTransportModal(confirmTravelWithLoading);
+    // Event Listener Modal Transportasi / Navigasi (Menangani ID 'btnOpenTransport' dan 'btnOpenTransportModal')
+    const btnOpenTransport = document.getElementById('btnOpenTransport') || document.getElementById('btnOpenTransportModal');
+    if (btnOpenTransport) {
+        btnOpenTransport.onclick = () => openLocationTransportModal(confirmTravelWithLoading);
+    }
 
     const btnCloseTransport = document.getElementById('btnCloseTransportModal');
     if (btnCloseTransport) btnCloseTransport.onclick = closeTransportLocationModal;
@@ -121,7 +122,7 @@ function switchSublocation(subId) {
     if (window.lucide) window.lucide.createIcons();
 }
 
-// Travel Location Manager (Direct/Instant)
+// Travel Location Manager (Direct)
 function travelToLocation(locId) {
     if (activeTimer) return;
     const targetLoc = LOCATIONS_DATA.find(l => l.id === locId);
@@ -149,8 +150,6 @@ function confirmTravelWithLoading(targetLocId, duration) {
 
     const targetLoc = LOCATIONS_DATA.find(l => l.id === targetLocId);
     const destinationName = targetLoc ? targetLoc.name : 'Tujuan';
-    
-    // Mengecek properti mode maupun id
     const transportType = selectedTransport ? (selectedTransport.mode || selectedTransport.id) : 'ojek';
 
     // Jalankan Loading Screen dengan Latar Belakang Gambar
