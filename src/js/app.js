@@ -1,3 +1,4 @@
+// 1. Pengimporan Modul (Ganda telah dihapus)
 import { startMinigame, moveMinigameCar, setBrakeState } from './minigames/minigameDriving.js';
 import { playBGM, playChime } from './systems/audio.js';
 import { initWeatherCanvas, updateWeatherLogic } from './systems/weather.js';
@@ -5,7 +6,6 @@ import { tickSimTime, fastForwardOneMonth } from './systems/timeSystem.js';
 import { player, currentLocation, setCurrentLocation, currentSublocations, LOCATION_SUBLOCATIONS, LOCATIONS_DATA } from './state/gameState.js';
 import { updatePlayerInfoUI, updateStatsUI, updateClockDisplays, updateWeatherUI, updateLocationUI, addLogEntry } from './ui/uiPlayer.js';
 import { openSmartphonePage, closeSmartphonePage, openPhonePageApp, closePhonePageApp } from './ui/uiSmartphone.js';
-import { startMinigame, moveMinigameCar } from './minigames/minigameDriving.js';
 import { 
     openRoomMenuModal, closeRoomMenuModal, 
     openActivitiesMenuModal, closeActivitiesMenuModal, 
@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
         btn.onclick = () => openPhonePageApp(btn.getAttribute('data-app-target'), travelToLocation);
     });
 
-    // Event Listener Modal Ruangan/Sublokasi (Diperbaiki agar membawa callback switchSublocation)
+    // Event Listener Modal Ruangan/Sublokasi
     const btnOpenRoom = document.getElementById('btnOpenRoomMenu');
     if (btnOpenRoom) btnOpenRoom.onclick = () => openRoomMenuModal(switchSublocation);
 
@@ -186,8 +186,6 @@ window.switchSublocation = switchSublocation;
 window.travelToLocation = travelToLocation;
 window.openRoomMenuModal = () => openRoomMenuModal(switchSublocation);
 window.openLocationTransportModal = () => openLocationTransportModal(confirmTravelWithMinigame);
-
-// ➕ Tambahkan fungsi-fungsi ini agar onclick di HTML bekerja:
 window.closeSmartphonePage = closeSmartphonePage;
 window.moveMinigameCar = moveMinigameCar;
 window.closeTransportLocationModal = closeTransportLocationModal;
