@@ -20,8 +20,8 @@ export function startTravelLoading(transportType, destinationName, onComplete) {
 
     // Pemetaan Latar Belakang Gambar Berdasarkan Transportasi
     const backgrounds = {
-        ojek: 'assets/images/bg-ojek.jpg',
-        taksi: 'assets/images/bg-taksi.jpg',
+        ojek: 'https://res.cloudinary.com/dl2egfdw2/image/upload/v1790492573/taksi_2_cdl6py.png',
+        taksi: 'https://res.cloudinary.com/dl2egfdw2/image/upload/v1790492567/taksi_1_mzbpvx.png',
         bus: 'https://res.cloudinary.com/dl2egfdw2/image/upload/v1790492569/taksi_3_louv6s.png'
     };
 
