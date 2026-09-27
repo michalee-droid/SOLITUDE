@@ -587,18 +587,31 @@
             </div>
         </div>
 
-        <!-- Controls (Mobile/Touch) -->
-        <div class="w-full grid grid-cols-2 gap-3 mt-4">
-            <button onclick="moveMinigameCar('left')" class="py-3 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white font-bold rounded-lg border border-slate-600 active:scale-95 transition-all">
-                ◀ KIRI (A)
-            </button>
-            <button onclick="moveMinigameCar('right')" class="py-3 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white font-bold rounded-lg border border-slate-600 active:scale-95 transition-all">
-                KANAN (D) ▶
-            </button>
-        </div>
-    </div>
-</div>
+      <!-- Controls (Mobile/Touch & Keyboard Guide) -->
+<div class="w-full grid grid-cols-3 gap-2 sm:gap-3 mt-4">
+    <!-- Tombol Kiri -->
+    <button id="btnMinigameLeft" onclick="moveMinigameCar('left')" class="py-3 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white font-bold rounded-lg border border-slate-600 active:scale-95 transition-all text-xs sm:text-sm flex flex-col items-center justify-center">
+        <span>◀ KIRI</span>
+        <span class="text-[10px] text-slate-400 font-normal">(A / ◀)</span>
+    </button>
 
+    <!-- Tombol Rem (Brake) -->
+    <button id="btnMinigameBrake" 
+            onmousedown="setBrakeState(true)" 
+            onmouseup="setBrakeState(false)" 
+            ontouchstart="setBrakeState(true)" 
+            ontouchend="setBrakeState(false)" 
+            class="py-3 bg-rose-950/80 hover:bg-rose-900 active:bg-rose-800 text-rose-200 font-bold rounded-lg border border-rose-700/60 active:scale-95 transition-all text-xs sm:text-sm flex flex-col items-center justify-center select-none">
+        <span>🛑 REM</span>
+        <span class="text-[10px] text-rose-400 font-normal">(S / ▼)</span>
+    </button>
+
+    <!-- Tombol Kanan -->
+    <button id="btnMinigameRight" onclick="moveMinigameCar('right')" class="py-3 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white font-bold rounded-lg border border-slate-600 active:scale-95 transition-all text-xs sm:text-sm flex flex-col items-center justify-center">
+        <span>KANAN ▶</span>
+        <span class="text-[10px] text-slate-400 font-normal">(D / ▶)</span>
+    </button>
+</div>
     <!-- MODAL BERPINDAH -->
     <div id="roomMenuModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 ease-out">
         <div id="roomMenuModalCard" class="glass-modal-transparent rounded-3xl p-5 sm:p-7 max-w-xl w-full flex flex-col transform scale-95 transition-all duration-300 ease-out border border-white/20 shadow-2xl relative">
