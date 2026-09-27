@@ -1,62 +1,126 @@
 import { player, currentLocation, LOCATIONS_DATA } from '../state/gameState.js';
 import { updateClockDisplays } from './uiPlayer.js';
 import { toggleBGM, isBgmPlaying } from '../systems/audio.js';
+import { openModal } from './uiModals.js';
+
+// Inisialisasi Event Listener Tombol UI Smartphone Utama
+export function initSmartphoneUI() {
+    const navAppBtn = document.getElementById('app-navigation') || document.getElementById('btn-app-peta');
+    const activityAppBtn = document.getElementById('app-activity') || document.getElementById('btn-app-freelance');
+
+    // Listener Tombol Navigasi
+    if (navAppBtn) {
+        navAppBtn.onclick = (e) => {
+            e.preventDefault();
+            // Buka halaman aplikasi smartphone untuk Peta/Navigasi
+            openSmartphonePage();
+            openPhonePageApp('peta');
+        };
+    }
+
+    // Listener Tombol Aktivitas
+    if (activityAppBtn) {
+        activityAppBtn.onclick = (e) => {
+            e.preventDefault();
+            // Buka halaman aplikasi smartphone untuk Karir/Aktivitas
+            openSmartphonePage();
+            openPhonePageApp('freelance');
+        };
+    }
+
+    // Event listener untuk tombol tutup smartphone jika ada
+    const closeBtn = document.getElementById('btnCloseSmartphonePage');
+    if (closeBtn) {
+        closeBtn.onclick = () => closeSmartphonePage();
+    }
+
+    // Event listener untuk tombol kembali ke home smartphone jika ada
+    const backBtn = document.getElementById('btnBackSmartphoneHome');
+    if (backBtn) {
+        backBtn.onclick = () => closePhonePageApp();
+    }
+}
 
 export function openSmartphonePage() {
     const fullPage = document.getElementById('smartphoneFullPage');
-    fullPage.classList.remove('hidden');
-    document.getElementById('phonePageHomeView').classList.remove('hidden');
-    document.getElementById('phonePageAppDetail').classList.add('hidden');
+    if (fullPage) {
+        fullPage.classList.remove('hidden');
+    }
+    const homeView = document.getElementById('phonePageHomeView');
+    if (homeView) {
+        homeView.classList.remove('hidden');
+    }
+    const appDetail = document.getElementById('phonePageAppDetail');
+    if (appDetail) {
+        appDetail.classList.add('hidden');
+    }
     updateClockDisplays();
 }
 
 export function closeSmartphonePage() {
-    document.getElementById('smartphoneFullPage').classList.add('hidden');
+    const fullPage = document.getElementById('smartphoneFullPage');
+    if (fullPage) {
+        fullPage.classList.add('hidden');
+    }
 }
 
 export function openPhonePageApp(appName, travelToLocCallback) {
-    document.getElementById('phonePageHomeView').classList.add('hidden');
+    const homeView = document.getElementById('phonePageHomeView');
+    if (homeView) {
+        homeView.classList.add('hidden');
+    }
+    
     const detailView = document.getElementById('phonePageAppDetail');
     const detailTitle = document.getElementById('phonePageAppDetailTitle');
     const detailBody = document.getElementById('phonePageAppDetailBody');
     
-    detailView.classList.remove('hidden');
-    detailView.classList.add('flex');
+    if (detailView) {
+        detailView.classList.remove('hidden');
+        detailView.classList.add('flex');
+    }
+
+    if (!detailBody) return;
 
     if (appName === 'peta') {
-        detailTitle.innerText = 'GPS & Peta Travel';
+        if (detailTitle) detailTitle.innerText = 'GPS & Peta Travel';
         renderPhoneAppPetaToContainer(detailBody, travelToLocCallback);
     } else if (appName === 'wallet') {
-        detailTitle.innerText = 'Finansial & Dompet';
+        if (detailTitle) detailTitle.innerText = 'Finansial & Dompet';
         renderPhoneAppWalletToContainer(detailBody);
     } else if (appName === 'bisnis') {
-        detailTitle.innerText = 'Bisnis & Properti';
+        if (detailTitle) detailTitle.innerText = 'Bisnis & Properti';
         renderPhoneAppBisnisToContainer(detailBody);
     } else if (appName === 'investasi') {
-        detailTitle.innerText = 'Investasi Pasar';
+        if (detailTitle) detailTitle.innerText = 'Investasi Pasar';
         renderPhoneAppInvestasiToContainer(detailBody);
     } else if (appName === 'freelance') {
-        detailTitle.innerText = 'Karir & Pekerjaan';
+        if (detailTitle) detailTitle.innerText = 'Karir & Pekerjaan';
         renderPhoneAppFreelanceToContainer(detailBody);
     } else if (appName === 'medsos') {
-        detailTitle.innerText = 'Medsos & Koneksi';
+        if (detailTitle) detailTitle.innerText = 'Medsos & Koneksi';
         renderPhoneAppMedsosToContainer(detailBody);
     } else if (appName === 'chat') {
-        detailTitle.innerText = 'Pesan Singkat';
+        if (detailTitle) detailTitle.innerText = 'Pesan Singkat';
         renderPhoneAppChatToContainer(detailBody);
     } else if (appName === 'profil') {
-        detailTitle.innerText = 'Profil Identitas';
+        if (detailTitle) detailTitle.innerText = 'Profil Identitas';
         renderPhoneAppProfilToContainer(detailBody);
     } else if (appName === 'musik') {
-        detailTitle.innerText = 'Audio Player';
+        if (detailTitle) detailTitle.innerText = 'Audio Player';
         renderPhoneAppMusikToContainer(detailBody);
     }
 }
 
 export function closePhonePageApp() {
-    document.getElementById('phonePageAppDetail').classList.add('hidden');
-    document.getElementById('phonePageAppDetail').classList.remove('flex');
-    document.getElementById('phonePageHomeView').classList.remove('hidden');
+    const detailView = document.getElementById('phonePageAppDetail');
+    if (detailView) {
+        detailView.classList.add('hidden');
+        detailView.classList.remove('flex');
+    }
+    const homeView = document.getElementById('phonePageHomeView');
+    if (homeView) {
+        homeView.classList.remove('hidden');
+    }
 }
 
 function renderPhoneAppPetaToContainer(container, travelToLocCallback) {
@@ -173,10 +237,10 @@ function renderPhoneAppProfilToContainer(container) {
         <div class="flex flex-col gap-3 max-w-lg mx-auto">
             <div class="glass-panel p-6 rounded-3xl border border-white/10 text-center">
                 <div class="w-16 h-16 rounded-full bg-amber-200 text-stone-900 font-bold flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg">
-                    ${player.nama.charAt(0)}
+                    ${player.nama ? player.nama.charAt(0) : 'P'}
                 </div>
-                <h5 class="font-bold text-base text-white">${player.nama}</h5>
-                <p class="text-xs text-stone-300 mt-0.5">${player.gender} • ${player.umur} Tahun</p>
+                <h5 class="font-bold text-base text-white">${player.nama || 'Pemain'}</h5>
+                <p class="text-xs text-stone-300 mt-0.5">${player.gender || 'Pria'} • ${player.umur || 20} Tahun</p>
                 <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-around text-xs">
                     <div>
                         <span class="text-stone-400 block">Kendaraan</span>
@@ -184,7 +248,7 @@ function renderPhoneAppProfilToContainer(container) {
                     </div>
                     <div>
                         <span class="text-stone-400 block">Kota</span>
-                        <span class="font-bold text-amber-200">${player.tempatLahir}</span>
+                        <span class="font-bold text-amber-200">${player.tempatLahir || 'Jakarta'}</span>
                     </div>
                 </div>
             </div>
