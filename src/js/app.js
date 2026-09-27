@@ -48,9 +48,9 @@ window.addEventListener('DOMContentLoaded', () => {
         btn.onclick = () => openPhonePageApp(btn.getAttribute('data-app-target'), travelToLocation);
     });
 
-    // Event Listener Modal Ruangan/Sublokasi
+    // Event Listener Modal Ruangan/Sublokasi (Diperbaiki agar membawa callback switchSublocation)
     const btnOpenRoom = document.getElementById('btnOpenRoomMenu');
-    if (btnOpenRoom) btnOpenRoom.onclick = openRoomMenuModal;
+    if (btnOpenRoom) btnOpenRoom.onclick = () => openRoomMenuModal(switchSublocation);
 
     const btnCloseRoom = document.getElementById('btnCloseRoomMenuModal');
     if (btnCloseRoom) btnCloseRoom.onclick = closeRoomMenuModal;
@@ -177,3 +177,12 @@ function confirmTravelWithMinigame(targetLocId, duration) {
         );
     });
 }
+
+// =========================================================================
+// 🌐 Mendaftarkan Fungsi Penting ke Objek Global (window)
+// Agar tombol HTML dengan onclick="..." bisa mengakses fungsi di bawah ini.
+// =========================================================================
+window.switchSublocation = switchSublocation;
+window.travelToLocation = travelToLocation;
+window.openRoomMenuModal = () => openRoomMenuModal(switchSublocation);
+window.openLocationTransportModal = () => openLocationTransportModal(confirmTravelWithMinigame);
