@@ -490,54 +490,56 @@
 
             <div id="transportModalContent" class="overflow-y-auto pr-1 flex-1">
                 <!-- Step 1: Mode Transportasi -->
-                <div id="stepTransportOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- Taksi -->
-                    <button onclick="selectTransportMode('taksi')" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-amber-400/30 hover:border-amber-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
-                        <div class="p-3 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform shrink-0">
-                            <i data-lucide="car" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h4 class="font-bold text-sm text-white">Taksi Konvensional</h4>
-                                <span class="text-[9px] bg-amber-400/30 text-amber-200 border border-amber-300/40 px-2 py-0.5 rounded-md font-bold">Rp 25</span>
-                            </div>
-                            <p class="text-[10px] text-stone-300 mt-0.5">Nyaman dan aman, biaya sedang.</p>
-                        </div>
-                    </button>
+<div id="stepTransportOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    
+    <!-- Taksi -->
+    <button id="btnSelectMode_taksi" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-amber-400/30 hover:border-amber-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
+        <div class="p-3 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 group-hover:scale-110 transition-transform shrink-0">
+            <i data-lucide="car" class="w-6 h-6"></i>
+        </div>
+        <div>
+            <div class="flex items-center gap-2">
+                <h4 class="font-bold text-sm text-white">Taksi Konvensional</h4>
+                <span class="text-[9px] bg-amber-400/30 text-amber-200 border border-amber-300/40 px-2 py-0.5 rounded-md font-bold">Rp 25</span>
+            </div>
+            <p class="text-[10px] text-stone-300 mt-0.5">Nyaman dan aman, biaya sedang.</p>
+        </div>
+    </button>
 
-                    <!-- Ojek Online -->
-                    <button onclick="selectTransportMode('ojek')" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-emerald-400/30 hover:border-emerald-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
-                        <div class="p-3 rounded-xl bg-emerald-400/20 border border-emerald-300/40 text-emerald-300 group-hover:scale-110 transition-transform shrink-0">
-                            <i data-lucide="bike" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h4 class="font-bold text-sm text-white">Ojek Online</h4>
-                                <span class="text-[9px] bg-emerald-400/30 text-emerald-200 border border-emerald-300/40 px-2 py-0.5 rounded-md font-bold">Rp 12</span>
-                            </div>
-                            <p class="text-[10px] text-stone-300 mt-0.5">Lincah menembus kemacetan.</p>
-                        </div>
-                    </button>
+    <!-- Ojek Online -->
+    <button id="btnSelectMode_ojek" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-emerald-400/30 hover:border-emerald-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
+        <div class="p-3 rounded-xl bg-emerald-400/20 border border-emerald-300/40 text-emerald-300 group-hover:scale-110 transition-transform shrink-0">
+            <i data-lucide="bike" class="w-6 h-6"></i>
+        </div>
+        <div>
+            <div class="flex items-center gap-2">
+                <h4 class="font-bold text-sm text-white">Ojek Online</h4>
+                <span class="text-[9px] bg-emerald-400/30 text-emerald-200 border border-emerald-300/40 px-2 py-0.5 rounded-md font-bold">Rp 12</span>
+            </div>
+            <p class="text-[10px] text-stone-300 mt-0.5">Lincah menembus kemacetan.</p>
+        </div>
+    </button>
 
-                    <!-- Kendaraan Pribadi -->
-                    <div id="pribadiOptionBox">
-                        <!-- Rendered by JS based on ownership -->
-                    </div>
+    <!-- Kendaraan Pribadi -->
+    <div id="pribadiOptionBox">
+        <!-- Rendered by JS based on ownership -->
+    </div>
 
-                    <!-- Bus Umum -->
-                    <button onclick="selectTransportMode('bus')" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-sky-400/30 hover:border-sky-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
-                        <div class="p-3 rounded-xl bg-sky-400/20 border border-sky-300/40 text-sky-300 group-hover:scale-110 transition-transform shrink-0">
-                            <i data-lucide="bus" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h4 class="font-bold text-sm text-white">Bus Umum</h4>
-                                <span class="text-[9px] bg-emerald-500/40 text-emerald-100 border border-emerald-300/40 px-2 py-0.5 rounded-md font-extrabold uppercase">GRATIS</span>
-                            </div>
-                            <p class="text-[10px] text-stone-300 mt-0.5">Tanpa biaya, waktu tempuh standar.</p>
-                        </div>
-                    </button>
-                </div>
+    <!-- Bus Umum -->
+    <button id="btnSelectMode_bus" class="glass-panel p-4 rounded-2xl flex items-center gap-3.5 border border-sky-400/30 hover:border-sky-300 hover:bg-white/10 transition-all text-left cursor-pointer group">
+        <div class="p-3 rounded-xl bg-sky-400/20 border border-sky-300/40 text-sky-300 group-hover:scale-110 transition-transform shrink-0">
+            <i data-lucide="bus" class="w-6 h-6"></i>
+        </div>
+        <div>
+            <div class="flex items-center gap-2">
+                <h4 class="font-bold text-sm text-white">Bus Umum</h4>
+                <span class="text-[9px] bg-emerald-500/40 text-emerald-100 border border-emerald-300/40 px-2 py-0.5 rounded-md font-extrabold uppercase">GRATIS</span>
+            </div>
+            <p class="text-[10px] text-stone-300 mt-0.5">Tanpa biaya, waktu tempuh standar.</p>
+        </div>
+    </button>
+
+</div>
 
                 <!-- Step 2: Destinasi Lokasi -->
                 <div id="stepLocationOptions" class="hidden flex-col gap-3">
