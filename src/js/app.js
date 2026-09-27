@@ -113,12 +113,14 @@ function switchSublocation(subId) {
     const targetSub = sublocs[subId];
     currentSublocations[currentLocation] = subId;
     updateLocationUI(); 
-    
+
     addLogEntry('BERPINDAH', targetSub.name, `Melangkah ke ${targetSub.name.toLowerCase()}.`, targetSub.icon, 'text-amber-200', 'border-l-amber-400', 'bg-amber-400/20 text-amber-200 border-amber-300/40');
     playChime(659.25);
+
+    if (window.lucide) window.lucide.createIcons();
 }
 
-// Travel Location Manager (Langsung tanpa minigame)
+// Travel Location Manager (Langsung tanpa minigame/loading)
 function travelToLocation(locId) {
     if (activeTimer) return;
     const targetLoc = LOCATIONS_DATA.find(l => l.id === locId);
@@ -129,18 +131,21 @@ function travelToLocation(locId) {
 
     addLogEntry('TRAVEL', targetLoc.name, `Tiba di kawasan ${targetLoc.name}.`, 'map-pin', 'text-emerald-300', 'border-l-emerald-400', 'bg-emerald-400/20 text-emerald-200 border-emerald-300/40');
     playChime(783.99);
+
+    if (window.lucide) window.lucide.createIcons();
 }
 
 // Sistem Perjalanan Transportasi Menggunakan Loading Screen Latar Gambar
 function confirmTravelWithLoading(targetLocId, duration) {
     if (selectedTransport && selectedTransport.cost > 0) {
         player.uang -= selectedTransport.cost;
-        updateStatsUI();
+        updatePlayerInfoUI(); // Meng-update UI saldo uang
+        updateStatsUI();      // Meng-update UI stats
     }
 
     // Tutup Modal Pilihan Transportasi
     closeTransportLocationModal();
-    
+
     const targetLoc = LOCATIONS_DATA.find(l => l.id === targetLocId);
     const destinationName = targetLoc ? targetLoc.name : 'Tujuan';
     const transportType = selectedTransport ? selectedTransport.id : 'ojek';
@@ -160,6 +165,8 @@ function confirmTravelWithLoading(targetLocId, duration) {
             'bg-emerald-400/20 text-emerald-200 border-emerald-300/40'
         );
         playChime(783.99);
+
+        if (window.lucide) window.lucide.createIcons();
     });
 }
 
