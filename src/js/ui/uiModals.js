@@ -1,3 +1,5 @@
+// src/js/ui/uiModals.js
+
 import { player, currentLocation, LOCATIONS_DATA, LOCATION_SUBLOCATIONS, currentSublocations, ACTIONS_CONFIG } from '../state/gameState.js';
 import { updateStatsUI, updateLocationUI, addLogEntry, addXP } from './uiPlayer.js';
 import { playChime } from '../systems/audio.js';
@@ -171,36 +173,6 @@ export function startAction(actionKey) {
     }, 1000);
 }
 
-export function startGenericActivity(title, desc, icon, duration, onComplete) {
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalDesc').innerText = desc;
-    document.getElementById('modalIcon').setAttribute('data-lucide', icon);
-    if (window.lucide) window.lucide.createIcons();
-
-    const modal = document.getElementById('activityModal');
-    const card = document.getElementById('activityModalCard');
-    modal.classList.remove('opacity-0', 'pointer-events-none');
-    card.classList.remove('scale-90');
-    card.classList.add('scale-100');
-
-    let totalTime = duration;
-    let timeRemaining = totalTime;
-
-    updateTimerProgress(timeRemaining, totalTime);
-
-    activeTimer = setInterval(() => {
-        timeRemaining--;
-        updateTimerProgress(timeRemaining, totalTime);
-
-        if (timeRemaining <= 0) {
-            clearInterval(activeTimer);
-            activeTimer = null;
-            closeActivityModal();
-            if (onComplete) onComplete();
-        }
-    }, 1000);
-}
-
 export function updateTimerProgress(remaining, total) {
     document.getElementById('modalTimerText').innerText = `${remaining}s`;
     let percentage = (remaining / total) * 100;
@@ -329,7 +301,8 @@ export function selectTransportMode(mode, onConfirmTravel) {
         return;
     }
 
-    selectedTransport = { mode, cost, label: modeLabel };
+    // Menyimpan `id` dan `mode` agar kompatibel dengan app.js
+    selectedTransport = { id: mode, mode, cost, label: modeLabel };
 
     document.getElementById('stepTransportOptions').classList.add('hidden');
     document.getElementById('stepLocationOptions').classList.remove('hidden');
