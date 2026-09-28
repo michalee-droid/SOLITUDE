@@ -26,8 +26,11 @@ window.addEventListener('DOMContentLoaded', () => {
     updateWeatherUI();
     initSmartphoneUI();
 
-    // Loop interval simulasi waktu
+    // FIX: load save + safe interval
+    try { const { loadGame } = await import('./state/gameState.js'); loadGame(); } catch(e){}
     setInterval(() => tickSimTime(activeTimer), 1500);
+    // Auto save every 10s
+    setInterval(async()=>{ try{ const { saveGame } = await import('./state/gameState.js'); saveGame(); }catch(e){} }, 10000);
 
     // Event Listener Smartphone
     const btnSmart = document.getElementById('btnOpenSmartphone');
