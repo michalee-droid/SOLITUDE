@@ -61,3 +61,5 @@ export function fastForwardOneMonth(activeTimer) {
     playChime(987.77);
     triggerXPAnimation(`+1 BULAN (${getMonthYearSimDate()})`);
 }
+
+// FIX: auto save every 30 sec handled in app.js
