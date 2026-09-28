@@ -1,77 +1,28 @@
 <!DOCTYPE html>
 <html lang="id" class="h-full">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Life Simulator System - Extended Edition</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        warm: {
-                            50: '#fdfbf7',
-                            100: '#f7f2e8',
-                            200: '#efe3d0',
-                            300: '#e3cdb0',
-                            400: '#d5b38d',
-                            500: '#c5976b',
-                            600: '#b07f55',
-                            700: '#926343',
-                            800: '#77503a',
-                            900: '#614232',
-                        }
-                    },
-                    animation: {
-                        'float-xp': 'floatXP 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-                        'spin-slow': 'spinSlow 8s linear infinite',
-                        'slide-in': 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-                    },
-                    keyframes: {
-                        floatXP: {
-                            '0%': { opacity: '0', transform: 'translateY(10px) scale(0.8)' },
-                            '20%': { opacity: '1', transform: 'translateY(-15px) scale(1.15)' },
-                            '80%': { opacity: '0.9', transform: 'translateY(-45px) scale(1)' },
-                            '100%': { opacity: '0', transform: 'translateY(-65px) scale(0.85)' }
-                        },
-                        pulseGlow: {
-                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 10px rgba(255, 235, 205, 0.4))' },
-                            '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 20px rgba(255, 245, 225, 0.7))' },
-                        },
-                        spinSlow: {
-                            '0%': { transform: 'rotate(0deg)' },
-                            '100%': { transform: 'rotate(360deg)' }
-                        },
-                        slideIn: {
-                            '0%': { opacity: '0', transform: 'translateX(-12px) scale(0.97)' },
-                            '100%': { opacity: '1', transform: 'translateX(0) scale(1)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Menghubungkan File CSS Eksternal -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Simulator System - Extended Edition</title>
+<meta name="description" content="Life Simulator System - simulasi kehidupan">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { serif: ['"Cormorant Garamond"', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+      animation: { 'float-xp': 'floatXP 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards', 'pulse-glow': 'pulseGlow 3s ease-in-out infinite', 'spin-slow': 'spinSlow 8s linear infinite', 'slide-in': 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards' },
+      keyframes: { floatXP: { '0%': { opacity: '0', transform: 'translateY(10px) scale(0.8)' }, '20%': { opacity: '1', transform: 'translateY(-15px) scale(1.15)' }, '80%': { opacity: '0.9', transform: 'translateY(-45px) scale(1)' }, '100%': { opacity: '0', transform: 'translateY(-65px) scale(0.85)' } }, pulseGlow: { '0%, 100%': { opacity: '0.4' }, '50%': { opacity: '0.8' } }, spinSlow: { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } }, slideIn: { '0%': { opacity: '0', transform: 'translateX(-12px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } } }
+    }
+  }
+}
+</script>
+<link rel="stylesheet" href="style.css">
 </head>
-<body id="bodyBg" class="bg-dynamic bg-room-kamar_tidur min-h-screen font-sans text-stone-100 antialiased selection:bg-amber-200 selection:text-stone-900 overflow-hidden relative">
 
     <!-- CANVAS EFEK PARTIKEL CUACA -->
     <canvas id="weatherCanvas"></canvas>
@@ -841,8 +792,6 @@
     </div>
 </div>
     <!-- Menghubungkan File JavaScript Eksternal -->
-    <!-- Pastikan atribut type="module" ditambahkan -->
-<script type="module" src="src/js/app.js"></script>
-    
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
