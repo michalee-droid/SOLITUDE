@@ -69,3 +69,23 @@ export const ACTIONS_CONFIG = {
     renang_taman: { title: 'Berenang Kolam', duration: 9, location: 'rumah_saya', room: 'taman', statType: 'fisik', kesegaranGain: 15, kebahagiaanGain: 10, icon: 'sun', category: 'OLAHARAGA', color: 'text-pink-300', borderColor: 'border-l-pink-400', badgeBg: 'bg-pink-400/20 text-pink-200 border-pink-300/40', startDesc: 'Berenang santai di kolam belakang rumah...', finishDesc: 'Stamina meningkat (+15 Kesegaran).' },
     joging_fisik: { title: 'Joging Komplek', duration: 10, location: 'sekitar_rumah', room: null, statType: 'fisik', icon: 'activity', category: 'OLAHARAGA', color: 'text-rose-300', borderColor: 'border-l-rose-400', badgeBg: 'bg-rose-400/20 text-rose-200 border-rose-300/40', startDesc: 'Berlari pagi mengelilingi perumahan komplek...', finishDesc: 'Fisik dan stamina terasa semakin terlatih.' }
 };
+
+
+// FIX: Persistence & immutability helper
+export function saveGame() {
+  try {
+    localStorage.setItem('solitude_player', JSON.stringify(player));
+    localStorage.setItem('solitude_location', currentLocation);
+    localStorage.setItem('solitude_sublocations', JSON.stringify(currentSublocations));
+  } catch(e) {}
+}
+export function loadGame() {
+  try {
+    const p = JSON.parse(localStorage.getItem('solitude_player')||'null');
+    if(p) Object.assign(player, p);
+    const loc = localStorage.getItem('solitude_location');
+    if(loc) setCurrentLocation(loc);
+    const sub = JSON.parse(localStorage.getItem('solitude_sublocations')||'null');
+    if(sub) Object.keys(sub).forEach(k=> currentSublocations[k]=sub[k]);
+  } catch(e) {}
+}
