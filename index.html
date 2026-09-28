@@ -406,7 +406,7 @@ tailwind.config = {
             </button>
 
             <!-- TOMBOL 4: LOKASI (TEMA CYAN / MAP EXPLORER) - BARU -->
-            <button id="btnOpenLocationMenu" onclick="openLocationTransportModal()" class="dock-btn btn-cyan elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group shadow-lg">
+            <button id="btnOpenTransportModal" class="dock-btn btn-cyan elastic-stretch w-full py-3 sm:py-4 px-2 sm:px-4 rounded-2xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group shadow-lg">
                 <div class="p-2 sm:p-2.5 rounded-xl bg-cyan-400/20 border border-cyan-300/40 text-cyan-300 group-hover:scale-110 transition-transform duration-300 shrink-0">
                     <i data-lucide="map-pin" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </div>
@@ -434,7 +434,7 @@ tailwind.config = {
                         <p id="transportModalSubtitle" class="text-xs text-stone-200">Pilih kendaraan untuk melakukan perjalanan ke lokasi lain.</p>
                     </div>
                 </div>
-                <button onclick="closeTransportLocationModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-stone-200 hover:text-white flex items-center justify-center transition-all cursor-pointer">
+                <button id="btnCloseTransportModalX" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-stone-200 hover:text-white flex items-center justify-center transition-all cursor-pointer">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
