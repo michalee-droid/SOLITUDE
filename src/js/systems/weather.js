@@ -1,11 +1,12 @@
 import { WEATHER_LIST, currentWeather, setCurrentWeather } from '../state/weatherState.js';
 
-const weatherCanvas = document.getElementById('weatherCanvas');
+let weatherCanvas = null; let ctx = null; 
+function ensureCanvas(){ if(!weatherCanvas){ weatherCanvas = document.getElementById('weatherCanvas'); ctx = weatherCanvas ? weatherCanvas.getContext('2d') : null; } return !!weatherCanvas; }
 const ctx = weatherCanvas ? weatherCanvas.getContext('2d') : null;
 let particles = [];
 
 export function initWeatherCanvas() {
-    if (!weatherCanvas) return;
+    if(!ensureCanvas()) return;
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     initParticles();
