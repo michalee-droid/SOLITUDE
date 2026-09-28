@@ -71,7 +71,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (btnStopAct) btnStopAct.onclick = stopCurrentActivity;
 
     // Event Listener Modal Transportasi / Navigasi (Menangani ID 'btnOpenTransport' dan 'btnOpenTransportModal')
-    const btnOpenTransport = document.getElementById('btnOpenTransport') || document.getElementById('btnOpenTransportModal');
+    const btnOpenTransport = document.getElementById('btnOpenTransport') || document.getElementById('btnOpenTransportModal') || document.getElementById('btnOpenLocationMenu');
     if (btnOpenTransport) {
         btnOpenTransport.onclick = () => openLocationTransportModal(confirmTravelWithLoading);
     }
@@ -180,5 +180,6 @@ window.switchSublocation = switchSublocation;
 window.travelToLocation = travelToLocation;
 window.openRoomMenuModal = () => openRoomMenuModal(switchSublocation);
 window.openLocationTransportModal = () => openLocationTransportModal(confirmTravelWithLoading);
+window.openRoomMenuModal = () => openRoomMenuModal(switchSublocation);
 window.closeSmartphonePage = closeSmartphonePage;
 window.closeTransportLocationModal = closeTransportLocationModal;
